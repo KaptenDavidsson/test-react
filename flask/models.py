@@ -1,26 +1,34 @@
-from hello import db
+import sqlalchemy
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import sessionmaker
 
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
+engine = create_engine('sqlite:///test.db')
+Session = sessionmaker(bind=engine)
+session = Session()
 
-    def __repr__(self):
-        return '<User %r>' % self.username
+Base = declarative_base()
+
+class User(Base):
+    __tablename__ = 'user'
+
+    id = Column(Integer, primary_key=True)
+    username = Column(String(80), unique=True, nullable=False)
+    email = Column(String(120), unique=True, nullable=False)
 
     def as_dict(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 
-class Todo(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    todoTitle = db.Column(db.String(80), unique=True, nullable=False)
-    todoResponsible = db.Column(db.String(120), unique=True, nullable=False)
-    todoDescription = db.Column(db.String(120), unique=True, nullable=False)
-    todoPriority = db.Column(db.String(120), unique=True, nullable=False)
+class Todo(Base):
+    __tablename__ = 'todo'
 
-    def __repr__(self):
-        return '<Todo %r>' % self.todoTitle
+    id = Column(Integer, primary_key=True)
+    todoTitle = Column(String(80), unique=True, nullable=False)
+    todoResponsible = Column(String(120), unique=True, nullable=False)
+    todoDescription = Column(String(120), unique=True, nullable=False)
+    todoPriority = Column(String(120), unique=True, nullable=False)
 
     def as_dict(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
