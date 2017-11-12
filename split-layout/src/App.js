@@ -68,35 +68,44 @@ class App extends Component {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus ante sit amet tortor tristique tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.
 
             <div id="slider" className={this.state.hideLeft ? "slide-out" : "slide-in"}>
+              <div className="list-item">
+                <div className="slider-content">
+                  <input  name="todoTitle"
+                    type="text"
+                    className="form-control search-control"
+                    id="inputTodoTitle"
+                    value={this.state.todoTitle}
+                    onChange={this.handleInputChange}
+                    placeholder="Title">
+                  </input>
+                <Accordion>
+                  <AccordionItem>
+                    <AccordionItemTitle>
+                      <div className="accordion-item-title">
+                        <h4>Simple title</h4>
+                      </div>
+                    </AccordionItemTitle>
+                    <AccordionItemBody>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus ante sit amet tortor tristique tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.
+                      </p>
+                    </AccordionItemBody>
+                  </AccordionItem>
 
-            <div className="list-item">
-              <Accordion>
-                <AccordionItem>
-                  <AccordionItemTitle>
-                    <div className="accordion-item-title">
-                      <h4>Simple title</h4>
-                    </div>
-                  </AccordionItemTitle>
-                  <AccordionItemBody>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus ante sit amet tortor tristique tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.
-                    </p>
-                  </AccordionItemBody>
-                </AccordionItem>
-
-                <AccordionItem>
-                  <AccordionItemTitle>
-                    <div className="accordion-item-title">
-                      <h4>Title2</h4>
-                    </div>
-                  </AccordionItemTitle>
-                  <AccordionItemBody>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus ante sit amet tortor tristique tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.
-                    </p>
-                  </AccordionItemBody>
-                </AccordionItem>
-              </Accordion>
+                  <AccordionItem>
+                    <AccordionItemTitle>
+                      <div className="accordion-item-title">
+                        <h4>Title2</h4>
+                      </div>
+                    </AccordionItemTitle>
+                    <AccordionItemBody>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus ante sit amet tortor tristique tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.
+                      </p>
+                    </AccordionItemBody>
+                  </AccordionItem>
+                </Accordion>
+              </div>
             </div>
           </div>
 
@@ -110,7 +119,7 @@ class App extends Component {
                 <AccordionItem>
                   <AccordionItemTitle>
                     <div className="accordion-item-title">
-                      <h4>Simple title</h4>
+                      <h4>Simple title<span className="glyphicon glyphicon-remove remove-button"></span></h4>
                     </div>
                   </AccordionItemTitle>
                   <AccordionItemBody>
@@ -123,7 +132,7 @@ class App extends Component {
                 <AccordionItem>
                   <AccordionItemTitle>
                     <div className="accordion-item-title">
-                      <h4>Title2</h4>
+                      <h4>Title2<span className="glyphicon glyphicon-remove remove-button"></span></h4>
                     </div>
                   </AccordionItemTitle>
                   <AccordionItemBody>
@@ -144,35 +153,35 @@ class App extends Component {
                   onChange={this.handleInputChange}
                   placeholder="Title">
                 </input>
-            <div className="list-item">
-              <Accordion>
-                <AccordionItem>
-                  <AccordionItemTitle>
-                    <div className="accordion-item-title">
-                      <h4>Simple title</h4>
-                    </div>
-                  </AccordionItemTitle>
-                  <AccordionItemBody>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus ante sit amet tortor tristique tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.
-                    </p>
-                  </AccordionItemBody>
-                </AccordionItem>
+                <div className="list-item">
+                  <Accordion>
+                    <AccordionItem>
+                      <AccordionItemTitle>
+                        <div className="accordion-item-title">
+                          <h4>Simple title<span className="glyphicon glyphicon-plus remove-button"></span></h4>
+                        </div>
+                      </AccordionItemTitle>
+                      <AccordionItemBody>
+                        <p>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus ante sit amet tortor tristique tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.
+                        </p>
+                      </AccordionItemBody>
+                    </AccordionItem>
 
-                <AccordionItem>
-                  <AccordionItemTitle>
-                    <div className="accordion-item-title">
-                      <h4>Title2</h4>
-                    </div>
-                  </AccordionItemTitle>
-                  <AccordionItemBody>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus ante sit amet tortor tristique tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.
-                    </p>
-                  </AccordionItemBody>
-                </AccordionItem>
-              </Accordion>
-            </div>
+                    <AccordionItem>
+                      <AccordionItemTitle>
+                        <div className="accordion-item-title">
+                          <h4>Title2<span className="glyphicon glyphicon-plus remove-button"></span></h4>
+                        </div>
+                      </AccordionItemTitle>
+                      <AccordionItemBody>
+                        <p>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus ante sit amet tortor tristique tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.
+                        </p>
+                      </AccordionItemBody>
+                    </AccordionItem>
+                  </Accordion>
+                </div>
               </div>
             </div>
           </div>

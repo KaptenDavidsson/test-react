@@ -83,6 +83,10 @@
   padding: 5px;
 }
 
+.remove-button {
+  float: right;
+}
+
 #slider {
     position: absolute;
     background: #BBBBBB;
@@ -96,6 +100,7 @@
 .slider-content {
   display: block;
   padding: 20px;
+  width: 100%;
 }
 
 .right-list {
