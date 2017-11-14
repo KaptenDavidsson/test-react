@@ -48,7 +48,15 @@ class App extends Component {
 
   chooseLeft(item) {
    this.setState({
-      leftItem: item
+      leftItem: item,
+      hideLeft: true
+    }) 
+  }
+
+  addRightItem(item) {
+   this.setState({
+      rightList: [...this.state.rightList, item],
+      hideRight: true
     }) 
   }
 
@@ -97,33 +105,22 @@ class App extends Component {
           </div>
           <div className="four">
             <div className="list-item">
-              <Accordion>
-                <AccordionItem>
-                  <AccordionItemTitle>
-                    <div className="accordion-item-title">
-                      <h4>Simple title<span className="glyphicon glyphicon-remove remove-button"></span></h4>
-                    </div>
-                  </AccordionItemTitle>
-                  <AccordionItemBody>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus ante sit amet tortor tristique tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.
-                    </p>
-                  </AccordionItemBody>
-                </AccordionItem>
-
-                <AccordionItem>
-                  <AccordionItemTitle>
-                    <div className="accordion-item-title">
-                      <h4>Title2<span className="glyphicon glyphicon-remove remove-button"></span></h4>
-                    </div>
-                  </AccordionItemTitle>
-                  <AccordionItemBody>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus ante sit amet tortor tristique tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.
-                    </p>
-                  </AccordionItemBody>
-                </AccordionItem>
-              </Accordion>
+              {this.state.rightList.map((item, index) =>
+                <Accordion>
+                  <AccordionItem>
+                    <AccordionItemTitle>
+                      <div className="accordion-item-title">
+                        <h4>{item.name}<span className="glyphicon glyphicon-remove remove-button"></span></h4>
+                      </div>
+                    </AccordionItemTitle>
+                    <AccordionItemBody>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus ante sit amet tortor tristique tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.
+                      </p>
+                    </AccordionItemBody>
+                  </AccordionItem>
+                </Accordion>
+              )}
             </div>
             <div id="slider" className={this.state.hideRight ? "slide-out" : "slide-in"}>
               <div className="slider-content">
@@ -136,33 +133,22 @@ class App extends Component {
                   placeholder="Title">
                 </input>
                 <div className="list-item">
-                  <Accordion>
-                    <AccordionItem>
-                      <AccordionItemTitle>
-                        <div className="accordion-item-title">
-                          <h4>Simple title<span className="glyphicon glyphicon-plus remove-button"></span></h4>
-                        </div>
-                      </AccordionItemTitle>
-                      <AccordionItemBody>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus ante sit amet tortor tristique tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.
-                        </p>
-                      </AccordionItemBody>
-                    </AccordionItem>
-
-                    <AccordionItem>
-                      <AccordionItemTitle>
-                        <div className="accordion-item-title">
-                          <h4>Title2<span className="glyphicon glyphicon-plus remove-button"></span></h4>
-                        </div>
-                      </AccordionItemTitle>
-                      <AccordionItemBody>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus ante sit amet tortor tristique tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.
-                        </p>
-                      </AccordionItemBody>
-                    </AccordionItem>
-                  </Accordion>
+                  {this.state.rightList.map((item, index) =>
+                    <Accordion>
+                      <AccordionItem>
+                        <AccordionItemTitle>
+                          <div className="accordion-item-title">
+                            <h4>{item.name}<span className="glyphicon glyphicon-plus remove-button" onClick={this.addRightItem.bind(this, item)} ></span></h4>
+                          </div>
+                        </AccordionItemTitle>
+                        <AccordionItemBody>
+                          <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus ante sit amet tortor tristique tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.
+                          </p>
+                        </AccordionItemBody>
+                      </AccordionItem>
+                    </Accordion>
+                  )}
                 </div>
               </div>
             </div>
