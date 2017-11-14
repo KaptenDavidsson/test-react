@@ -53,6 +53,7 @@
   background-color:white;
   overflow:hidden; 
   width: 50%;
+  min-width: 50%;
 }
 
 .three {
@@ -72,6 +73,10 @@
 
 .list-item {
   width: 70%;
+}
+
+.padded-content {
+  padding: 20px;
 }
 
 .search-control {
@@ -99,12 +104,15 @@
 
 .slider-content {
   display: block;
-  padding: 20px;
   width: 100%;
 }
 
 .right-list {
   position: relative;
+}
+
+.list-item-clickable {
+  cursor: pointer;
 }
 
 .slide-in {
