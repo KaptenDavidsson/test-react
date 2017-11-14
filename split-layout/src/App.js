@@ -66,7 +66,9 @@ class App extends Component {
     }) 
   }
 
-  removeRightItem(index) {
+  removeRightItem(event, index) {
+    event.preventDefault();
+
     this.setState({
       rightList: this.state.rightList.filter(function(e,i) {
         return i !== index;
@@ -101,7 +103,6 @@ class App extends Component {
                     onChange={this.handleInputChange}
                     placeholder="Title">
                   </input>
-                  
                   {this.state.leftList.map((item, index) => 
                     <li className="list-group-item list-item-clickable" key={index}>
                       <h4 className="list-group-item-heading" onClick={this.chooseLeft.bind(this, item)}>{item.name}</h4>
@@ -124,7 +125,7 @@ class App extends Component {
                   <AccordionItem>
                     <AccordionItemTitle>
                       <div className="accordion-item-title">
-                        <h4>{item.name}<span className="glyphicon glyphicon-remove remove-button" onClick={this.removeRightItem.bind(this, index)}></span></h4>
+                        <h4>{item.name}<span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.removeRightItem(e, index)}></span></h4>
                       </div>
                     </AccordionItemTitle>
                     <AccordionItemBody>
