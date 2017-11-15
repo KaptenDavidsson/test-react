@@ -17,7 +17,15 @@ class App extends Component {
     this.state = {
       hideRight: true,
       hideLeft: true,
-      leftList: [ 
+      leftList: [
+        { 
+          name: 'sdfsdfsdf',
+          description: ' tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.',
+          options: [
+            { description: 'dfdsfdsf', effects: [{ name: 'a', count: 3}]},
+            { description: 'dfdsfdsf', effects: [{ name: 'a', count: 1}]}
+          ]
+        },
         {name: 'a', description: 'At least 510 people were reported to have died and more than 7,000 others were injured.[14][21] In Sarpol-e Zahab, the hospital was damaged and at least 142 people were killed, many who had lived in social housing complexes built by former president Mahmoud Ahmadinejad.[9][8][17] At least seven people were killed and another 500 injured in neighbouring Iraq, according to officials in Iraqi Kurdistan.[22][23] Further damages are possible due to the threat of landslides, favoured by the shallow depth of the earthquak'},
         {name: 'b', description: 'adasdasd'},
         {name: 'c', description: 'adasdasd'},
@@ -35,7 +43,13 @@ class App extends Component {
         {name: '3', description: 'adasdasd'},
         {name: '4', description: 'adasdasd'}
       ], 
-      leftItem: { description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus ante sit amet tortor tristique tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.'},
+      leftItem: { 
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus ante sit amet tortor tristique tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.',
+        options: [
+          { description: 'dfdsfdsf', effects: [{ name: 'a', count: 3}]},
+          { description: 'dfdsfdsf', effects: [{ name: 'a', count: 1}]}
+        ]
+      },
       rightItem: {}
     };
   }
@@ -91,6 +105,19 @@ class App extends Component {
           <div className="two">
             <div className="padded-content">
               {this.state.leftItem.description}
+              {this.state.leftItem.options.map((option, index) => 
+                  <li className="list-group-item list-item-clickable" key={index}>
+                    <div class="radio">
+                      <label><input type="radio" name="optradio"></input>{option.description}</label>
+                    </div>
+                      {option.effects.map((effect, index) => 
+                        <li className="list-group-item list-item-clickable" key={index}>
+                          <h5 className="list-group-item-heading">{effect.name} {effect.count}</h5>
+                        </li>
+                      )}
+
+                  </li>
+                )}
             </div>
             <div id="slider" className={this.state.hideLeft ? "slide-out" : "slide-in"}>
               <div className="list-item padded-content">
@@ -101,7 +128,7 @@ class App extends Component {
                     id="inputTodoTitle"
                     value={this.state.todoTitle}
                     onChange={this.handleInputChange}
-                    placeholder="Title">
+                    placeholder="Find">
                   </input>
                   {this.state.leftList.map((item, index) => 
                     <li className="list-group-item list-item-clickable" key={index}>
@@ -124,7 +151,7 @@ class App extends Component {
                 <Accordion>
                   <AccordionItem>
                     <AccordionItemTitle>
-                      <div className="accordion-item-title">
+                      <div className="list-group-item">
                         <h4>{item.name}<span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.removeRightItem(e, index)}></span></h4>
                       </div>
                     </AccordionItemTitle>
@@ -136,6 +163,17 @@ class App extends Component {
                   </AccordionItem>
                 </Accordion>
               )}
+
+              <br />
+              Function:
+              <input  name="todoTitle"
+                  type="text"
+                  className="form-control search-control"
+                  id="inputTodoTitle"
+                  value={this.state.todoTitle}
+                  onChange={this.handleInputChange}
+                  placeholder="Function">
+                </input>
             </div>
             <div id="slider" className={this.state.hideRight ? "slide-out" : "slide-in"}>
               <div className="slider-content padded-content">
@@ -145,14 +183,14 @@ class App extends Component {
                   id="inputTodoTitle"
                   value={this.state.todoTitle}
                   onChange={this.handleInputChange}
-                  placeholder="Title">
+                  placeholder="Find">
                 </input>
                 <div className="list-item">
                   {this.state.rightListSlider.map((item, index) =>
                     <Accordion>
                       <AccordionItem>
                         <AccordionItemTitle>
-                          <div className="accordion-item-title list-item-clickable">
+                          <div className="list-group-item list-item-clickable">
                             <h4>{item.name}<span className="glyphicon glyphicon-plus remove-button" onClick={this.addRightItem.bind(this, item)}></span></h4>
                           </div>
                         </AccordionItemTitle>
