@@ -166,14 +166,8 @@ class App extends Component {
 
               <br />
               Function:
-              <input  name="todoTitle"
-                  type="text"
-                  className="form-control search-control"
-                  id="inputTodoTitle"
-                  value={this.state.todoTitle}
-                  onChange={this.handleInputChange}
-                  placeholder="Function">
-                </input>
+              <br />
+              <textarea></textarea>
             </div>
             <div id="slider" className={this.state.hideRight ? "slide-out" : "slide-in"}>
               <div className="slider-content padded-content">
