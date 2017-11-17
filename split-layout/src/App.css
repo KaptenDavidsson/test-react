@@ -92,6 +92,11 @@
   float: right;
 }
 
+.utility-function {
+  width: 100%;
+  height: 400px;
+}
+
 #slider {
     position: absolute;
     background: #BBBBBB;

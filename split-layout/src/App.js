@@ -50,7 +50,8 @@ class App extends Component {
           { description: 'dfdsfdsf', effects: [{ name: 'a', count: 1}]}
         ]
       },
-      rightItem: {}
+      rightItem: {},
+      utilFunc: ''
     };
   }
 
@@ -90,6 +91,13 @@ class App extends Component {
     })
   }
 
+
+  handleTextAreaChange(event) {
+   this.setState({
+      utilFunc: event.target.value
+    }) 
+  }
+
   render() {
     return (
       <div className="App">
@@ -107,7 +115,7 @@ class App extends Component {
               {this.state.leftItem.description}
               {this.state.leftItem.options.map((option, index) => 
                   <li className="list-group-item list-item-clickable" key={index}>
-                    <div class="radio">
+                    <div className="radio">
                       <label><input type="radio" name="optradio"></input>{option.description}</label>
                     </div>
                       {option.effects.map((effect, index) => 
@@ -115,7 +123,9 @@ class App extends Component {
                           <h5 className="list-group-item-heading">{effect.name} {effect.count}</h5>
                         </li>
                       )}
-
+                      <div>
+                        Function: {this.state.utilFunc}
+                      </div>
                   </li>
                 )}
             </div>
@@ -167,7 +177,11 @@ class App extends Component {
               <br />
               Function:
               <br />
-              <textarea></textarea>
+              <textarea 
+                className="utility-function" 
+                text={this.state.utilFunc}
+                onChange={this.handleTextAreaChange.bind(this)}
+              ></textarea>
             </div>
             <div id="slider" className={this.state.hideRight ? "slide-out" : "slide-in"}>
               <div className="slider-content padded-content">
