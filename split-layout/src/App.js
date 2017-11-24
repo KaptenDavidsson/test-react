@@ -22,7 +22,7 @@ class App extends Component {
           name: 'sdfsdfsdf',
           description: ' tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.',
           options: [
-            { description: 'dfdsfdsf', effects: [{ name: 'a', count: 3}]},
+            { description: 'dfdsfdsf', effects: [{ name: 'a', count: 3}, { name: 'b', count: 5}]},
             { description: 'dfdsfdsf', effects: [{ name: 'a', count: 1}]}
           ]
         },
@@ -46,8 +46,8 @@ class App extends Component {
       leftItem: { 
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus ante sit amet tortor tristique tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.',
         options: [
-          { description: 'dfdsfdsf', effects: [{ name: 'a', count: 3}]},
-          { description: 'dfdsfdsf', effects: [{ name: 'a', count: 1}]}
+          { description: 'dfdsfdsf', util: 0, effects: [{ name: 'a', count: 3}]},
+          { description: 'dfdsfdsf', util: 0, effects: [{ name: 'a', count: 1}]}
         ]
       },
       rightItem: {},
@@ -95,7 +95,8 @@ class App extends Component {
   handleTextAreaChange(event) {
    this.setState({
       utilFunc: event.target.value
-    }) 
+    })
+
   }
 
   render() {
@@ -114,20 +115,8 @@ class App extends Component {
             <div className="padded-content">
               {this.state.leftItem.description}
               {this.state.leftItem.options.map((option, index) => 
-                  <li className="list-group-item list-item-clickable" key={index}>
-                    <div className="radio">
-                      <label><input type="radio" name="optradio"></input>{option.description}</label>
-                    </div>
-                      {option.effects.map((effect, index) => 
-                        <li className="list-group-item list-item-clickable" key={index}>
-                          <h5 className="list-group-item-heading">{effect.name} {effect.count}</h5>
-                        </li>
-                      )}
-                      <div>
-                        Function: {this.state.utilFunc}
-                      </div>
-                  </li>
-                )}
+                <Option utilFunc={this.state.utilFunc} option={option}></Option>
+              )}
             </div>
             <div id="slider" className={this.state.hideLeft ? "slide-out" : "slide-in"}>
               <div className="list-item padded-content">
@@ -221,5 +210,72 @@ class App extends Component {
     );
   }
 }
+
+
+class Option extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      util: '',
+    }
+  }
+
+  componentDidUpdate() {
+    var vars = {};
+    for (var effect of this.props.option.effects) {
+      vars[effect.name] = effect.count;
+    }
+
+    var formattedUtilFunc = this.props.utilFunc.replace('-', '+-');
+
+
+    var sum = 0;
+    var prod = 1;
+    for (var s of formattedUtilFunc.split('+')) {
+      prod = 1;
+
+      for (var p of s.split('*')) {
+        if (p.includes('-')) {
+          prod *= -vars[p.replace('-', '')];
+        }
+        else {
+          if (Number.isInteger(Number.parseInt(p))) {
+            prod *= p;
+          }
+          else {
+            prod *= vars[p];
+          }
+        }
+      }
+      sum += prod;
+
+    }
+
+    if (this.state.util != sum && Number.isInteger(sum)) {
+      this.setState({ util: sum})
+    }
+  }
+
+  render() {
+    return (
+      <li className="list-group-item list-item-clickable">
+        <div className="radio">
+          <label><input type="radio" name="optradio"></input>{this.props.option.description}</label>
+        </div>
+        {this.props.option.effects.map((effect, index) => 
+          <li className="list-group-item list-item-clickable" key={index}>
+            <h5 className="list-group-item-heading">{effect.name} {effect.count}</h5>
+          </li>
+        )}
+        <div>
+          Function: {this.props.utilFunc} = {this.state.util}
+        </div>
+      </li>
+    );
+  }
+
+}
+
 
 export default App;
