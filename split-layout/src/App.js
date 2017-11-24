@@ -8,51 +8,14 @@ import {
     AccordionItemBody,
 } from 'react-accessible-accordion';
 import '../node_modules/react-accessible-accordion/dist/react-accessible-accordion.css';
+import myData from './data.json'
 
 
 class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      hideRight: true,
-      hideLeft: true,
-      leftList: [
-        { 
-          name: 'sdfsdfsdf',
-          description: ' tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.',
-          options: [
-            { description: 'dfdsfdsf', effects: [{ name: 'a', count: 3}, { name: 'b', count: 5}]},
-            { description: 'dfdsfdsf', effects: [{ name: 'a', count: 1}]}
-          ]
-        },
-        {name: 'a', description: 'At least 510 people were reported to have died and more than 7,000 others were injured.[14][21] In Sarpol-e Zahab, the hospital was damaged and at least 142 people were killed, many who had lived in social housing complexes built by former president Mahmoud Ahmadinejad.[9][8][17] At least seven people were killed and another 500 injured in neighbouring Iraq, according to officials in Iraqi Kurdistan.[22][23] Further damages are possible due to the threat of landslides, favoured by the shallow depth of the earthquak'},
-        {name: 'b', description: 'adasdasd'},
-        {name: 'c', description: 'adasdasd'},
-        {name: 'd', description: 'adasdasd'}
-      ],
-      rightList: [ 
-        {name: 'a', description: 'adasd4444444444444444444444444asd'},
-        {name: 'b', description: 'adasdasd'},
-        {name: 'c', description: 'adasdasd'},
-        {name: 'd', description: 'adasdasd'}
-      ],
-      rightListSlider: [ 
-        {name: '1', description: 'adasd4444444444444444444444444asd'},
-        {name: '2', description: 'adasdasd'},
-        {name: '3', description: 'adasdasd'},
-        {name: '4', description: 'adasdasd'}
-      ], 
-      leftItem: { 
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus ante sit amet tortor tristique tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.',
-        options: [
-          { description: 'dfdsfdsf', util: 0, effects: [{ name: 'a', count: 3}]},
-          { description: 'dfdsfdsf', util: 0, effects: [{ name: 'a', count: 1}]}
-        ]
-      },
-      rightItem: {},
-      utilFunc: ''
-    };
+    this.state = myData;
   }
 
   handleToggleRight() {
@@ -114,6 +77,9 @@ class App extends Component {
           <div className="two">
             <div className="padded-content">
               {this.state.leftItem.description}
+              <br />
+              <br />
+              <br />
               {this.state.leftItem.options.map((option, index) => 
                 <Option utilFunc={this.state.utilFunc} option={option}></Option>
               )}
@@ -231,11 +197,20 @@ class Option extends Component {
 
 
     var sum = 0;
-    var prod = 1;
     for (var s of formattedUtilFunc.split('+')) {
-      prod = 1;
+      var prod = 1;
+      if (s == '') continue;
 
       for (var p of s.split('*')) {
+          if (p == '') {
+            prod = 0;
+            continue;
+          }
+
+        if (!vars.hasOwnProperty(p) && !Number.isInteger(Number.parseInt(p))) {
+          prod = 0;
+        }
+
         if (p.includes('-')) {
           prod *= -vars[p.replace('-', '')];
         }
@@ -243,7 +218,7 @@ class Option extends Component {
           if (Number.isInteger(Number.parseInt(p))) {
             prod *= p;
           }
-          else {
+          else if (vars.hasOwnProperty(p)) {
             prod *= vars[p];
           }
         }
@@ -265,7 +240,7 @@ class Option extends Component {
         </div>
         {this.props.option.effects.map((effect, index) => 
           <li className="list-group-item list-item-clickable" key={index}>
-            <h5 className="list-group-item-heading">{effect.name} {effect.count}</h5>
+            <h5 className="list-group-item-heading">{effect.name} = {effect.count}</h5>
           </li>
         )}
         <div>
