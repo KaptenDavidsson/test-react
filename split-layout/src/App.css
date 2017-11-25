@@ -105,6 +105,14 @@
   margin-top: 15px;
 }
 
+.options {
+  width: 80%;
+}
+
+.list-group-item {
+  background-color: rgb(215,235,250);  
+}
+
 #slider {
     position: absolute;
     background: #BBBBBB;

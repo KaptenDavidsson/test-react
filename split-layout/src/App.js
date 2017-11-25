@@ -85,9 +85,9 @@ class App extends Component {
           </div>
           <div className="column-2">
             <div className="padded-content">
-              <ul class="list-inline">
+              <ul className="list-inline">
                 {this.state.leftItem.related.map((item, index) => 
-                  <li onClick={this.chooseLeft.bind(this, this.state.leftList.filter(i => i.id == item)[0])} class="list-inline-item list-group-item list-item-clickable">{this.state.leftList.filter(i => i.id == item)[0].name}</li>
+                  <li onClick={this.chooseLeft.bind(this, this.state.leftList.filter(i => i.id == item)[0])} className="list-inline-item list-group-item list-item-clickable">{this.state.leftList.filter(i => i.id == item)[0].name}</li>
                 )}
               </ul>
               <h1>{this.state.leftItem.name}</h1>
@@ -95,13 +95,16 @@ class App extends Component {
               <br />
               <br />
               <br />
-              {this.state.leftItem.options.map((option, index) => 
-                <Option 
-                  utilFunc={this.state.utilFunc} 
-                  option={option} 
-                  maxUtil={Math.max(...this.state.leftItem.options.map(o => o.util))}
-                  onUtilChange={this.handleUtilChange}></Option>
-              )}
+              <div className="options"> 
+                {this.state.leftItem.options.map((option, index) => 
+                  <Option 
+                    
+                    utilFunc={this.state.utilFunc} 
+                    option={option} 
+                    maxUtil={Math.max(...this.state.leftItem.options.map(o => o.util))}
+                    onUtilChange={this.handleUtilChange}></Option>
+                )}
+              </div>
             </div>
             <div id="slider" className={this.state.hideLeft ? "slide-out" : "slide-in"}>
               <div className="list-item padded-content">
@@ -131,6 +134,7 @@ class App extends Component {
           </div>
           <div className="column-4">
             <div className="list-item padded-content">
+              <h1>My values</h1>
               {this.state.rightList.map((item, index) =>
                 <Accordion>
                   <AccordionItem>
