@@ -45,28 +45,28 @@
   position: relative;
 }
 
-.one {
+.column-1 {
   width: 20px;
 }
 
-.two {
+.column-2 {
   background-color:white;
   overflow:hidden; 
   width: 50%;
   min-width: 50%;
 }
 
-.three {
+.column-3 {
   width: 20px;
 }
 
-.four {
+.column-4 {
   background-color:white;
   overflow:hidden; 
   width: 50%;
 }
 
-.my-button {
+.show-slider-button {
   position: absolute;
   height: 100%;
 }
@@ -95,6 +95,14 @@
 .utility-function {
   width: 100%;
   height: 100px;
+}
+
+.left-function {
+  padding: 5px;
+  border: 1px;
+  border-color: black;
+  border-style: solid;
+  margin-top: 15px;
 }
 
 #slider {

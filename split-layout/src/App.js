@@ -8,14 +8,14 @@ import {
     AccordionItemBody,
 } from 'react-accessible-accordion';
 import '../node_modules/react-accessible-accordion/dist/react-accessible-accordion.css';
-import myData from './data.json';
+import myData from './data2.json';
 
 
 class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = myData;
+    this.state = {...myData, leftItem: myData.leftList[0]};
     this.handleUtilChange = this.handleUtilChange.bind(this);
   }
 
@@ -80,11 +80,17 @@ class App extends Component {
       </div>
         </header>
         <div className="wrapper">
-          <div className="one">
-            <button onClick={this.handleToggleLeft.bind(this)} className="my-button">></button>
+          <div className="column-1">
+            <button onClick={this.handleToggleLeft.bind(this)} className="show-slider-button">></button>
           </div>
-          <div className="two">
+          <div className="column-2">
             <div className="padded-content">
+              <ul class="list-inline">
+                {this.state.leftItem.related.map((item, index) => 
+                  <li onClick={this.chooseLeft.bind(this, this.state.leftList.filter(i => i.id == item)[0])} class="list-inline-item list-group-item list-item-clickable">{this.state.leftList.filter(i => i.id == item)[0].name}</li>
+                )}
+              </ul>
+              <h1>{this.state.leftItem.name}</h1>
               {this.state.leftItem.description}
               <br />
               <br />
@@ -120,17 +126,17 @@ class App extends Component {
           </div>
 
           </div>
-          <div className="three">
-            <button onClick={this.handleToggleRight.bind(this)} className="my-button">></button>
+          <div className="column-3">
+            <button onClick={this.handleToggleRight.bind(this)} className="show-slider-button">></button>
           </div>
-          <div className="four">
+          <div className="column-4">
             <div className="list-item padded-content">
               {this.state.rightList.map((item, index) =>
                 <Accordion>
                   <AccordionItem>
                     <AccordionItemTitle>
                       <div className="list-group-item">
-                        <h4>{item.name}<span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.removeRightItem(e, index)}></span></h4>
+                        <h4>{item.name} ({item.code})<span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.removeRightItem(e, index)}></span></h4>
                       </div>
                     </AccordionItemTitle>
                     <AccordionItemBody>
@@ -143,7 +149,7 @@ class App extends Component {
               )}
 
               <br />
-              Function:
+              Function (+. -, *, inf supported):
               <br />
               <textarea 
                 className="utility-function" 
@@ -167,7 +173,7 @@ class App extends Component {
                       <AccordionItem>
                         <AccordionItemTitle>
                           <div className="list-group-item list-item-clickable">
-                            <h4>{item.name}<span className="glyphicon glyphicon-plus remove-button" onClick={this.addRightItem.bind(this, item)}></span></h4>
+                            <h4>{item.name} ({item.code})<span className="glyphicon glyphicon-plus remove-button" onClick={this.addRightItem.bind(this, item)}></span></h4>
                           </div>
                         </AccordionItemTitle>
                         <AccordionItemBody>
@@ -194,20 +200,15 @@ class App extends Component {
 class Option extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      counter: 0
-    }
   }
 
   componentDidUpdate() {
     var vars = {};
     for (var effect of this.props.option.effects) {
-      vars[effect.name] = effect.count;
+      vars[effect.code] = effect.count;
     }
 
-    var formattedUtilFunc = this.props.utilFunc.replace('-', '+-');
-
+    var formattedUtilFunc = this.props.utilFunc.replace(/-/g, '+-');
 
     var sum = 0;
     for (var s of formattedUtilFunc.split('+')) {
@@ -219,12 +220,12 @@ class Option extends Component {
             prod = 0;
             continue;
           }
-
-        if (!vars.hasOwnProperty(p) && !Number.isInteger(Number.parseInt(p))) {
-          prod = 0;
+        if (!vars.hasOwnProperty(p.replace('-', '')) && !Number.isInteger(Number.parseInt(p)) && p != 'inf') {
+          ;prod = 0;
         }
 
-        if (p.includes('-')) {
+        if (p.includes('-') && !Number.isInteger(Number.parseInt(p)) && vars.hasOwnProperty(p.replace('-', ''))) {
+
           prod *= -vars[p.replace('-', '')];
         }
         else {
@@ -234,16 +235,30 @@ class Option extends Component {
           else if (vars.hasOwnProperty(p)) {
             prod *= vars[p];
           }
+          else if (p == 'inf') {
+            if (Math.sign(prod) == 1) {
+              sum = 'inf';
+              if (this.props.option.util != sum) {
+                this.props.onUtilChange({...this.props.option, util: sum});
+              }
+              return;
+            }
+            else {
+              sum = '-inf';
+              if (this.props.option.util != sum) {
+                this.props.onUtilChange({...this.props.option, util: sum});
+              }
+              return;
+            }
+          }
         }
       }
+
       sum += prod;
     }
 
     if (this.props.option.util != sum && Number.isInteger(sum)) {
-      this.setState({ counter: 1})
-
       this.props.onUtilChange({...this.props.option, util: sum});
-
     }
   }
 
@@ -256,8 +271,8 @@ class Option extends Component {
             <h5 className="list-group-item-heading">{effect.name} = {effect.count}</h5>
           </li>
         )}
-        <div>
-          Function: {this.props.utilFunc} = {this.props.option.util}
+        <div className="left-function">
+          Utility: {this.props.utilFunc} = {this.props.option.util}
         </div>
       </li>
     );

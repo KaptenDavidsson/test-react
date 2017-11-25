@@ -1,0 +1,59 @@
+{
+    "hideRight": true,
+    "hideLeft": true,
+    "leftList": [
+      { 
+        "id": 1,
+        "name": "Trolley problem (original)",
+        "description": "There is a runaway trolley barreling down the railway tracks. Ahead, on the tracks, there are five people tied up and unable to move. The trolley is headed straight for them. You are standing some distance off in the train yard, next to a lever. If you pull this lever, the trolley will switch to a different set of tracks. However, you notice that there is one person tied up on the side track. You have two options:",
+        "options": [
+          { "description": "Do nothing", "effects": [{ "name": "human dies", "count": 5, "code": "hd" }]},
+          { "description": "Pull the lever", "effects": [{ "name": "human dies", "count": 1, "code": "hd"}]}
+        ],
+        "related": [2,3]
+      },
+      {
+        "id": 2, 
+        "name": "Trolley problem (fat man)", 
+        "description": "As before, a trolley is hurtling down a track towards five people. You are on a bridge under which it will pass, and you can stop it by putting something very heavy in front of it. As it happens, there is a very fat man next to you – your only way to stop the trolley is to push him over the bridge and onto the track, killing him to save five. Should you proceed?",
+        "options": [
+          { "description": "Do nothing", "effects": [{ "name": "human dies", "count": 5, "code": "hd" }]},
+          { "description": "Push fat man", "effects": [{ "name": "human dies", "count": 1, "code": "hd"}, {"name": "intentional killing", "count": 1, "code": "ik"}]}
+        ],
+        "related": [1,3]
+      },
+      {
+        "id": 3, 
+        "name": "Trolley problem (fat villain)", 
+        "description": "The further development of this example involves the case, where the fat man is, in fact, the villain who put these five people in peril. In this instance, pushing the villain to his death, especially to save five innocent people, seems not only morally justifiable but perhaps even imperative",
+        "options": [
+          { "description": "Do nothing", "effects": [{ "name": "human dies", "count": 5, "code": "hd" }]},
+          { "description": "Pull the lever", "effects": [{ "name": "human dies", "count": 1, "code": "hd"}]}
+        ],
+        "related": [1,2,4]
+      },
+      {
+        "id": 4, 
+        "name": "Ticking time bomb scenario", 
+        "description": "Suppose that a person with knowledge of an imminent terrorist attack, that will kill many people, is in the hands of the authorities and that he will disclose the information needed to prevent the attack only if he is tortured. Should he be tortured?",
+        "options": [
+          { "description": "Do nothing", "effects": [{ "name": "human dies", "count": 5, "code": "hd" }]},
+          { "description": "Pull the lever", "effects": [{ "name": "human dies", "count": 1, "code": "hd"}]}
+        ],
+        "related": [3]
+      }
+    ],
+    "rightList": [ 
+      {"name": "Human dies", "code": "hd", "description": "adasdasd"},
+      {"name": "Intentional killing", "code": "ik", "description": "adasdasd"}
+    ],
+    "rightListSlider": [ 
+      {"name": "1", "description": "adasdasd"},
+      {"name": "2", "description": "adasdasd"},
+      {"name": "3", "description": "adasdasd"},
+      {"name": "4", "description": "adasdasd"}
+    ], 
+    "leftItem": { },
+    "rightItem": {},
+    "utilFunc": ""
+}
