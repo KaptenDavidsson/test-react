@@ -8,7 +8,7 @@ import {
     AccordionItemBody,
 } from 'react-accessible-accordion';
 import '../node_modules/react-accessible-accordion/dist/react-accessible-accordion.css';
-import myData from './data.json'
+import myData from './data.json';
 
 
 class App extends Component {
@@ -16,6 +16,7 @@ class App extends Component {
     super(props);
 
     this.state = myData;
+    this.handleUtilChange = this.handleUtilChange.bind(this);
   }
 
   handleToggleRight() {
@@ -59,7 +60,15 @@ class App extends Component {
    this.setState({
       utilFunc: event.target.value
     })
+  }
 
+  handleUtilChange(option) { 
+    this.setState(prevState => ({
+      leftItem: {
+        ...prevState.leftItem,
+        options: prevState.leftItem.options.map(o => o.description == option.description ? option : o)
+      } 
+    }));
   }
 
   render() {
@@ -81,7 +90,11 @@ class App extends Component {
               <br />
               <br />
               {this.state.leftItem.options.map((option, index) => 
-                <Option utilFunc={this.state.utilFunc} option={option}></Option>
+                <Option 
+                  utilFunc={this.state.utilFunc} 
+                  option={option} 
+                  maxUtil={Math.max(...this.state.leftItem.options.map(o => o.util))}
+                  onUtilChange={this.handleUtilChange}></Option>
               )}
             </div>
             <div id="slider" className={this.state.hideLeft ? "slide-out" : "slide-in"}>
@@ -183,7 +196,7 @@ class Option extends Component {
     super(props);
 
     this.state = {
-      util: '',
+      counter: 0
     }
   }
 
@@ -224,27 +237,27 @@ class Option extends Component {
         }
       }
       sum += prod;
-
     }
 
-    if (this.state.util != sum && Number.isInteger(sum)) {
-      this.setState({ util: sum})
+    if (this.props.option.util != sum && Number.isInteger(sum)) {
+      this.setState({ counter: 1})
+
+      this.props.onUtilChange({...this.props.option, util: sum});
+
     }
   }
 
   render() {
     return (
       <li className="list-group-item list-item-clickable">
-        <div className="radio">
-          <label><input type="radio" name="optradio"></input>{this.props.option.description}</label>
-        </div>
+        <span  className={this.props.maxUtil <= this.props.option.util ? "glyphicon glyphicon-ok" : ""}></span>  <label>{this.props.option.description}</label>
         {this.props.option.effects.map((effect, index) => 
           <li className="list-group-item list-item-clickable" key={index}>
             <h5 className="list-group-item-heading">{effect.name} = {effect.count}</h5>
           </li>
         )}
         <div>
-          Function: {this.props.utilFunc} = {this.state.util}
+          Function: {this.props.utilFunc} = {this.props.option.util}
         </div>
       </li>
     );

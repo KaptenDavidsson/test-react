@@ -30,8 +30,8 @@
     "leftItem": { 
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus ante sit amet tortor tristique tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.",
       "options": [
-        { "description": "dfdsfdsf", "util": 0, "effects": [{ "name": "a", "count": 3}, { "name": "b", "count": 5}]},
-        { "description": "dfdsfdsf", "util": 0, "effects": [{ "name": "a", "count": 1}, { "name": "c", "count": 5}]}
+        { "description": "abc", "util": 0, "effects": [{ "name": "a", "count": 3}, { "name": "b", "count": 5}]},
+        { "description": "zxc", "util": 0, "effects": [{ "name": "a", "count": 1}, { "name": "c", "count": 5}]}
       ]
     },
     "rightItem": {},
