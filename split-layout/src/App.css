@@ -1,5 +1,6 @@
 .App {
   height: 100%;
+  width: 100%;
   position: absolute;
 }
 
@@ -10,14 +11,16 @@
 
 .App-header {
   background-color: #222;
-  height: 50px;
-  padding: 20px;
+  height: 60px;
+  padding: 1px;
   color: white;
+  text-align: center;
+  font-weight: bold;
 }
 
 .App-footer {
   background-color: #222;
-  height: 50px;
+  height: 60px;
   padding: 20px;
   color: white;
   bottom: 0px;
@@ -76,7 +79,8 @@
 }
 
 .padded-content {
-  padding: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .search-control {
@@ -97,12 +101,8 @@
   height: 100px;
 }
 
-.left-function {
-  padding: 5px;
-  border: 1px;
-  border-color: black;
-  border-style: solid;
-  margin-top: 15px;
+.effect {
+  padding-left: 10px;
 }
 
 .options {
@@ -113,6 +113,14 @@
   background-color: rgb(215,235,250);  
 }
 
+.example-util-funcs {
+  padding: 10px;
+}
+
+.searchbar {
+  margin-top: 10px;
+}
+
 #slider {
     position: absolute;
     background: #BBBBBB;
@@ -121,6 +129,7 @@
     width: 100%;
     display: flex;
     top: 0px;
+    overflow: auto;
 }
 
 .slider-content {

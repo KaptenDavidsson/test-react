@@ -1,0 +1,16 @@
+{
+  "values": [
+    {"name": "Human dies", "code": "hd", "description": "adasdasd"},
+    {"name": "Human villain dies", "code": "hvd", "description": "adasdasd"},
+    {"name": "Intentional killing", "code": "ik", "description": "adasdasd"},
+    {"name": "Using a human as a means to an end", "code": "uh", "description": "adasdasd"}, 
+    {"name": "You did not tell the truth", "code": "ntt", "description": "adasdasd"},
+    {"name": "Happiness", "description": "adasdasd", "code": "hs"},
+    {"name": "Contract", "description": "adasdasd", "code": "ct"},
+    {"name": "Freedom", "description": "adasdasd", "code": "fd"},
+    {"name": "Golden rule", "description": "adasdasd", "code": "gr"},
+    {"name": "Categorical imperative", "description": "adasdasd", "code": "ci"},
+    {"name": "Animal dies", "description": "adasdasd", "code": "ad"},
+    {"name": "Stealing", "description": "adasdasd", "code": "sn"}
+  ]
+}

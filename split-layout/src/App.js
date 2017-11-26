@@ -9,14 +9,31 @@ import {
 } from 'react-accessible-accordion';
 import '../node_modules/react-accessible-accordion/dist/react-accessible-accordion.css';
 import myData from './data2.json';
+import values from './values.json';
+import dilemmas from './dilemmas.json';
+import Cookies from 'universal-cookie';
+import Option from './Option.js'
 
 
 class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {...myData, leftItem: myData.leftList[0]};
+    this.values = values['values'];
+    this.dilemmas = dilemmas['dilemmas']
+
+    this.state = {...myData, leftItem: this.dilemmas[0], leftList: this.dilemmas, rightListSlider: this.values};
+
     this.handleUtilChange = this.handleUtilChange.bind(this);
+  }
+
+  componentDidMount() {
+    const cookies = new Cookies();
+
+    this.setState({
+      utilFunc: cookies.get('utilFunc') ? cookies.get('utilFunc') : "",
+      rightList: cookies.get('myValues') ? cookies.get('myValues') : [],
+    })
   }
 
   handleToggleRight() {
@@ -39,8 +56,13 @@ class App extends Component {
   }
 
   addRightItem(item) {
+    var newList = [...this.state.rightList, item];
+
+    const cookies = new Cookies();
+    cookies.set('myValues', newList, { path: '/' });
+
    this.setState({
-      rightList: [...this.state.rightList, item],
+      rightList: newList,
       hideRight: true
     }) 
   }
@@ -48,15 +70,23 @@ class App extends Component {
   removeRightItem(event, index) {
     event.preventDefault();
 
-    this.setState({
-      rightList: this.state.rightList.filter(function(e,i) {
+    var newList = this.state.rightList.filter(function(e,i) {
         return i !== index;
-      })
+      });
+
+    const cookies = new Cookies();
+    cookies.set('myValues', newList, { path: '/' });
+
+    this.setState({
+      rightList: newList
     })
   }
 
 
   handleTextAreaChange(event) {
+    const cookies = new Cookies();
+    cookies.set('utilFunc', event.target.value, { path: '/' });
+
    this.setState({
       utilFunc: event.target.value
     })
@@ -71,13 +101,27 @@ class App extends Component {
     }));
   }
 
+  handleSearchLeft(event) {
+    event.preventDefault();
+
+    const target = event.target;
+    const value =  target.value;
+
+    this.setState({
+      leftList: this.dilemmas.filter(function(d,i) {
+        return d.name.toLowerCase().includes(value.toLowerCase()) || 
+          d.tags.some(function(t) { 
+            return t.toLowerCase().includes(value.toLowerCase()) 
+          });
+      })
+    });
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
-      <div>
- 
-      </div>
+            <h3>Ethica 2000</h3>
         </header>
         <div className="wrapper">
           <div className="column-1">
@@ -87,40 +131,57 @@ class App extends Component {
             <div className="padded-content">
               <ul className="list-inline">
                 {this.state.leftItem.related.map((item, index) => 
-                  <li onClick={this.chooseLeft.bind(this, this.state.leftList.filter(i => i.id == item)[0])} className="list-inline-item list-group-item list-item-clickable">{this.state.leftList.filter(i => i.id == item)[0].name}</li>
+                  <li onClick={this.chooseLeft.bind(this, this.dilemmas.filter(i => i.id == item)[0])} className="list-inline-item list-group-item list-item-clickable">{this.dilemmas.filter(i => i.id == item)[0].name}</li>
                 )}
               </ul>
-              <h1>{this.state.leftItem.name}</h1>
+              <h1>{this.state.leftItem.name}</h1>              
+
+              <ul className="list-inline">
+                {this.state.leftItem.tags.map((item, index) => 
+                  <li className="list-inline-item"><span className="glyphicon glyphicon-tag"></span> {item}</li>
+                )}
+              </ul>
               {this.state.leftItem.description}
-              <br />
               <br />
               <br />
               <div className="options"> 
                 {this.state.leftItem.options.map((option, index) => 
                   <Option 
-                    
                     utilFunc={this.state.utilFunc} 
                     option={option} 
+                    values={this.state.rightListSlider}
                     maxUtil={Math.max(...this.state.leftItem.options.map(o => o.util))}
                     onUtilChange={this.handleUtilChange}></Option>
+                )}
+              </div>
+              <div className="example-util-funcs">
+                <h4>Example util functions</h4>
+                {this.state.leftItem.exampleUtilFuncs.map((item,index) =>
+                  <p>{item}</p>
                 )}
               </div>
             </div>
             <div id="slider" className={this.state.hideLeft ? "slide-out" : "slide-in"}>
               <div className="list-item padded-content">
                 <div className="slider-content">
-                  <input  name="todoTitle"
+                  <input  name="searchbar"
                     type="text"
-                    className="form-control search-control"
+                    className="form-control search-control searchbar"
                     id="inputTodoTitle"
-                    value={this.state.todoTitle}
-                    onChange={this.handleInputChange}
+                    value={this.state.searchLeft}
+                    onChange={this.handleSearchLeft.bind(this)}
                     placeholder="Find">
                   </input>
                   {this.state.leftList.map((item, index) => 
                     <li className="list-group-item list-item-clickable" key={index}>
-                      <h4 className="list-group-item-heading" onClick={this.chooseLeft.bind(this, item)}>{item.name}</h4>
-
+                      <div className="list-group-item-heading" onClick={this.chooseLeft.bind(this, item)}>
+                        <h4>
+                          {item.name}  
+                        </h4>
+                        {item.tags.map((tag, index) => 
+                          <span><span className="glyphicon glyphicon-tag"></span> {tag} </span>
+                        )}
+                      </div>
                     </li>
                   )}
 
@@ -145,7 +206,7 @@ class App extends Component {
                     </AccordionItemTitle>
                     <AccordionItemBody>
                       <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus ante sit amet tortor tristique tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.
+                        {item.description}
                       </p>
                     </AccordionItemBody>
                   </AccordionItem>
@@ -157,15 +218,15 @@ class App extends Component {
               <br />
               <textarea 
                 className="utility-function" 
-                text={this.state.utilFunc}
+                value={this.state.utilFunc}
                 onChange={this.handleTextAreaChange.bind(this)}
               ></textarea>
             </div>
             <div id="slider" className={this.state.hideRight ? "slide-out" : "slide-in"}>
               <div className="slider-content padded-content">
-                <input  name="todoTitle"
+                <input  name="searchbar"
                   type="text"
-                  className="form-control search-control"
+                  className="form-control search-control searchbar"
                   id="inputTodoTitle"
                   value={this.state.todoTitle}
                   onChange={this.handleInputChange}
@@ -182,7 +243,7 @@ class App extends Component {
                         </AccordionItemTitle>
                         <AccordionItemBody>
                           <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus ante sit amet tortor tristique tempor. Quisque pellentesque pretium blandit. Praesent auctor nisl sed vulputate porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce scelerisque purus nibh, non commodo mi cursus ut. Ut ac lorem ligula. Nulla posuere tortor ac nulla ornare aliquam. Duis vestibulum magna neque, vehicula egestas purus venenatis id. In at leo erat. Integer quis varius felis. Sed nec suscipit diam, id consequat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus volutpat mi diam, in pulvinar nibh scelerisque vel. Curabitur eu euismod sem. Nunc elementum vel nisi ut semper. Fusce et finibus magna.
+                            {item.description}
                           </p>
                         </AccordionItemBody>
                       </AccordionItem>
@@ -199,90 +260,5 @@ class App extends Component {
     );
   }
 }
-
-
-class Option extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidUpdate() {
-    var vars = {};
-    for (var effect of this.props.option.effects) {
-      vars[effect.code] = effect.count;
-    }
-
-    var formattedUtilFunc = this.props.utilFunc.replace(/-/g, '+-');
-
-    var sum = 0;
-    for (var s of formattedUtilFunc.split('+')) {
-      var prod = 1;
-      if (s == '') continue;
-
-      for (var p of s.split('*')) {
-          if (p == '') {
-            prod = 0;
-            continue;
-          }
-        if (!vars.hasOwnProperty(p.replace('-', '')) && !Number.isInteger(Number.parseInt(p)) && p != 'inf') {
-          ;prod = 0;
-        }
-
-        if (p.includes('-') && !Number.isInteger(Number.parseInt(p)) && vars.hasOwnProperty(p.replace('-', ''))) {
-
-          prod *= -vars[p.replace('-', '')];
-        }
-        else {
-          if (Number.isInteger(Number.parseInt(p))) {
-            prod *= p;
-          }
-          else if (vars.hasOwnProperty(p)) {
-            prod *= vars[p];
-          }
-          else if (p == 'inf') {
-            if (Math.sign(prod) == 1) {
-              sum = 'inf';
-              if (this.props.option.util != sum) {
-                this.props.onUtilChange({...this.props.option, util: sum});
-              }
-              return;
-            }
-            else {
-              sum = '-inf';
-              if (this.props.option.util != sum) {
-                this.props.onUtilChange({...this.props.option, util: sum});
-              }
-              return;
-            }
-          }
-        }
-      }
-
-      sum += prod;
-    }
-
-    if (this.props.option.util != sum && Number.isInteger(sum)) {
-      this.props.onUtilChange({...this.props.option, util: sum});
-    }
-  }
-
-  render() {
-    return (
-      <li className="list-group-item list-item-clickable">
-        <span  className={this.props.maxUtil <= this.props.option.util ? "glyphicon glyphicon-ok" : ""}></span>  <label>{this.props.option.description}</label>
-        {this.props.option.effects.map((effect, index) => 
-          <li className="list-group-item list-item-clickable" key={index}>
-            <h5 className="list-group-item-heading">{effect.name} = {effect.count}</h5>
-          </li>
-        )}
-        <div className="left-function">
-          Utility: {this.props.utilFunc} = {this.props.option.util}
-        </div>
-      </li>
-    );
-  }
-
-}
-
 
 export default App;
