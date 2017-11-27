@@ -1,9 +1,28 @@
 import React, { Component } from 'react';
+import './Option.css'; 
+import ReactDom from 'react-dom';
+import ReactModal from 'react-modal';
 
 
 class Option extends Component {
   constructor(props) {
     super(props);
+
+    this.state = { showModal: false };
+
+    this.customStyles = {
+      content : {
+        top                   : '50%',
+        left                  : '25%',
+        right                 : 'auto',
+        bottom                : 'auto',
+        marginRight           : '-50%',
+        transform             : 'translate(-50%, -50%)'
+      }
+    };
+
+    this.handleOpenModal = this.handleOpenModal.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
   componentDidUpdate() {
@@ -64,19 +83,45 @@ class Option extends Component {
     if (this.props.option.util != sum && Number.isInteger(sum)) {
       this.props.onUtilChange({...this.props.option, util: sum});
     }
+  }  
+
+  handleOpenModal () {
+    this.setState({ showModal: true });
+  }
+  
+  handleCloseModal () {
+    this.setState({ showModal: false });
   }
 
   render() {
     return (
-      <li className="list-group-item list-item-clickable">
-        <span  className={this.props.maxUtil <= this.props.option.util ? "glyphicon glyphicon-ok" : ""}></span>  <label>{this.props.option.description}</label>
+      <div className="option">
+        <span  className={this.props.maxUtil <= this.props.option.util ? "glyphicon glyphicon-ok" : ""}></span>  <label onClick={this.handleOpenModal}>{this.props.option.description}</label>
         {this.props.option.effects.map((effect, index) => 
           <p className="effect"><span className="glyphicon glyphicon-asterisk"></span> {this.props.values.filter(v => v.code == effect.code)[0].name} = {effect.count}</p>
         )}
+        {/* 
         <div className="left-function">
           <h4>Utility: {this.props.utilFunc} = {this.props.option.util}</h4>
         </div>
-      </li>
+        */}
+        <ReactModal 
+          style={this.customStyles}
+          isOpen={this.state.showModal}
+          contentLabel="Minimal Modal Example">
+          <div>
+            <h3>Common sentiments</h3>
+            <ul>
+              {this.props.option.sentiments.map((sentiment, index) =>
+                <li>{sentiment.description}</li>
+              )}
+            </ul>
+          </div>
+          <br />
+          <br />
+          <button onClick={this.handleCloseModal}>Close</button>
+        </ReactModal>
+      </div>
     );
   }
 

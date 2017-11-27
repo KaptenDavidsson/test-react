@@ -4,9 +4,10 @@
       "id": 1,
       "name": "Trolley problem (original)",
       "description": "There is a runaway trolley barreling down the railway tracks. Ahead, on the tracks, there are five people tied up and unable to move. The trolley is headed straight for them. You are standing some distance off in the train yard, next to a lever. If you pull this lever, the trolley will switch to a different set of tracks. However, you notice that there is one person tied up on the side track.",
+      "image": "trolley1.jpg",
       "options": [
-        { "description": "Do nothing", "effects": [{"count": 5, "code": "hd" }]},
-        { "description": "Pull the lever", "effects": [{"count": 1, "code": "hd"}]}
+        { "description": "Do nothing", "effects": [{"count": 5, "code": "hd" }], "sentiments": [{"description": "Human life is invaluable", "func": "-hd*inf"}]},
+        { "description": "Pull the lever", "effects": [{"count": 1, "code": "hd"}], "sentiments": [{"description": "More humans are more valuable than less humans", "func": "-hd"}]}
       ],
       "related": [2,3],
       "exampleUtilFuncs": ["-hd", "-hd*inf"],
@@ -16,6 +17,7 @@
       "id": 2, 
       "name": "Trolley problem (fat man)", 
       "description": "As before, a trolley is hurtling down a track towards five people. You are on a bridge under which it will pass, and you can stop it by putting something very heavy in front of it. As it happens, there is a very fat man next to you – your only way to stop the trolley is to push him over the bridge and onto the track, killing him to save five. Should you proceed?",
+      "image": "trolley_fat.jpg",
       "options": [
         { "description": "Do nothing", "effects": [{"count": 5, "code": "hd" }]},
         { "description": "Push fat man", "effects": [

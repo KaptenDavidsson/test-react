@@ -143,8 +143,10 @@ class App extends Component {
               </ul>
               {this.state.leftItem.description}
               <br />
+              {this.state.leftItem.image !== '' ? <img src={'images/' + this.state.leftItem.image} /> : '' }
               <br />
-              <div className="options"> 
+              <br />
+              <div> 
                 {this.state.leftItem.options.map((option, index) => 
                   <Option 
                     utilFunc={this.state.utilFunc} 
@@ -154,12 +156,14 @@ class App extends Component {
                     onUtilChange={this.handleUtilChange}></Option>
                 )}
               </div>
+              {/*}
               <div className="example-util-funcs">
                 <h4>Example util functions</h4>
                 {this.state.leftItem.exampleUtilFuncs.map((item,index) =>
                   <p>{item}</p>
                 )}
               </div>
+            */}
             </div>
             <div id="slider" className={this.state.hideLeft ? "slide-out" : "slide-in"}>
               <div className="list-item padded-content">
