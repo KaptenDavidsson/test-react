@@ -117,6 +117,10 @@
   margin-top: 10px;
 }
 
+.clear-sentiments {
+  cursor: pointer;
+}
+
 #slider {
     position: absolute;
     background: #BBBBBB;

@@ -25,6 +25,8 @@ class App extends Component {
     this.state = {...myData, leftItem: this.dilemmas[0], leftList: this.dilemmas, rightListSlider: this.values};
 
     this.handleUtilChange = this.handleUtilChange.bind(this);
+    this.handleChooseSentiment = this.handleChooseSentiment.bind(this);
+    this.handleClearSentiments = this.handleClearSentiments.bind(this);
   }
 
   componentDidMount() {
@@ -117,6 +119,27 @@ class App extends Component {
     });
   }
 
+  handleChooseSentiment(sentiment) {
+    this.setState({
+      sentiments: [...this.state.sentiments, sentiment]
+    });
+    
+    this.setState({
+      utilFunc: this.state.utilFunc + sentiment.func
+    })
+
+  }
+
+  handleClearSentiments() {
+    this.setState({
+      sentiments: []
+    });
+    
+    this.setState({
+      utilFunc: ''
+    })
+  }
+
   render() {
     return (
       <div className="App">
@@ -153,7 +176,8 @@ class App extends Component {
                     option={option} 
                     values={this.state.rightListSlider}
                     maxUtil={Math.max(...this.state.leftItem.options.map(o => o.util))}
-                    onUtilChange={this.handleUtilChange}></Option>
+                    onUtilChange={this.handleUtilChange}
+                    onChooseSentiment={this.handleChooseSentiment}></Option>
                 )}
               </div>
               {/*}
@@ -199,6 +223,13 @@ class App extends Component {
           </div>
           <div className="column-4">
             <div className="list-item padded-content">
+              <h1>My Sentiments</h1>
+              <p className="clear-sentiments" onClick={this.handleClearSentiments}>Clear</p>
+              <ul>
+                {this.state.sentiments.map((sentiment, index) =>
+                  <li>{sentiment.description}</li>
+                )}
+              </ul>
               <h1>My values</h1>
               {this.state.rightList.map((item, index) =>
                 <Accordion>

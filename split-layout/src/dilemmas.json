@@ -19,8 +19,8 @@
       "description": "As before, a trolley is hurtling down a track towards five people. You are on a bridge under which it will pass, and you can stop it by putting something very heavy in front of it. As it happens, there is a very fat man next to you – your only way to stop the trolley is to push him over the bridge and onto the track, killing him to save five. Should you proceed?",
       "image": "trolley_fat.jpg",
       "options": [
-        { "description": "Do nothing", "effects": [{"count": 5, "code": "hd" }]},
-        { "description": "Push fat man", "effects": [
+        { "description": "Do nothing", "effects": [{"count": 5, "code": "hd" }], "sentiments": [{"description": "Killing someone as a means to an end is worse than letting 5 persons die", "func": "-uh*6"}]},
+        { "description": "Push fat man", "sentiments": [], "effects": [
           {"count": 1, "code": "hd"}, 
           {"count": 1, "code": "ik"},
           {"count": 1, "code": "uh"}
@@ -35,8 +35,8 @@
       "name": "Trolley problem (fat villain)", 
       "description": "The further development of this example involves the case, where the fat man is, in fact, the villain who put these five people in peril. In this instance, pushing the villain to his death, especially to save five innocent people, seems not only morally justifiable but perhaps even imperative",
       "options": [
-        { "description": "Do nothing", "effects": [{"count": 5, "code": "hd" }]},
-        { "description": "Pull the lever", "effects": [{"count": 1, "code": "hd"}]}
+        { "description": "Do nothing", "effects": [{"count": 5, "code": "hd" }], "sentiments": []},
+        { "description": "Pull the lever", "effects": [{"count": 1, "code": "hd"}], "sentiments": []}
       ],
       "related": [1,2,4],
       "exampleUtilFuncs": ["-hd", "-hd-ik*inf"],
@@ -47,8 +47,8 @@
       "name": "Ticking time bomb scenario", 
       "description": "Suppose that a person with knowledge of an imminent terrorist attack, that will kill many people, is in the hands of the authorities and that he will disclose the information needed to prevent the attack only if he is tortured. Should he be tortured?",
       "options": [
-        { "description": "Do nothing", "effects": [{"count": 5, "code": "hd" }]},
-        { "description": "Pull the lever", "effects": [{"count": 1, "code": "hd"}]}
+        { "description": "Do nothing", "effects": [{"count": 5, "code": "hd" }], "sentiments": []},
+        { "description": "Pull the lever", "effects": [{"count": 1, "code": "hd"}], "sentiments": []}
       ],
       "related": [3],
       "exampleUtilFuncs": [],
@@ -59,8 +59,8 @@
       "name": "Murderer ask question", 
       "description": "You know the location of some persons. A murderer asks you about their location in order to go kill them.",
       "options": [
-        { "description": "Tell the truth", "effects": [{"count": 1, "code": "hd" }]},
-        { "description": "Lie/Do nothing", "effects": [{"count": 1, "code": "ntt"}]}
+        { "description": "Tell the truth", "effects": [{"count": 1, "code": "hd" }], "sentiments": []},
+        { "description": "Lie/Do nothing", "effects": [{"count": 1, "code": "ntt"}], "sentiments": []}
       ],
       "related": [],
       "exampleUtilFuncs": ["-hd", "-hd-ntt*inf"],
@@ -71,8 +71,8 @@
       "name": "Utility monster", 
       "description": "",
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }]},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}]}
+        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }], "sentiments": []},
+        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}], "sentiments": []}
       ],
       "related": [],
       "exampleUtilFuncs": [],
@@ -83,8 +83,8 @@
       "name": "Mere addition paradox", 
       "description": "Consider the four populations depicted in the following diagram: A, A+, B− and B. Each bar represents a distinct group of people, with the group's size represented by the bar's width and the happiness of each of the group's members represented by the bar's height. Unlike A and B, A+ and B− are complex populations, each comprising two distinct groups of people.",
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }]},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}]}
+        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }], "sentiments": []},
+        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}], "sentiments": []}
       ],
       "related": [],
       "exampleUtilFuncs": [],
@@ -95,8 +95,8 @@
       "name": "Mere addition paradox (average)", 
       "description": "Consider the four populations depicted in the following diagram: A, A+, B− and B. Each bar represents a distinct group of people, with the group's size represented by the bar's width and the happiness of each of the group's members represented by the bar's height. Unlike A and B, A+ and B− are complex populations, each comprising two distinct groups of people.",
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }]},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}]}
+        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }], "sentiments": []},
+        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}], "sentiments": []}
       ],
       "related": [],
       "exampleUtilFuncs": [],
@@ -107,8 +107,8 @@
       "name": "The violinist", 
       "description": "You wake up in the morning and find yourself back to back in bed with an unconscious violinist. A famous unconscious violinist. He has been found to have a fatal kidney ailment, and the Society of Music Lovers has canvassed all the available medical records and found that you alone have the right blood type to help. They have therefore kidnapped you, and last night the violinist's circulatory system was plugged into yours, so that your kidneys can be used to extract poisons from his blood as well as your own. [If he is unplugged from you now, he will die; but] in nine months he will have recovered from his ailment, and can safely be unplugged from you.",
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }]},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}]}
+        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }], "sentiments": []},
+        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}], "sentiments": []}
       ],
       "related": [],
       "exampleUtilFuncs": [],
@@ -119,8 +119,8 @@
       "name": "Veil of ignorance", 
       "description": "",
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }]},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}]}
+        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }], "sentiments": []},
+        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}], "sentiments": []}
       ],
       "related": [],
       "exampleUtilFuncs": [],
@@ -131,8 +131,8 @@
       "name": "Sophie's Choice", 
       "description": "In the novel Sophie's Choice, by William Styron (Vintage Books, 1976 -- the 1982 movie starred Meryl Streep & Kevin Kline), a Polish woman, Sophie Zawistowska, is arrested by the Nazis and sent to the Auschwitz death camp.  On arrival, she is 'honored' for not being a Jew by being allowed a choice: One of her children will be spared the gas chamber if she chooses which one. In an agony of indecision, as both children are being taken away, she suddenly does choose. They can take her daughter, who is younger and smaller. Sophie hopes that her older and stronger son will be better able to survive, but she loses track of him and never does learn of his fate. Did she do the right thing? Years later, haunted by the guilt of having chosen between her children, Sophie commits suicide. Should she have felt guilty?",
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }]},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}]}
+        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }], "sentiments": []},
+        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}], "sentiments": []}
       ],
       "related": [],
       "exampleUtilFuncs": [],
@@ -143,8 +143,8 @@
       "name": "Corrine's Choice", 
       "description": "On 7 January 2015 Corrine Rey, a cartoonist at the French satirical magazine Charlie Hebdo, and known by the name 'Coco,' returned from picking up her daughter from kindergarten. She was confronted by two French Jihadist gunmen, who treatened to shoot her daughter unless she keyed in the entry code at the door for the magazine. She did; and the gunmen entered to murder twelve people, including two policemen, as well as shooting eleven others. During the attack, the shooters said that they would not kill women, but that they needed to convert to Islam and wear a veil. Should Corrine Rey have been willing to sacrifice her daughter and herself rather than allow obvious murderers to enter the magazine and possibly kill everyone? Can a mother be blamed for only thinking of protecting her child?",
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }]},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}]}
+        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }], "sentiments": []},
+        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}], "sentiments": []}
       ],
       "related": [],
       "exampleUtilFuncs": [],
@@ -155,8 +155,8 @@
       "name": "The Overcrowded Lifeboat", 
       "description": "In 1842, a ship struck an iceberg and more than 30 survivors were crowded into a lifeboat intended to hold 7. As a storm threatened, it became obvious that the lifeboat would have to be lightened if anyone were to survive. The captain reasoned that the right thing to do in this situation was to force some individuals to go over the side and drown. Such an action, he reasoned, was not unjust to those thrown overboard, for they would have drowned anyway. If he did nothing, however, he would be responsible for the deaths of those whom he could have saved. Some people opposed the captain's decision. They claimed that if nothing were done and everyone died as a result, no one would be responsible for these deaths. On the other hand, if the captain attempted to save some, he could do so only by killing others and their deaths would be his responsibility; this would be worse than doing nothing and letting all die. The captain rejected this reasoning. Since the only possibility for rescue required great efforts of rowing, the captain decided that the weakest would have to be sacrificed. In this situation it would be absurd, he thought, to decide by drawing lots who should be thrown overboard. As it turned out, after days of hard rowing, the survivors were rescued and the captain was tried for his action. If you had been on the jury, how would you have decided?",        
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }]},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}]}
+        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }], "sentiments": []},
+        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}], "sentiments": []}
       ],
       "related": [],
       "exampleUtilFuncs": [],
@@ -179,8 +179,8 @@
       "name": "Robbin' Hood", 
       "description": "You are an eyewitness to a crime: A man has robbed a bank, but instead of keeping the money for himself, he donates it to a poor orphanage that can now afford to feed, clothe, and care for its children. You know who committed the crime. If you go to the authorities with the information, there's a good chance the money will be returned to the bank, leaving a lot of kids in need. What do you do?",        
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }]},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}]}
+        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }], "sentiments": []},
+        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}], "sentiments": []}
       ],
       "related": [],
       "exampleUtilFuncs": [],
@@ -191,8 +191,8 @@
       "name": "A Doctor's Dilemma", 
       "description": "You are a doctor at a top hospital. You have six gravely ill patients, five of whom are in urgent need of organ transplants. You can't help them, though, because there are no available organs that can be used to save their lives. The sixth patient, however, will die without a particular medicine. If s/he dies, you will be able to save the other five patients by using the organs of patient 6, who is an organ donor. What do you do?",
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }]},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}]}
+        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }], "sentiments": []},
+        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}], "sentiments": []}
       ],
       "related": [],
       "exampleUtilFuncs": [],
@@ -203,8 +203,20 @@
       "name": "Death sentence", 
       "description": "",
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }]},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}]}
+        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }], "sentiments": []},
+        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}], "sentiments": []}
+      ],
+      "related": [],
+      "exampleUtilFuncs": [],
+      "tags": ["Political"]
+    },
+    {
+      "id": 17, 
+      "name": "Abortion time", 
+      "description": "",
+      "options": [
+        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }], "sentiments": []},
+        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}], "sentiments": []}
       ],
       "related": [],
       "exampleUtilFuncs": [],

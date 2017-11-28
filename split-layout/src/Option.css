@@ -4,7 +4,12 @@
   padding: 10px;
   border-color: rgb(230, 230, 230);
   border-style: solid;
-  margin-bottom: 20px
+  margin-bottom: 20px;
+	background-color: rgb(230, 200, 200);
+}
+
+.has-max-util {
+	background-color: rgb(200, 230, 200);
 }
 
 .choose-modal {
@@ -12,4 +17,8 @@
 	height: 300px;
 	background-color: white;
 	position: relative;
+}
+
+.sentiment {
+	cursor: pointer;
 }

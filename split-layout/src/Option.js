@@ -85,26 +85,35 @@ class Option extends Component {
     }
   }  
 
-  handleOpenModal () {
+  handleOpenModal() {
     this.setState({ showModal: true });
   }
   
-  handleCloseModal () {
+  handleCloseModal() {
+    this.setState({ showModal: false });
+  }
+
+  handleChooseSentiment(sentiment) {
+    this.props.onChooseSentiment(sentiment);
     this.setState({ showModal: false });
   }
 
   render() {
     return (
-      <div className="option">
-        <span  className={this.props.maxUtil <= this.props.option.util ? "glyphicon glyphicon-ok" : ""}></span>  <label onClick={this.handleOpenModal}>{this.props.option.description}</label>
-        {this.props.option.effects.map((effect, index) => 
-          <p className="effect"><span className="glyphicon glyphicon-asterisk"></span> {this.props.values.filter(v => v.code == effect.code)[0].name} = {effect.count}</p>
-        )}
-        {/* 
-        <div className="left-function">
-          <h4>Utility: {this.props.utilFunc} = {this.props.option.util}</h4>
+      <div>
+        <div className={this.props.maxUtil <= this.props.option.util ? "option has-max-util" : "option"} onClick={this.handleOpenModal}>
+          <span className={this.props.maxUtil <= this.props.option.util ? "glyphicon glyphicon-ok" : ""}></span>  <label>{this.props.option.description}</label>
+          {this.props.option.effects.map((effect, index) => 
+            <p className="effect"><span className="glyphicon glyphicon-asterisk"></span> {this.props.values.filter(v => v.code == effect.code)[0].name} = {effect.count}</p>
+          )}
+          <p>Show calculation</p>
+          {/* 
+          <div className="left-function">
+            <h4>Utility: {this.props.utilFunc} = {this.props.option.util}</h4>
+          </div>
+          */}
         </div>
-        */}
+
         <ReactModal 
           style={this.customStyles}
           isOpen={this.state.showModal}
@@ -113,7 +122,7 @@ class Option extends Component {
             <h3>Common sentiments</h3>
             <ul>
               {this.props.option.sentiments.map((sentiment, index) =>
-                <li>{sentiment.description}</li>
+                <li className="sentiment" onClick={this.handleChooseSentiment.bind(this, sentiment)}>{sentiment.description}</li>
               )}
             </ul>
           </div>
