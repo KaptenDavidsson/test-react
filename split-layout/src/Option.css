@@ -6,6 +6,7 @@
   border-style: solid;
   margin-bottom: 20px;
 	background-color: rgb(230, 200, 200);
+	cursor: pointer;
 }
 
 .has-max-util {
@@ -21,4 +22,20 @@
 
 .sentiment {
 	cursor: pointer;
+}
+
+.clear-sentiments {
+	font-size: 12px;
+}
+
+.shown {
+	visibility: visible;
+}
+
+.hidden {
+	visibility: hidden;;
+}
+
+.toggle-calc {
+	font-style: italic;
 }

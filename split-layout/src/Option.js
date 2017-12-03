@@ -8,7 +8,7 @@ class Option extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { showModal: false };
+    this.state = { showModal: false, showFunc: false };
 
     this.customStyles = {
       content : {
@@ -98,6 +98,12 @@ class Option extends Component {
     this.setState({ showModal: false });
   }
 
+  handleToggleCalc(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.setState({ showFunc: !this.state.showFunc });
+  }
+
   render() {
     return (
       <div>
@@ -106,12 +112,10 @@ class Option extends Component {
           {this.props.option.effects.map((effect, index) => 
             <p className="effect"><span className="glyphicon glyphicon-asterisk"></span> {this.props.values.filter(v => v.code == effect.code)[0].name} = {effect.count}</p>
           )}
-          <p>Show calculation</p>
-          {/* 
-          <div className="left-function">
-            <h4>Utility: {this.props.utilFunc} = {this.props.option.util}</h4>
+          <span className="toggle-calc" onClick={this.handleToggleCalc.bind(this)}>{this.state.showFunc ? "Hide calculation" : "Show calculation"}</span>
+          <div className={ this.state.showFunc ? "shown" : "hidden" }>
+            <h4>{this.props.utilFunc} = {this.props.option.util}</h4>
           </div>
-          */}
         </div>
 
         <ReactModal 
@@ -120,11 +124,9 @@ class Option extends Component {
           contentLabel="Minimal Modal Example">
           <div>
             <h3>Common sentiments</h3>
-            <ul>
               {this.props.option.sentiments.map((sentiment, index) =>
-                <li className="sentiment" onClick={this.handleChooseSentiment.bind(this, sentiment)}>{sentiment.description}</li>
+                <li className="sentiment list-group-item list-item-clickable" onClick={this.handleChooseSentiment.bind(this, sentiment)}>{sentiment.description}</li>
               )}
-            </ul>
           </div>
           <br />
           <br />

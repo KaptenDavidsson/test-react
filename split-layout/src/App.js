@@ -8,7 +8,6 @@ import {
     AccordionItemBody,
 } from 'react-accessible-accordion';
 import '../node_modules/react-accessible-accordion/dist/react-accessible-accordion.css';
-import myData from './data2.json';
 import values from './values.json';
 import dilemmas from './dilemmas.json';
 import Cookies from 'universal-cookie';
@@ -22,7 +21,20 @@ class App extends Component {
     this.values = values['values'];
     this.dilemmas = dilemmas['dilemmas']
 
-    this.state = {...myData, leftItem: this.dilemmas[0], leftList: this.dilemmas, rightListSlider: this.values};
+    var defaultState = {
+      "hideRight": true,
+      "hideLeft": true,
+      "leftList": [],
+      "rightList": [],
+      "rightListSlider": [],
+      "utilFunc": "",
+      "leftItem": {},
+      "rightItem": {},
+      "sentiments": []
+    }
+
+
+    this.state = {...defaultState, leftItem: this.dilemmas[0], leftList: this.dilemmas, rightListSlider: this.values};
 
     this.handleUtilChange = this.handleUtilChange.bind(this);
     this.handleChooseSentiment = this.handleChooseSentiment.bind(this);
@@ -223,13 +235,11 @@ class App extends Component {
           </div>
           <div className="column-4">
             <div className="list-item padded-content">
-              <h1>My Sentiments</h1>
-              <p className="clear-sentiments" onClick={this.handleClearSentiments}>Clear</p>
-              <ul>
+              <h1>My Sentiments <span className="clear-sentiments" onClick={this.handleClearSentiments}>Clear</span></h1>
+              
                 {this.state.sentiments.map((sentiment, index) =>
-                  <li>{sentiment.description}</li>
+                  <li className="list-group-item">{sentiment.description}</li>
                 )}
-              </ul>
               <h1>My values</h1>
               {this.state.rightList.map((item, index) =>
                 <Accordion>
