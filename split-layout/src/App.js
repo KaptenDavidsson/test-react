@@ -12,6 +12,8 @@ import values from './values.json';
 import dilemmas from './dilemmas.json';
 import Cookies from 'universal-cookie';
 import Option from './Option.js'
+import ReactDom from 'react-dom';
+import ReactModal from 'react-modal';
 
 
 class App extends Component {
@@ -33,12 +35,33 @@ class App extends Component {
       "sentiments": []
     }
 
+    this.customStyles = {
+      overlay : {
+        position          : 'fixed',
+        top               : '60px',
+        left              : 0,
+        right             : 0,
+        bottom            : '60px',
+        backgroundColor   : 'rgba(255, 255, 255, 0.50)'
+      },
+      content : {
+        top                   : '25%',
+        left                  : '75%',
+        right                 : 'auto',
+        bottom                : 'auto',
+        marginRight           : '-50%',
+        transform             : 'translate(-50%, -50%)'
+      }
+    };
 
-    this.state = {...defaultState, leftItem: this.dilemmas[0], leftList: this.dilemmas, rightListSlider: this.values};
+
+    this.state = {...defaultState, leftItem: this.dilemmas[0], leftList: this.dilemmas, rightListSlider: this.values, showModal: false};
 
     this.handleUtilChange = this.handleUtilChange.bind(this);
     this.handleChooseSentiment = this.handleChooseSentiment.bind(this);
     this.handleClearSentiments = this.handleClearSentiments.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
+
   }
 
   componentDidMount() {
@@ -96,6 +119,15 @@ class App extends Component {
     })
   }
 
+  showLinkValuesDialog(event, index) {
+    this.setState({
+      showModal: true
+    });
+  }
+
+  handleCloseModal() {
+    this.setState({ showModal: false });
+  }
 
   handleTextAreaChange(event) {
     const cookies = new Cookies();
@@ -139,7 +171,12 @@ class App extends Component {
     this.setState({
       utilFunc: this.state.utilFunc + sentiment.func
     })
+  }
 
+  handleChooseValueLink(link) {
+    // this.setState({
+    //   rightList: [...this.state.sentiments, sentiment]
+    // });
   }
 
   handleClearSentiments() {
@@ -164,11 +201,18 @@ class App extends Component {
           </div>
           <div className="column-2">
             <div className="padded-content">
-              <ul className="list-inline">
-                {this.state.leftItem.related.map((item, index) => 
-                  <li onClick={this.chooseLeft.bind(this, this.dilemmas.filter(i => i.id == item)[0])} className="list-inline-item list-group-item list-item-clickable">{this.dilemmas.filter(i => i.id == item)[0].name}</li>
-                )}
-              </ul>
+              <div className="dilemma-nav">
+                <span className="glyphicon glyphicon-arrow-left" last-dilemma></span>
+                <div>
+                  
+                  <ul className="list-inline related">
+                    {this.state.leftItem.related.map((item, index) => 
+                      <li onClick={this.chooseLeft.bind(this, this.dilemmas.filter(i => i.id == item)[0])} className="list-inline-item list-group-item list-item-clickable">{this.dilemmas.filter(i => i.id == item)[0].name}</li>
+                    )}
+                  </ul>
+                </div>
+                <span className="glyphicon glyphicon-arrow-right next-dilemma"></span>
+              </div>
               <h1>{this.state.leftItem.name}</h1>              
 
               <ul className="list-inline">
@@ -241,12 +285,34 @@ class App extends Component {
                   <li className="list-group-item">{sentiment.description}</li>
                 )}
               <h1>My values</h1>
-              {this.state.rightList.map((item, index) =>
-                <Accordion>
+              <Accordion>
+                {this.state.rightList.map((item, index) =>
                   <AccordionItem>
                     <AccordionItemTitle>
-                      <div className="list-group-item">
-                        <h4>{item.name} ({item.code})<span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.removeRightItem(e, index)}></span></h4>
+                      <div className="my-value-item">
+                        <div className="value-name">
+                          <h4>{item.name} ({item.code})</h4>
+
+                        </div>
+                        <div className="values-buttons">
+                          <span className="glyphicon glyphicon-link remove-button" onClick={(e) => this.showLinkValuesDialog(e, index)}></span>
+                          <span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.removeRightItem(e, index)}></span>
+                        </div>
+
+                        <ReactModal 
+                          style={this.customStyles}
+                          isOpen={this.state.showModal}
+                          contentLabel="Minimal Modal Example">
+                          <div>
+                            <h3>Link value</h3>
+                              {item.links.map((link, index) =>
+                                <li className="sentiment list-group-item list-item-clickable" onClick={this.handleChooseValueLink.bind(this, link)}>{this.state.rightListSlider.filter(v => v.id == link)[0].name}</li>
+                              )}
+                            </div>
+                          <br />
+                          <br />
+                          <button onClick={this.handleCloseModal}>Close</button>
+                        </ReactModal>
                       </div>
                     </AccordionItemTitle>
                     <AccordionItemBody>
@@ -255,17 +321,20 @@ class App extends Component {
                       </p>
                     </AccordionItemBody>
                   </AccordionItem>
-                </Accordion>
-              )}
+                )}
+              </Accordion>
 
               <br />
-              Function (+. -, *, inf supported):
-              <br />
-              <textarea 
-                className="utility-function" 
-                value={this.state.utilFunc}
-                onChange={this.handleTextAreaChange.bind(this)}
-              ></textarea>
+              <span>Show function</span>
+              <div>              
+                Function (+. -, *, inf supported):
+                <br />
+                <textarea 
+                  className="utility-function" 
+                  value={this.state.utilFunc}
+                  onChange={this.handleTextAreaChange.bind(this)}
+                ></textarea>
+              </div>
             </div>
             <div id="slider" className={this.state.hideRight ? "slide-out" : "slide-in"}>
               <div className="slider-content padded-content">

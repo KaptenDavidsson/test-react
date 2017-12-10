@@ -11,6 +11,14 @@ class Option extends Component {
     this.state = { showModal: false, showFunc: false };
 
     this.customStyles = {
+      overlay : {
+        position          : 'fixed',
+        top               : '60px',
+        left              : 0,
+        right             : 0,
+        bottom            : '60px',
+        backgroundColor   : 'rgba(255, 255, 255, 0.50)'
+      },
       content : {
         top                   : '50%',
         left                  : '25%',
@@ -123,7 +131,7 @@ class Option extends Component {
           isOpen={this.state.showModal}
           contentLabel="Minimal Modal Example">
           <div>
-            <h3>Common sentiments</h3>
+            <h3>Common sentiments (Choose one)</h3>
               {this.props.option.sentiments.map((sentiment, index) =>
                 <li className="sentiment list-group-item list-item-clickable" onClick={this.handleChooseSentiment.bind(this, sentiment)}>{sentiment.description}</li>
               )}

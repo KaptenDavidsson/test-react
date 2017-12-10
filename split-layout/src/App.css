@@ -121,6 +121,40 @@
   cursor: pointer;
 }
 
+.related {
+}
+
+.my-value-item {
+  border-width: 1px;
+  border-color: black;
+  border-style: solid;
+  overflow: hidden;
+}
+
+.values-buttons {
+  height: 100%;
+  float: right;
+  transform: translate(0, 75%);
+}
+
+.value-name {
+  float: left;
+} 
+
+.next-dilemma {
+  float: right;
+  display: inline-block;
+}
+
+.last-dilemma {
+  float: left;
+}
+
+.dilemma-nav {
+  display: flex;
+  justify-content: space-between;
+}
+
 #slider {
     position: absolute;
     background: #BBBBBB;
