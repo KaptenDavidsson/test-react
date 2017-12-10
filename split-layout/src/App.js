@@ -173,10 +173,13 @@ class App extends Component {
     })
   }
 
-  handleChooseValueLink(link) {
-    // this.setState({
-    //   rightList: [...this.state.sentiments, sentiment]
-    // });
+  handleChooseValueLink(link, value) {
+    console.log(link);
+    console.log(value);
+
+    this.setState(prevState => ({
+      rightList: prevState.rightList.map(v => v.id == value.id ? { ...v, selectedLinks: [...v.selectedLinks, link] } : v)
+    }));
   }
 
   handleClearSentiments() {
@@ -202,7 +205,7 @@ class App extends Component {
           <div className="column-2">
             <div className="padded-content">
               <div className="dilemma-nav">
-                <span className="glyphicon glyphicon-arrow-left" last-dilemma></span>
+                <span className="glyphicon glyphicon-arrow-left last-dilemma"></span>
                 <div>
                   
                   <ul className="list-inline related">
@@ -236,14 +239,7 @@ class App extends Component {
                     onChooseSentiment={this.handleChooseSentiment}></Option>
                 )}
               </div>
-              {/*}
-              <div className="example-util-funcs">
-                <h4>Example util functions</h4>
-                {this.state.leftItem.exampleUtilFuncs.map((item,index) =>
-                  <p>{item}</p>
-                )}
-              </div>
-            */}
+
             </div>
             <div id="slider" className={this.state.hideLeft ? "slide-out" : "slide-in"}>
               <div className="list-item padded-content">
@@ -285,15 +281,13 @@ class App extends Component {
                   <li className="list-group-item">{sentiment.description}</li>
                 )}
               <h1>My values</h1>
-              <Accordion>
                 {this.state.rightList.map((item, index) =>
-                  <AccordionItem>
-                    <AccordionItemTitle>
+                  <div>
                       <div className="my-value-item">
                         <div className="value-name">
                           <h4>{item.name} ({item.code})</h4>
-
                         </div>
+
                         <div className="values-buttons">
                           <span className="glyphicon glyphicon-link remove-button" onClick={(e) => this.showLinkValuesDialog(e, index)}></span>
                           <span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.removeRightItem(e, index)}></span>
@@ -305,8 +299,8 @@ class App extends Component {
                           contentLabel="Minimal Modal Example">
                           <div>
                             <h3>Link value</h3>
-                              {item.links.map((link, index) =>
-                                <li className="sentiment list-group-item list-item-clickable" onClick={this.handleChooseValueLink.bind(this, link)}>{this.state.rightListSlider.filter(v => v.id == link)[0].name}</li>
+                              {item.links.map((link, index2) =>
+                                <li className="sentiment list-group-item list-item-clickable" onClick={this.handleChooseValueLink.bind(this, link, item)}>{this.state.rightListSlider.filter(v => v.id == link)[0].name}</li>
                               )}
                             </div>
                           <br />
@@ -314,20 +308,25 @@ class App extends Component {
                           <button onClick={this.handleCloseModal}>Close</button>
                         </ReactModal>
                       </div>
-                    </AccordionItemTitle>
-                    <AccordionItemBody>
-                      <p>
-                        {item.description}
-                      </p>
-                    </AccordionItemBody>
-                  </AccordionItem>
+                  
+                  {item.selectedLinks.map((link, index2) =>
+                        <div className="my-value-item derived-value">
+                          <div className="value-name">
+                            <h4>{this.values.filter(v => v.id == link)[0].name} ({this.values.filter(v => v.id == link)[0].code})</h4>
+                          </div>
+
+                          <div className="values-buttons">
+                            <span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.removeRightItem(e, index2)}></span>
+                          </div>
+                        </div>
+                    )}
+                    </div>
                 )}
-              </Accordion>
 
               <br />
-              <span>Show function</span>
+              <h3>My Function</h3>
               <div>              
-                Function (+. -, *, inf supported):
+                (+. -, *, inf supported):
                 <br />
                 <textarea 
                   className="utility-function" 
@@ -335,6 +334,8 @@ class App extends Component {
                   onChange={this.handleTextAreaChange.bind(this)}
                 ></textarea>
               </div>
+
+              <h3>My assumptions</h3>
             </div>
             <div id="slider" className={this.state.hideRight ? "slide-out" : "slide-in"}>
               <div className="slider-content padded-content">
