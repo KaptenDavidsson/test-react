@@ -16,7 +16,6 @@
   color: white;
   text-align: center;
   font-weight: bold;
-  background-image: url('images/greek-roof.png');
 }
 
 .App-footer {
@@ -145,10 +144,12 @@
 .next-dilemma {
   float: right;
   display: inline-block;
+  cursor: pointer;
 }
 
 .last-dilemma {
   float: left;
+  cursor: pointer;
 }
 
 .dilemma-nav {

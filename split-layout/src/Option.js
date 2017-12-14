@@ -107,9 +107,13 @@ class Option extends Component {
   }
 
   handleToggleCalc(event) {
-    event.preventDefault();
     event.stopPropagation();
     this.setState({ showFunc: !this.state.showFunc });
+  }
+
+  handleChooseOptional(event, effect) {
+    event.stopPropagation();
+    this.props.onMakeAssumption(effect);
   }
 
   render() {
@@ -118,7 +122,7 @@ class Option extends Component {
         <div className={this.props.maxUtil <= this.props.option.util ? "option has-max-util" : "option"} onClick={this.handleOpenModal}>
           <span className={this.props.maxUtil <= this.props.option.util ? "glyphicon glyphicon-ok" : ""}></span>  <label>{this.props.option.description}</label>
           {this.props.option.effects.map((effect, index) => 
-            <p className="effect">{effect.optional ? <input type="checkbox" /> : <span className="glyphicon glyphicon-asterisk"></span>} {this.props.values.filter(v => v.code == effect.code)[0].name} = {effect.count}</p>
+            <p className="effect">{effect.optional ? <input type="checkbox" onClick={(event) => this.handleChooseOptional(event, effect)} /> : <span className="glyphicon glyphicon-asterisk"></span>} {this.props.values.filter(v => v.code == effect.code)[0].name} = {effect.count}</p>
           )}
           <span className="toggle-calc" onClick={this.handleToggleCalc.bind(this)}>{this.state.showFunc ? "Hide calculation" : "Show calculation"}</span>
           <div className={ this.state.showFunc ? "shown" : "hidden" }>

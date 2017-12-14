@@ -11,7 +11,7 @@
       ],
       "related": [2,3],
       "exampleUtilFuncs": ["-hd", "-hd*inf"],
-      "tags": ["Classical", "Philippa Foot"]
+      "tags": ["Classical"]
     },
     {
       "id": 2, 
@@ -136,7 +136,7 @@
       ],
       "related": [],
       "exampleUtilFuncs": [],
-      "tags": ["Literature", "William Styron"]
+      "tags": ["Literature", "Fiction"]
     },
     {
       "id": 11, 
@@ -153,26 +153,26 @@
     {
       "id": 12, 
       "name": "The Overcrowded Lifeboat", 
-      "description": "In 1842, a ship struck an iceberg and more than 30 survivors were crowded into a lifeboat intended to hold 7. As a storm threatened, it became obvious that the lifeboat would have to be lightened if anyone were to survive. The captain reasoned that the right thing to do in this situation was to force some individuals to go over the side and drown. Such an action, he reasoned, was not unjust to those thrown overboard, for they would have drowned anyway. If he did nothing, however, he would be responsible for the deaths of those whom he could have saved. Some people opposed the captain's decision. They claimed that if nothing were done and everyone died as a result, no one would be responsible for these deaths. On the other hand, if the captain attempted to save some, he could do so only by killing others and their deaths would be his responsibility; this would be worse than doing nothing and letting all die. The captain rejected this reasoning. Since the only possibility for rescue required great efforts of rowing, the captain decided that the weakest would have to be sacrificed. In this situation it would be absurd, he thought, to decide by drawing lots who should be thrown overboard. As it turned out, after days of hard rowing, the survivors were rescued and the captain was tried for his action. If you had been on the jury, how would you have decided?",        
+      "description": "In 1842, a ship struck an iceberg and more than 30 survivors were crowded into a lifeboat intended to hold 7. As a storm threatened, it became obvious that the lifeboat would have to be lightened if anyone were to survive. The captain reasoned that the right thing to do in this situation was to force some individuals to go over the side and drown. Such an action, he reasoned, was not unjust to those thrown overboard, for they would have drowned anyway. If he did nothing, however, he would be responsible for the deaths of those whom he could have saved. Some people opposed the captain's decision. They claimed that if nothing were done and everyone died as a result, no one would be responsible for these deaths. On the other hand, if the captain attempted to save some, he could do so only by killing others and their deaths would be his responsibility; this would be worse than doing nothing and letting all die. The captain rejected this reasoning. Since the only possibility for rescue required great efforts of rowing, the captain decided that the weakest would have to be sacrificed. In this situation it would be absurd, he thought, to decide by drawing lots who should be thrown overboard. As it turned out, after days of hard rowing, the survivors were rescued and the captain was tried for his action. If you had been on the jury, how would you have decided? From Robert Heinlein",        
       "options": [
         { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }], "sentiments": []},
         { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}], "sentiments": []}
       ],
       "related": [],
       "exampleUtilFuncs": [],
-      "tags": ["Literature", "Robert Heinlein"]
+      "tags": ["Literature", "Fiction"]
     },
     {
       "id": 13, 
       "name": "The Last Episode of Seinfeld", 
       "description": "The cast of Seinfeld, Jerry, Elaine, George, and Kramer, have a layover in a small New England town. They witness a robbery in broad daylight. The robber has his hand in his pocket, and the victim shouts that the man has a gun. As soon as the robber runs away, a policeman appears on the scene; but instead of pursuing the robber, he arrests Jerry, Elaine, George, and Kramer for having violated the new 'Good Samaritan' law of the town. Since the four of them spent the time of the robbery making fun of the victim, who was fat, their role in the matter doesn't look good, and at their trial everyone who has ever felt wronged by them in the course of the television series testifies against them. They are convicted. Is this just? What were they supposed to do during the robbery? Should they have rushed the robber, just in case he didn't really have a gun?",        
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }]},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}]}
+        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }], "sentiments": []},
+        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}], "sentiments": []}
       ],
       "related": [],
       "exampleUtilFuncs": [],
-      "tags": ["TV"]
+      "tags": ["TV", "Fiction"]
     },
     {
       "id": 14, 
@@ -184,7 +184,7 @@
       ],
       "related": [],
       "exampleUtilFuncs": [],
-      "tags": ["Listverse"]
+      "tags": [""]
     },
     {
       "id": 15, 
@@ -196,7 +196,7 @@
       ],
       "related": [],
       "exampleUtilFuncs": [],
-      "tags": ["Listverse"]
+      "tags": [""]
     },
     {
       "id": 16, 
@@ -259,7 +259,7 @@
       ],
       "related": [],
       "exampleUtilFuncs": [],
-      "tags": ["Justice", "Punishment"]
+      "tags": ["Justice"]
     },
     {
       "id": 17, 
