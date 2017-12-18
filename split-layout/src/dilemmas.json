@@ -223,7 +223,7 @@
       "tags": ["Political"]
     },
     {
-      "id": 17, 
+      "id": 18, 
       "name": "Send criminals to paradise", 
       "description": "",
       "options": [
@@ -235,7 +235,7 @@
       "tags": ["Justice", "Punishment"]
     },
     {
-      "id": 17, 
+      "id": 19, 
       "name": "Death sentence", 
       "description": "You are the leader of your country. You get to decide if death sentence should be practiced for the most horrific crimes.",
       "options": [
@@ -250,7 +250,7 @@
       "tags": ["Justice", "Punishment", "Real life"]
     },
     {
-      "id": 17, 
+      "id": 20, 
       "name": "Eutanasia", 
       "description": "",
       "options": [
@@ -262,7 +262,7 @@
       "tags": ["Justice"]
     },
     {
-      "id": 17, 
+      "id": 21, 
       "name": "Who owns the land", 
       "description": "",
       "options": [
@@ -274,8 +274,32 @@
       "tags": ["Justice"]
     },
     {
-      "id": 17, 
+      "id": 22, 
       "name": "Separatists and seceding", 
+      "description": "",
+      "options": [
+        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }], "sentiments": []},
+        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}], "sentiments": []}
+      ],
+      "related": [],
+      "exampleUtilFuncs": [],
+      "tags": ["Justice"]
+    },
+    {
+      "id": 23, 
+      "name": "Organ donation", 
+      "description": "",
+      "options": [
+        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }], "sentiments": []},
+        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}], "sentiments": []}
+      ],
+      "related": [],
+      "exampleUtilFuncs": [],
+      "tags": ["Justice"]
+    },
+    {
+      "id": 24, 
+      "name": "Legally incompetent", 
       "description": "",
       "options": [
         { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }], "sentiments": []},

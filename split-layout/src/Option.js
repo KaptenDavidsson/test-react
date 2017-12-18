@@ -119,7 +119,7 @@ class Option extends Component {
   render() {
     return (
       <div>
-        <div className={this.props.maxUtil <= this.props.option.util ? "option has-max-util" : "option"} onClick={this.handleOpenModal}>
+        <div className={this.props.maxUtil <= this.props.option.util ? (this.props.maxUtil == this.props.option.util ? "option has-exactly-max-util" : "option has-above-max-util") : "option"} onClick={this.handleOpenModal}>
           <span className={this.props.maxUtil <= this.props.option.util ? "glyphicon glyphicon-ok" : ""}></span>  <label>{this.props.option.description}</label>
           {this.props.option.effects.map((effect, index) => 
             <p className="effect">{effect.optional ? <input type="checkbox" onClick={(event) => this.handleChooseOptional(event, effect)} /> : <span className="glyphicon glyphicon-asterisk"></span>} {this.props.values.filter(v => v.code == effect.code)[0].name} = {effect.count}</p>
@@ -139,6 +139,7 @@ class Option extends Component {
               {this.props.option.sentiments.map((sentiment, index) =>
                 <li className="sentiment list-group-item list-item-clickable" onClick={this.handleChooseSentiment.bind(this, sentiment)}>{sentiment.description}</li>
               )}
+            <span><input type="checkbox" />Set this as my prefered answer</span>
           </div>
           <br />
           <br />

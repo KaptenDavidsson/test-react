@@ -9,7 +9,11 @@
 	cursor: pointer;
 }
 
-.has-max-util {
+.has-exactly-max-util {
+	background-color: rgb(245, 245, 0);
+}
+
+.has-above-max-util {
 	background-color: rgb(200, 230, 200);
 }
 

@@ -106,6 +106,7 @@ class App extends Component {
       utilFunc: cookies.get('utilFunc') ? cookies.get('utilFunc') : "",
       rightList: cookies.get('myValues') ? cookies.get('myValues') : [],
     })
+    this.handleFilterInterests();
   }
 
   handleToggleRight() {
@@ -249,17 +250,15 @@ class App extends Component {
 
   handlePreviousDilemma() {
     this.setState({
-      leftItem: this.state.leftList[(this.state.leftList.map(d => d.id).indexOf(this.state.leftItem.id)-1)%this.state.leftList.length]
+      leftItem: this.state.leftList[(this.state.leftList.map(d => d.id).indexOf(this.state.leftItem.id)-1+this.state.leftList.length)%this.state.leftList.length]
     });
   }
 
-  handleFilterInterests(event) {
-    const target = event.target;
-    const isChecked =  target.checked;
+  handleFilterInterests() {
     var myTags = this.state.myTags;
     var allTags = this.tags;
 
-    if (isChecked) {
+    if (!this.state.ishandleFilterInterestsChecked) {
       this.setState({
         leftList: this.dilemmas.filter(function(d,i) {
           return d.tags.some(function(t) {
@@ -267,7 +266,6 @@ class App extends Component {
                 return false;
               }
 
-              console.log(t);
               return myTags.includes(allTags.filter(tt => tt.name.toLowerCase() == t.toLowerCase())[0].id)
             });
         })
@@ -278,6 +276,9 @@ class App extends Component {
         leftList: this.dilemmas
       });
     }
+    this.setState({
+      ishandleFilterInterestsChecked: !this.state.ishandleFilterInterestsChecked
+    });
   }
 
   makeAssumption(effect) {
@@ -300,7 +301,8 @@ class App extends Component {
 
   handleCloseInterestsModal() {
     this.setState({
-      showInterestsModel: false
+      showInterestsModel: false,
+      leftItem: this.state.leftList[0]
     });
   }
 
@@ -384,7 +386,7 @@ class App extends Component {
                       onChange={this.handleSearchLeft.bind(this)}
                       placeholder="Find">
                     </input>
-                    <span><input type="checkbox" onChange={this.handleFilterInterests.bind(this)} />Show only my interests</span>
+                    <span><input type="checkbox" checked={this.state.ishandleFilterInterestsChecked} defaultChecked={this.state.ishandleFilterInterestsChecked} onChange={this.handleFilterInterests.bind(this)} />Show only my interests</span>
                     </div>
                   {this.state.leftList.map((item, index) => 
                     <li className="list-group-item list-item-clickable" key={index}>
@@ -440,7 +442,7 @@ class App extends Component {
                             <ReactModal 
                               style={this.customStyles}
                               isOpen={this.state.showModal}
-                              contentLabel="Minimal Modal Example">
+                              contentLabel="Test">
                               <div>
                                 <h3>Link value</h3>
                                   {item.links.map((link, index2) =>
@@ -476,7 +478,9 @@ class App extends Component {
 
                     <div>              
                       (+. -, *, inf supported)
-                      <span><input type="checkbox" onChange={this.handleShowFullFunctionNames.bind(this)} />Show full names</span>
+                      <div><input type="checkbox" onChange={this.handleShowFullFunctionNames.bind(this)} />Show full names</div>
+                      <button>Calculate a function from my prefered answers</button>
+                      <br />
                       <br />
                       <textarea 
                         className="utility-function" 
@@ -506,7 +510,7 @@ class App extends Component {
                       <ReactModal 
                         style={this.chooseInterestsStyles}
                         isOpen={this.state.showInterestsModel}
-                        contentLabel="Minimal Modal Example">
+                        contentLabel="Minimal Modal">
                         <div>
                           <h3>Choose interests</h3>
                           <ImagePicker 
@@ -514,7 +518,7 @@ class App extends Component {
                             onPick={this.onPickInterest}
                             multiple={true}
                           />
-                            <span><input type="checkbox" onChange={this.handleFilterInterests.bind(this)} />Show only my interests</span>
+                            <span><input type="checkbox" defaultChecked={this.state.ishandleFilterInterestsChecked} onChange={this.handleFilterInterests.bind(this)} />Set default filter to my interests (can be changed afterwards)</span>
                           </div>
                         <br />
                         <br />
@@ -563,8 +567,6 @@ class App extends Component {
             </div>
           </div>
         </div>
-        <footer className="App-footer">
-        </footer>
       </div>
     );
   }

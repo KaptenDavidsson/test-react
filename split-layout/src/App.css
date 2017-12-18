@@ -81,6 +81,8 @@
 .padded-content {
   padding-left: 20px;
   padding-right: 20px;
+  overflow-y: auto;
+  height: 100%;
 }
 
 .search-control {
