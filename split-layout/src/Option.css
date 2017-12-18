@@ -9,12 +9,12 @@
 	cursor: pointer;
 }
 
-.has-exactly-max-util {
-	background-color: rgb(245, 245, 0);
+.has-max-util {
+	background-color: rgb(200, 230, 200);
 }
 
-.has-above-max-util {
-	background-color: rgb(200, 230, 200);
+.all-util-same {
+	background-color: rgb(217, 235, 251);
 }
 
 .choose-modal {
@@ -41,5 +41,10 @@
 }
 
 .toggle-calc {
+	font-style: italic;
+}
+
+.show-function {
+	float: right;
 	font-style: italic;
 }

@@ -31,12 +31,20 @@ class Option extends Component {
 
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleChooseOptional = this.handleChooseOptional.bind(this);
   }
 
   componentDidUpdate() {
     var vars = {};
     for (var effect of this.props.option.effects) {
-      vars[effect.code] = effect.count;
+      if (!effect.optional || this.props.myAssumptions.map(a => a.effect).some(a => a.id == effect.id)) {
+        if (effect.code in vars) {
+          vars[effect.code] += effect.count;
+        }
+        else {
+          vars[effect.code] = effect.count;
+        }
+      }
     }
 
     var formattedUtilFunc = this.props.utilFunc.replace(/-/g, '+-');
@@ -113,16 +121,20 @@ class Option extends Component {
 
   handleChooseOptional(event, effect) {
     event.stopPropagation();
-    this.props.onMakeAssumption(effect);
+    this.props.onMakeAssumption(effect, this.props.option);
+  }
+
+  handleAssumptionClick(event) {
+    event.stopPropagation();
   }
 
   render() {
     return (
       <div>
-        <div className={this.props.maxUtil <= this.props.option.util ? (this.props.maxUtil == this.props.option.util ? "option has-exactly-max-util" : "option has-above-max-util") : "option"} onClick={this.handleOpenModal}>
+        <div className={this.props.allUtilSame ? "option all-util-same" : (this.props.option.util == this.props.maxUtil ? "option has-max-util" : "option")} onClick={this.handleOpenModal}>
           <span className={this.props.maxUtil <= this.props.option.util ? "glyphicon glyphicon-ok" : ""}></span>  <label>{this.props.option.description}</label>
           {this.props.option.effects.map((effect, index) => 
-            <p className="effect">{effect.optional ? <input type="checkbox" onClick={(event) => this.handleChooseOptional(event, effect)} /> : <span className="glyphicon glyphicon-asterisk"></span>} {this.props.values.filter(v => v.code == effect.code)[0].name} = {effect.count}</p>
+            <p className="effect">{effect.optional ? <input type="checkbox" checked={this.props.myAssumptions.map(a => a.effect).some(a => a.id == effect.id)} onClick={this.handleAssumptionClick.bind(this)} onChange={(event) => this.handleChooseOptional(event, effect)} /> : <span className="glyphicon glyphicon-asterisk"></span>} {this.props.values.filter(v => v.code == effect.code)[0].name} = {effect.count} ({effect.explanation}) <span className="glyphicon glyphicon-info-sign"></span></p>
           )}
           <span className="toggle-calc" onClick={this.handleToggleCalc.bind(this)}>{this.state.showFunc ? "Hide calculation" : "Show calculation"}</span>
           <div className={ this.state.showFunc ? "shown" : "hidden" }>
@@ -137,7 +149,9 @@ class Option extends Component {
           <div>
             <h3>Common sentiments (Choose one)</h3>
               {this.props.option.sentiments.map((sentiment, index) =>
-                <li className="sentiment list-group-item list-item-clickable" onClick={this.handleChooseSentiment.bind(this, sentiment)}>{sentiment.description}</li>
+                <li className="sentiment list-group-item list-item-clickable" onClick={this.handleChooseSentiment.bind(this, sentiment)}>{sentiment.description} 
+                  <span className="show-function">{sentiment.func}</span>
+                </li>
               )}
             <span><input type="checkbox" />Set this as my prefered answer</span>
           </div>

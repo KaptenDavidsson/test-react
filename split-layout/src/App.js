@@ -85,7 +85,7 @@ class App extends Component {
       myAssumptions: [],
       showInterestsModel: false,
       functionEditable: false,
-      activeAccordionItems: []
+      activeAccordionItems: [],
     };
 
     this.interestImageList = ['images/justice.png', 'images/thought-experiment.png'];
@@ -152,6 +152,21 @@ class App extends Component {
 
     this.setState({
       rightList: newList
+    })
+  }
+
+  removeSentiment(event, index) {
+    event.preventDefault();
+
+    var newList = this.state.sentiments.filter(function(e,i) {
+        return i !== index;
+      });
+
+    const cookies = new Cookies();
+    cookies.set('mySentiments', newList, { path: '/' });
+
+    this.setState({
+      sentiments: newList
     })
   }
 
@@ -281,10 +296,20 @@ class App extends Component {
     });
   }
 
-  makeAssumption(effect) {
-    this.setState({
-      myAssumptions: [...this.state.myAssumptions, effect]
-    });
+  makeAssumption(effect, option) {
+
+    if (!this.state.myAssumptions.some(a => a.effect.id == effect.id)) {
+      this.setState({
+        myAssumptions: [...this.state.myAssumptions, { effect: effect, option: option} ],
+        activeAccordionItems: [...this.state.activeAccordionItems, 3],
+      });
+    } 
+    else {
+      this.setState({
+        myAssumptions: this.state.myAssumptions.filter( (a,i) => i !== this.state.myAssumptions.map(a => a.effect).indexOf(effect)),
+        activeAccordionItems: [...this.state.activeAccordionItems, 3],
+      });
+    }
   }
 
   handleEditFunction() {
@@ -367,6 +392,8 @@ class App extends Component {
                     option={option} 
                     values={this.state.rightListSlider}
                     maxUtil={Math.max(...this.state.leftItem.options.map(o => o.util))}
+                    allUtilSame={this.state.leftItem.options.map(o => o.util).every(u => u === this.state.leftItem.options.map(o => o.util)[0])}
+                    myAssumptions={this.state.myAssumptions}
                     onUtilChange={this.handleUtilChange}
                     onChooseSentiment={this.handleChooseSentiment}
                     onMakeAssumption={this.makeAssumption}></Option>
@@ -412,13 +439,13 @@ class App extends Component {
           <div className="column-4">
             <div className="list-item padded-content">
               <Accordion accordion={false} activeItems={this.state.activeAccordionItems}>
-                <AccordionItem expanded={this.state.isSentimentsExpanded}>
+                <AccordionItem>
                   <AccordionItemTitle>
-                    <h3>My Sentiments <span className="clear-sentiments" onClick={this.handleClearSentiments}>Clear</span></h3>
+                    <h3>My Sentiments</h3>
                   </AccordionItemTitle>
                   <AccordionItemBody>
                     {this.state.sentiments.map((sentiment, index) =>
-                      <li className="list-group-item">{sentiment.description}</li>
+                      <li className="list-group-item" >{sentiment.description} <span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.removeSentiment(e, index)}></span></li>
                     )}
                   </AccordionItemBody>
                 </AccordionItem>
@@ -467,15 +494,14 @@ class App extends Component {
                             </div>
                         )}
                         </div>
-                    )
-}                  </AccordionItemBody>
+                    )}                  
+                  </AccordionItemBody>
                 </AccordionItem>
-                <AccordionItem expanded={this.state.isSentimentsExpanded}>
+                <AccordionItem>
                   <AccordionItemTitle>
                     <h3>My Function <span className="glyphicon glyphicon-edit" onClick={this.handleEditFunction.bind(this)}></span></h3>
                   </AccordionItemTitle>
                   <AccordionItemBody>
-
                     <div>              
                       (+. -, *, inf supported)
                       <div><input type="checkbox" onChange={this.handleShowFullFunctionNames.bind(this)} />Show full names</div>
@@ -491,15 +517,13 @@ class App extends Component {
                     </div>
                   </AccordionItemBody>
                 </AccordionItem>
-                <AccordionItem>
+                <AccordionItem expanded={this.state.isAssumptionsExpanded}>
                   <AccordionItemTitle>
                     <h3>My assumptions</h3>
                   </AccordionItemTitle>
                   <AccordionItemBody>
                     {this.state.myAssumptions.map((assumption, index) =>
-                      <div>
-                        {assumption.explanation}
-                      </div>
+                      <li className="list-group-item" >{assumption.effect.explanation} ({assumption.option.description}) <span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.removeSentiment(e, index)}></span></li>
                     )}
                   </AccordionItemBody>
                 </AccordionItem>
@@ -527,9 +551,7 @@ class App extends Component {
                   </AccordionItemTitle>
                   <AccordionItemBody>
                     {this.state.myTags.map((tag, index) =>
-                      <div>
-                        {this.tags.filter(t => t.id == tag)[0].name}
-                      </div>
+                      <li className="list-group-item" >{this.tags.filter(t => t.id == tag)[0].name} <span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.removeSentiment(e, index)}></span></li>
                     )}
                   </AccordionItemBody>
                 </AccordionItem>
