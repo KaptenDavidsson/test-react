@@ -48,3 +48,7 @@
 	float: right;
 	font-style: italic;
 }
+
+.inactive-sentiment {
+  opacity: 0.3;
+}

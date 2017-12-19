@@ -77,8 +77,7 @@ class App extends Component {
       ...defaultState, 
       leftItem: this.dilemmas[0], 
       leftList: this.dilemmas, 
-      rightListSlider: 
-      this.values, 
+      rightListSlider: this.values, 
       showModal: false,
       myTags: tags['myTags'],
       ishandleFilterInterestsChecked: false,
@@ -86,6 +85,7 @@ class App extends Component {
       showInterestsModel: false,
       functionEditable: false,
       activeAccordionItems: [],
+      myPreferred: []
     };
 
     this.interestImageList = ['images/justice.png', 'images/thought-experiment.png'];
@@ -219,7 +219,7 @@ class App extends Component {
 
   handleChooseSentiment(sentiment) {
     for (var value of this.state.rightListSlider) {
-      if (sentiment.func.includes(value.code)) {
+      if (sentiment.func.includes(value.code) && !this.state.rightList.some(v => v == value)) {
         this.setState({
           rightList: [...this.state.rightList, value]
         })
@@ -232,14 +232,11 @@ class App extends Component {
     });
     
     this.setState({
-      utilFunc: this.state.utilFunc + sentiment.func
+      utilFunc: this.state.utilFunc + '+' + sentiment.func
     })
   }
 
   handleChooseValueLink(link, value) {
-    console.log(link);
-    console.log(value);
-
     this.setState(prevState => ({
       rightList: prevState.rightList.map(v => v.id == value.id ? { ...v, selectedLinks: [...v.selectedLinks, link] } : v)
     }));
@@ -312,19 +309,41 @@ class App extends Component {
     }
   }
 
-  handleEditFunction() {
-    this.setState({
-      functionEditable: true
-    })
+  handleEditFunction(event) {
+    event.stopPropagation();
+
+    if (window.confirm(!this.state.functionEditable ? 'This will inactivate your sentiments' : 'This will let your sentiments overwrite your function')) { 
+      this.setState({
+        functionEditable: !this.state.functionEditable,
+        activeAccordionItems: [...this.state.activeAccordionItems, 2]
+      });
+
+      var tempFunc = '';
+      if (this.state.functionEditable) {
+        this.setState({
+          utilFunc: this.state.sentiments.map(s => s.func).join('+')
+        });
+      }
+    }
   }
 
-  handlePickInterests() {
+  handlePickInterests(event) {
+    event.stopPropagation();
+
     this.setState({
-      showInterestsModel: true
+      showInterestsModel: true,
     });
+
+    if (!this.state.activeAccordionItems.some(a => a == 4)) {
+      this.setState({
+        activeAccordionItems: [...this.state.activeAccordionItems, 4]
+      });
+    }
   }
 
-  handleCloseInterestsModal() {
+  handleCloseInterestsModal(event) {
+    event.stopPropagation();
+
     this.setState({
       showInterestsModel: false,
       leftItem: this.state.leftList[0]
@@ -335,6 +354,16 @@ class App extends Component {
     this.setState({
       myTags: tags.map(t => this.startingTags[t.value])
     })
+
+    if (!this.state.activeAccordionItems.some(a => a == 4)) {
+      this.setState({
+        activeAccordionItems: [...this.state.activeAccordionItems, 4]
+      });
+    }
+  }
+
+  onClickInterest(event) {
+    event.stopPropagation();
   }
 
   handleShowFullFunctionNames() {
@@ -345,8 +374,42 @@ class App extends Component {
     tempFunc = tempFunc.replace('inf', 'Infinity');
 
     this.setState({
-      utilFunc: tempFunc
+      utilFunc: tempFunc,
+      activeAccordionItems: [...this.state.activeAccordionItems, 2]
     })
+  }
+
+
+  handleAddDilemma(event) {
+    event.stopPropagation();
+
+    this.setState({
+      showAddDilemmaModal: true
+    }); 
+  }
+
+  handleCloseAddDilemma(event) {
+    event.stopPropagation();
+    
+    this.setState({
+      showAddDilemmaModal: false
+    }); 
+  }
+
+  showLinkInfoDialog(event, link) {
+    event.stopPropagation();
+    
+    this.setState({
+      showLinkInfoDialog: true
+    }); 
+  }
+
+  closeLinkInfoDialog(event) {
+    event.stopPropagation();
+    
+    this.setState({
+      showLinkInfoDialog: false
+    }); 
   }
 
   render() {
@@ -382,7 +445,7 @@ class App extends Component {
               </ul>
               {this.state.leftItem.description}
               <br />
-              {this.state.leftItem.image !== '' ? <img src={'images/' + this.state.leftItem.image} /> : '' }
+              {this.state.leftItem.image ? <img src={'images/' + this.state.leftItem.image} /> : '' }
               <br />
               <br />
               <div> 
@@ -394,6 +457,8 @@ class App extends Component {
                     maxUtil={Math.max(...this.state.leftItem.options.map(o => o.util))}
                     allUtilSame={this.state.leftItem.options.map(o => o.util).every(u => u === this.state.leftItem.options.map(o => o.util)[0])}
                     myAssumptions={this.state.myAssumptions}
+                    mySentiments={this.state.sentiments}
+                    myPreferred={this.state.myPreferred}
                     onUtilChange={this.handleUtilChange}
                     onChooseSentiment={this.handleChooseSentiment}
                     onMakeAssumption={this.makeAssumption}></Option>
@@ -414,7 +479,22 @@ class App extends Component {
                       placeholder="Find">
                     </input>
                     <span><input type="checkbox" checked={this.state.ishandleFilterInterestsChecked} defaultChecked={this.state.ishandleFilterInterestsChecked} onChange={this.handleFilterInterests.bind(this)} />Show only my interests</span>
-                    </div>
+                    
+                    <p className="add-dilemma" onClick={this.handleAddDilemma.bind(this)}>
+                      <span className="glyphicon glyphicon-plus-sign"></span> Add
+                    </p>
+
+                    <ReactModal 
+                      style={this.customStyles}
+                      isOpen={this.state.showAddDilemmaModal}
+                      contentLabel="Minimal">
+                      <div>
+                        Add not suppored yet. Mail your suggestion to kaptendavidsson@yahoo.se. 
+                      </div>
+                      <br />
+                      <button onClick={this.handleCloseAddDilemma.bind(this)}>Close</button>
+                    </ReactModal>
+                  </div>
                   {this.state.leftList.map((item, index) => 
                     <li className="list-group-item list-item-clickable" key={index}>
                       <div className="list-group-item-heading" onClick={this.chooseLeft.bind(this, item)}>
@@ -439,7 +519,7 @@ class App extends Component {
           <div className="column-4">
             <div className="list-item padded-content">
               <Accordion accordion={false} activeItems={this.state.activeAccordionItems}>
-                <AccordionItem>
+                <AccordionItem className={this.state.functionEditable ? 'inactive-sentiments' : ''}>
                   <AccordionItemTitle>
                     <h3>My Sentiments</h3>
                   </AccordionItemTitle>
@@ -451,7 +531,7 @@ class App extends Component {
                 </AccordionItem>
                 <AccordionItem>
                   <AccordionItemTitle>
-                    <h3>My values</h3>
+                    <h3>My Values</h3>
                   </AccordionItemTitle>
                   <AccordionItemBody>
                     {this.state.rightList.map((item, index) =>
@@ -473,7 +553,7 @@ class App extends Component {
                               <div>
                                 <h3>Link value</h3>
                                   {item.links.map((link, index2) =>
-                                    <li className="sentiment list-group-item list-item-clickable" onClick={this.handleChooseValueLink.bind(this, link, item)}>{this.state.rightListSlider.filter(v => v.id == link)[0].name}</li>
+                                    <li className="sentiment list-group-item list-item-clickable" onClick={this.handleChooseValueLink.bind(this, link, item)}>{this.state.rightListSlider.filter(v => v.id == link)[0].name} <span className="glyphicon glyphicon-info-sign" onClick={(e) => this.showLinkInfoDialog(e, index)}></span></li>
                                   )}
                                 </div>
                               <br />
@@ -481,6 +561,17 @@ class App extends Component {
                               <button onClick={this.handleCloseModal}>Close</button>
                             </ReactModal>
                           </div>
+
+                          <ReactModal 
+                            style={this.customStyles}
+                            isOpen={this.state.showLinkInfoDialog}
+                            contentLabel="Minimal">
+                            <div>
+                              Link info 
+                            </div>
+                            <br />
+                            <button onClick={this.closeLinkInfoDialog.bind(this)}>Close</button>
+                          </ReactModal>
                       
                           {item.selectedLinks.map((link, index2) =>
                             <div className="my-value-item derived-value">
@@ -499,17 +590,15 @@ class App extends Component {
                 </AccordionItem>
                 <AccordionItem>
                   <AccordionItemTitle>
-                    <h3>My Function <span className="glyphicon glyphicon-edit" onClick={this.handleEditFunction.bind(this)}></span></h3>
+                    <h3>My Function</h3>
                   </AccordionItemTitle>
                   <AccordionItemBody>
                     <div>              
-                      (+. -, *, inf supported)
+                      <div className="calculate-func">Calculate a function from my prefered answers</div>
                       <div><input type="checkbox" onChange={this.handleShowFullFunctionNames.bind(this)} />Show full names</div>
-                      <button>Calculate a function from my prefered answers</button>
-                      <br />
-                      <br />
+                      <span className="edit-function" onClick={this.handleEditFunction.bind(this)}>{!this.state.functionEditable ? 'edit' : 'reset'}</span>
                       <textarea 
-                        className="utility-function" 
+                        className={this.state.functionEditable ? "utility-function" : "utility-function utility-function-readonly"} 
                         value={this.state.utilFunc}
                         onChange={this.handleTextAreaChange.bind(this)}
                         readOnly={!this.state.functionEditable}
@@ -519,7 +608,7 @@ class App extends Component {
                 </AccordionItem>
                 <AccordionItem expanded={this.state.isAssumptionsExpanded}>
                   <AccordionItemTitle>
-                    <h3>My assumptions</h3>
+                    <h3>My Assumptions</h3>
                   </AccordionItemTitle>
                   <AccordionItemBody>
                     {this.state.myAssumptions.map((assumption, index) =>
@@ -529,27 +618,27 @@ class App extends Component {
                 </AccordionItem>
                 <AccordionItem>
                   <AccordionItemTitle>
-                    <h3>My interests</h3>
-                    <button onClick={this.handlePickInterests.bind(this)}>Pick interests</button>
-                      <ReactModal 
-                        style={this.chooseInterestsStyles}
-                        isOpen={this.state.showInterestsModel}
-                        contentLabel="Minimal Modal">
-                        <div>
-                          <h3>Choose interests</h3>
-                          <ImagePicker 
-                            images={this.startingTags.map((tag, i) => ({src: 'images/' + this.tags[tag].image, value: i}))}
-                            onPick={this.onPickInterest}
-                            multiple={true}
-                          />
-                            <span><input type="checkbox" defaultChecked={this.state.ishandleFilterInterestsChecked} onChange={this.handleFilterInterests.bind(this)} />Set default filter to my interests (can be changed afterwards)</span>
-                          </div>
-                        <br />
-                        <br />
-                        <button onClick={this.handleCloseInterestsModal.bind(this)}>Choose</button>
-                      </ReactModal>
+                    <h3 className="my-interests-title">My Interests <p className="pick-interests" onClick={this.handlePickInterests.bind(this)}>Pick interests</p></h3>
                   </AccordionItemTitle>
                   <AccordionItemBody>
+                    <ReactModal 
+                      style={this.chooseInterestsStyles}
+                      isOpen={this.state.showInterestsModel}
+                      contentLabel="Minimal Modal">
+                      <div>
+                        <h3>Choose interests</h3>
+                        <ImagePicker 
+                          images={this.startingTags.map((tag, i) => ({src: 'images/' + this.tags[tag].image, value: i}))}
+                          onPick={this.onPickInterest}
+                          multiple={true}
+                          onClick={this.onClickInterest.bind(this)}
+                        />
+                          <span><input type="checkbox" defaultChecked={this.state.ishandleFilterInterestsChecked} onChange={this.handleFilterInterests.bind(this)} />Set default filter to my interests (can be changed afterwards)</span>
+                        </div>
+                      <br />
+                      <br />
+                      <button onClick={this.handleCloseInterestsModal.bind(this)}>Choose</button>
+                    </ReactModal>
                     {this.state.myTags.map((tag, index) =>
                       <li className="list-group-item" >{this.tags.filter(t => t.id == tag)[0].name} <span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.removeSentiment(e, index)}></span></li>
                     )}

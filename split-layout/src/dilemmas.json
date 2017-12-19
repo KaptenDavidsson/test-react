@@ -241,8 +241,8 @@
       "options": [
         { "description": "Practice death sentence", "effects": [
           {"count": 1, "code": "hd" }, 
-          {"id": 0, "count": -10, "code": "hd", "optional": true, "explanation": "This might reduce crime and save 10 lives"}, 
-          {"id": 1, "count": 10, "code": "hd", "optional": true, "explanation": "This might normalize murder and lead to 10 more murders"}], "sentiments": []},
+          {"id": 0, "count": -10, "code": "hd", "optional": true, "explanation": "This might reduce crime and save 10 lives", "inDepth": "More info"}, 
+          {"id": 1, "count": 10, "code": "hd", "optional": true, "explanation": "This might normalize murder and lead to 10 more murders", "inDepth": "More info2"}], "sentiments": []},
         { "description": "Do not practice death sentence", "effects": [], "sentiments": []}
       ],
       "related": [],

@@ -8,7 +8,7 @@ class Option extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { showModal: false, showFunc: false };
+    this.state = { showModal: false, showFunc: false, showEffectInfo: false, modalEffect: {} };
 
     this.customStyles = {
       overlay : {
@@ -32,6 +32,7 @@ class Option extends Component {
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.handleChooseOptional = this.handleChooseOptional.bind(this);
+    this.handleShowEffectInfo = this.handleShowEffectInfo.bind(this);
   }
 
   componentDidUpdate() {
@@ -110,8 +111,10 @@ class Option extends Component {
   }
 
   handleChooseSentiment(sentiment) {
-    this.props.onChooseSentiment(sentiment);
-    this.setState({ showModal: false });
+    if (!this.props.mySentiments.some(s => s == sentiment)) {
+      this.props.onChooseSentiment(sentiment);
+      this.setState({ showModal: false });
+    }
   }
 
   handleToggleCalc(event) {
@@ -128,14 +131,54 @@ class Option extends Component {
     event.stopPropagation();
   }
 
+  handleShowEffectInfo(event, effect) {
+    event.stopPropagation();
+
+    console.log(effect);
+
+    this.setState({
+      showEffectInfo: true,
+      modalEffect: effect
+    });
+  }
+
+  handleCloseEffectInfo() {
+    this.setState({
+      showEffectInfo: false
+    });
+  }
+
+  handleAddEffect(event) {
+    event.stopPropagation();
+
+    this.setState({
+      showAddEffectModal: true
+    }); 
+  }
+
+  handleCloseAddEffect(event) {
+    event.stopPropagation();
+    
+    this.setState({
+      showAddEffectModal: false
+    }); 
+  }
+
+  handleChoosePreferred(event) {
+
+  }
+
   render() {
     return (
       <div>
         <div className={this.props.allUtilSame ? "option all-util-same" : (this.props.option.util == this.props.maxUtil ? "option has-max-util" : "option")} onClick={this.handleOpenModal}>
           <span className={this.props.maxUtil <= this.props.option.util ? "glyphicon glyphicon-ok" : ""}></span>  <label>{this.props.option.description}</label>
           {this.props.option.effects.map((effect, index) => 
-            <p className="effect">{effect.optional ? <input type="checkbox" checked={this.props.myAssumptions.map(a => a.effect).some(a => a.id == effect.id)} onClick={this.handleAssumptionClick.bind(this)} onChange={(event) => this.handleChooseOptional(event, effect)} /> : <span className="glyphicon glyphicon-asterisk"></span>} {this.props.values.filter(v => v.code == effect.code)[0].name} = {effect.count} ({effect.explanation}) <span className="glyphicon glyphicon-info-sign"></span></p>
+            <p className="effect">{effect.optional ? <input type="checkbox" checked={this.props.myAssumptions.map(a => a.effect).some(a => a.id == effect.id)} onClick={this.handleAssumptionClick.bind(this)} onChange={(event) => this.handleChooseOptional(event, effect)} /> : <span className="glyphicon glyphicon-asterisk"></span>} {this.props.values.filter(v => v.code == effect.code)[0].name} = {effect.count} {effect.explanation ? '(' + effect.explanation + ')' : ''} {effect.inDepth ? <span className="glyphicon glyphicon-info-sign" onClick={(e) => this.handleShowEffectInfo(e, effect)}></span> : ""}</p>
           )}
+          <p className="effect" onClick={this.handleAddEffect.bind(this)}>
+            <span className="glyphicon glyphicon-plus-sign"></span> Add
+          </p>
           <span className="toggle-calc" onClick={this.handleToggleCalc.bind(this)}>{this.state.showFunc ? "Hide calculation" : "Show calculation"}</span>
           <div className={ this.state.showFunc ? "shown" : "hidden" }>
             <h4>{this.props.utilFunc} = {this.props.option.util}</h4>
@@ -149,15 +192,39 @@ class Option extends Component {
           <div>
             <h3>Common sentiments (Choose one)</h3>
               {this.props.option.sentiments.map((sentiment, index) =>
-                <li className="sentiment list-group-item list-item-clickable" onClick={this.handleChooseSentiment.bind(this, sentiment)}>{sentiment.description} 
+                <li className={this.props.mySentiments.some(s => s == sentiment) ? 'sentiment list-group-item list-item-clickable inactive-sentiment': 'sentiment list-group-item list-item-clickable' } onClick={this.handleChooseSentiment.bind(this, sentiment)}>{sentiment.description} 
                   <span className="show-function">{sentiment.func}</span>
                 </li>
               )}
-            <span><input type="checkbox" />Set this as my prefered answer</span>
+            <span><input type="checkbox" checked={this.props.myPreferred.some(p => p.id == this.props.option.id)} onChange={(event) => this.handleChoosePreferred(event)} />Set this as my preferred answer</span>
           </div>
           <br />
           <br />
           <button onClick={this.handleCloseModal}>Close</button>
+        </ReactModal>
+
+        <ReactModal 
+          style={this.customStyles}
+          isOpen={this.state.showEffectInfo}
+          contentLabel="Minimal">
+          <div>
+            <h3>Effect</h3>
+            {this.state.modalEffect.inDepth}
+          </div>
+          <br />
+          <br />
+          <button onClick={this.handleCloseEffectInfo.bind(this)}>Close</button>
+        </ReactModal>
+
+        <ReactModal 
+          style={this.customStyles}
+          isOpen={this.state.showAddEffectModal}
+          contentLabel="Minimal">
+          <div>
+            Add not suppored yet. Mail your suggestion to kaptendavidsson@yahoo.se. 
+          </div>
+          <br />
+          <button onClick={this.handleCloseAddEffect.bind(this)}>Close</button>
         </ReactModal>
       </div>
     );
