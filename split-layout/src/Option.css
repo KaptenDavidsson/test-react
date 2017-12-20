@@ -52,3 +52,12 @@
 .inactive-sentiment {
   opacity: 0.3;
 }
+
+.effect {
+  padding-left: 10px;
+}
+
+.add-effect {
+  padding-left: 10px;
+	width: 60px;
+}

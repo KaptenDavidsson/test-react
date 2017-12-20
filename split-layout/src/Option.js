@@ -134,8 +134,6 @@ class Option extends Component {
   handleShowEffectInfo(event, effect) {
     event.stopPropagation();
 
-    console.log(effect);
-
     this.setState({
       showEffectInfo: true,
       modalEffect: effect
@@ -165,18 +163,18 @@ class Option extends Component {
   }
 
   handleChoosePreferred(event) {
-
+    this.props.handleChoosePreferred(this.props.option);
   }
 
   render() {
     return (
       <div>
         <div className={this.props.allUtilSame ? "option all-util-same" : (this.props.option.util == this.props.maxUtil ? "option has-max-util" : "option")} onClick={this.handleOpenModal}>
-          <span className={this.props.maxUtil <= this.props.option.util ? "glyphicon glyphicon-ok" : ""}></span>  <label>{this.props.option.description}</label>
+          <span className={this.props.maxUtil <= this.props.option.util ? "glyphicon glyphicon-ok" : ""}></span>  <label>{this.props.option.description}</label> {this.props.myPreferred.some(p => p.description == this.props.option.description) ? '(Preferred)' : ''}
           {this.props.option.effects.map((effect, index) => 
             <p className="effect">{effect.optional ? <input type="checkbox" checked={this.props.myAssumptions.map(a => a.effect).some(a => a.id == effect.id)} onClick={this.handleAssumptionClick.bind(this)} onChange={(event) => this.handleChooseOptional(event, effect)} /> : <span className="glyphicon glyphicon-asterisk"></span>} {this.props.values.filter(v => v.code == effect.code)[0].name} = {effect.count} {effect.explanation ? '(' + effect.explanation + ')' : ''} {effect.inDepth ? <span className="glyphicon glyphicon-info-sign" onClick={(e) => this.handleShowEffectInfo(e, effect)}></span> : ""}</p>
           )}
-          <p className="effect" onClick={this.handleAddEffect.bind(this)}>
+          <p className="add-effect" onClick={this.handleAddEffect.bind(this)}>
             <span className="glyphicon glyphicon-plus-sign"></span> Add
           </p>
           <span className="toggle-calc" onClick={this.handleToggleCalc.bind(this)}>{this.state.showFunc ? "Hide calculation" : "Show calculation"}</span>
@@ -196,7 +194,7 @@ class Option extends Component {
                   <span className="show-function">{sentiment.func}</span>
                 </li>
               )}
-            <span><input type="checkbox" checked={this.props.myPreferred.some(p => p.id == this.props.option.id)} onChange={(event) => this.handleChoosePreferred(event)} />Set this as my preferred answer</span>
+            <span><input type="checkbox" checked={this.props.myPreferred.some(p => p.description == this.props.option.description)} onChange={(event) => this.handleChoosePreferred(event)} />Set this as my preferred answer</span>
           </div>
           <br />
           <br />

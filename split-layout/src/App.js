@@ -85,7 +85,9 @@ class App extends Component {
       showInterestsModel: false,
       functionEditable: false,
       activeAccordionItems: [],
-      myPreferred: []
+      myPreferred: [],
+      fullNamesFunc: '',
+      showFullNamesFunc: false
     };
 
     this.interestImageList = ['images/justice.png', 'images/thought-experiment.png'];
@@ -96,6 +98,7 @@ class App extends Component {
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.makeAssumption = this.makeAssumption.bind(this);
     this.onPickInterest = this.onPickInterest.bind(this);
+    this.handleChoosePreferred = this.handleChoosePreferred.bind(this);
 
   }
 
@@ -333,12 +336,6 @@ class App extends Component {
     this.setState({
       showInterestsModel: true,
     });
-
-    if (!this.state.activeAccordionItems.some(a => a == 4)) {
-      this.setState({
-        activeAccordionItems: [...this.state.activeAccordionItems, 4]
-      });
-    }
   }
 
   handleCloseInterestsModal(event) {
@@ -348,18 +345,18 @@ class App extends Component {
       showInterestsModel: false,
       leftItem: this.state.leftList[0]
     });
-  }
-
-  onPickInterest(tags) {
-    this.setState({
-      myTags: tags.map(t => this.startingTags[t.value])
-    })
 
     if (!this.state.activeAccordionItems.some(a => a == 4)) {
       this.setState({
         activeAccordionItems: [...this.state.activeAccordionItems, 4]
       });
     }
+  }
+
+  onPickInterest(tags) {
+    this.setState({
+      myTags: tags.map(t => this.startingTags[t.value])
+    })
   }
 
   onClickInterest(event) {
@@ -374,8 +371,9 @@ class App extends Component {
     tempFunc = tempFunc.replace('inf', 'Infinity');
 
     this.setState({
-      utilFunc: tempFunc,
-      activeAccordionItems: [...this.state.activeAccordionItems, 2]
+      fullNamesFunc: tempFunc,
+      activeAccordionItems: [...this.state.activeAccordionItems, 2],
+      showFullNamesFunc: !this.state.showFullNamesFunc
     })
   }
 
@@ -412,6 +410,33 @@ class App extends Component {
     }); 
   }
 
+  handleChoosePreferred(preferred) {
+    console.log(this.state.myPreferred);
+
+    if (!this.state.myPreferred.some(p => p == preferred)) {
+      this.setState({
+        myPreferred: [...this.state.myPreferred, preferred ],
+      });
+    } 
+    else {
+      this.setState({
+        myPreferred: this.state.myPreferred.filter( (a,i) => i !== this.state.myPreferred.indexOf(preferred)),
+      });
+    }
+  }
+
+  handleShowCalculateFunc() {
+    this.setState({
+      showCalculateFunc: true
+    })
+  }
+
+  handleCloseCalculateFunc() {
+    this.setState({
+      showCalculateFunc: false
+    })
+  }
+
   render() {
     return (
       <div className="App">
@@ -420,7 +445,7 @@ class App extends Component {
         </header>
         <div className="wrapper">
           <div className="column-1">
-            <button onClick={this.handleToggleLeft.bind(this)} className="show-slider-button">></button>
+            <button onClick={this.handleToggleLeft.bind(this)} className="show-slider-button"><span className={this.state.hideLeft ? "glyphicon glyphicon-menu-right" : "glyphicon glyphicon-menu-left"}></span></button>
           </div>
           <div className="column-2">
             <div className="padded-content">
@@ -461,7 +486,8 @@ class App extends Component {
                     myPreferred={this.state.myPreferred}
                     onUtilChange={this.handleUtilChange}
                     onChooseSentiment={this.handleChooseSentiment}
-                    onMakeAssumption={this.makeAssumption}></Option>
+                    onMakeAssumption={this.makeAssumption}
+                    handleChoosePreferred={this.handleChoosePreferred}></Option>
                 )}
               </div>
 
@@ -514,13 +540,13 @@ class App extends Component {
 
           </div>
           <div className="column-3">
-            <button onClick={this.handleToggleRight.bind(this)} className="show-slider-button">></button>
+            <button onClick={this.handleToggleRight.bind(this)} className="show-slider-button"><span className={this.state.hideRight ? "glyphicon glyphicon-menu-right" : "glyphicon glyphicon-menu-left"}></span></button>
           </div>
           <div className="column-4">
             <div className="list-item padded-content">
               <Accordion accordion={false} activeItems={this.state.activeAccordionItems}>
                 <AccordionItem className={this.state.functionEditable ? 'inactive-sentiments' : ''}>
-                  <AccordionItemTitle>
+                  <AccordionItemTitle className="accordion-title">
                     <h3>My Sentiments</h3>
                   </AccordionItemTitle>
                   <AccordionItemBody>
@@ -530,7 +556,7 @@ class App extends Component {
                   </AccordionItemBody>
                 </AccordionItem>
                 <AccordionItem>
-                  <AccordionItemTitle>
+                  <AccordionItemTitle className="accordion-title">
                     <h3>My Values</h3>
                   </AccordionItemTitle>
                   <AccordionItemBody>
@@ -589,25 +615,46 @@ class App extends Component {
                   </AccordionItemBody>
                 </AccordionItem>
                 <AccordionItem>
-                  <AccordionItemTitle>
+                  <AccordionItemTitle className="accordion-title">
                     <h3>My Function</h3>
                   </AccordionItemTitle>
                   <AccordionItemBody>
                     <div>              
-                      <div className="calculate-func">Calculate a function from my prefered answers</div>
+                      <div className="calculate-func" onClick={this.handleShowCalculateFunc.bind(this)}>Calculate a function from my preferred answers</div>
+                      
+                      <ReactModal 
+                        style={this.customStyles}
+                        isOpen={this.state.showCalculateFunc}
+                        contentLabel="Minimal">
+                        <div>
+                          Not implemented yet
+                        </div>
+                        <br />
+                        <button onClick={this.handleCloseCalculateFunc.bind(this)}>Close</button>
+                      </ReactModal>
+
                       <div><input type="checkbox" onChange={this.handleShowFullFunctionNames.bind(this)} />Show full names</div>
                       <span className="edit-function" onClick={this.handleEditFunction.bind(this)}>{!this.state.functionEditable ? 'edit' : 'reset'}</span>
-                      <textarea 
-                        className={this.state.functionEditable ? "utility-function" : "utility-function utility-function-readonly"} 
-                        value={this.state.utilFunc}
-                        onChange={this.handleTextAreaChange.bind(this)}
-                        readOnly={!this.state.functionEditable}
-                      ></textarea>
+                      
+                      {!this.state.showFullNamesFunc ? 
+                        <textarea 
+                          className={this.state.functionEditable ? "utility-function" : "utility-function utility-function-readonly"} 
+                          value={this.state.utilFunc}
+                          onChange={this.handleTextAreaChange.bind(this)}
+                          readOnly={!this.state.functionEditable}
+                        ></textarea>
+                        :
+                        <textarea 
+                          className="utility-function utility-function-readonly"
+                          value={this.state.fullNamesFunc}
+                          readOnly={true}
+                        ></textarea>
+                    }
                     </div>
                   </AccordionItemBody>
                 </AccordionItem>
                 <AccordionItem expanded={this.state.isAssumptionsExpanded}>
-                  <AccordionItemTitle>
+                  <AccordionItemTitle className="accordion-title">
                     <h3>My Assumptions</h3>
                   </AccordionItemTitle>
                   <AccordionItemBody>
@@ -648,14 +695,6 @@ class App extends Component {
             </div>
             <div id="slider" className={this.state.hideRight ? "slide-out" : "slide-in"}>
               <div className="slider-content padded-content">
-                <input  name="searchbar"
-                  type="text"
-                  className="form-control search-control searchbar"
-                  id="inputTodoTitle"
-                  value={this.state.todoTitle}
-                  onChange={this.handleInputChange}
-                  placeholder="Find">
-                </input>
                 <div className="list-item">
                   {this.state.rightListSlider.map((item, index) =>
                     <Accordion>
