@@ -1,17 +1,45 @@
 {
   "values": [
-    {"id": 1, "name": "Human dies", "code": "hd", "description": "adasdasd", "links": [7, 6, 13], "selectedLinks": []},
-    {"id": 2, "name": "Human villain dies", "code": "hvd", "description": "adasdasd", "links": [], "selectedLinks": []},
-    {"id": 3, "name": "Intentional killing", "code": "ik", "description": "adasdasd", "links": [], "selectedLinks": []},
-    {"id": 4, "name": "Using a human as a means to an end", "code": "uh", "description": "adasdasd", "links": [], "selectedLinks": []}, 
-    {"id": 5, "name": "You did not tell the truth", "code": "ntt", "description": "adasdasd", "links": [], "selectedLinks": []},
-    {"id": 6, "name": "Happiness", "description": "adasdasd", "code": "hs", "links": [], "selectedLinks": []},
-    {"id": 7, "name": "Contract", "description": "adasdasd", "code": "ct", "links": [], "selectedLinks": []},
-    {"id": 8, "name": "Freedom", "description": "adasdasd", "code": "fd", "links": [], "selectedLinks": []},
-    {"id": 9, "name": "Golden rule", "description": "adasdasd", "code": "gr", "links": [], "selectedLinks": []},
-    {"id": 10, "name": "Categorical imperative", "description": "adasdasd", "code": "ci", "links": [], "selectedLinks": []},
-    {"id": 11, "name": "Animal dies", "description": "adasdasd", "code": "ad", "links": [], "selectedLinks": []},
-    {"id": 12, "name": "Stealing", "description": "adasdasd", "code": "sn", "links": [], "selectedLinks": []},
-    {"id": 13, "name": "Sentience", "description": "adasdasd", "code": "sn", "links": [], "selectedLinks": []}
+    {"id": 1, "name": "Human dies", "code": "hd", "description": "adasdasd", 
+        "links": [{"id": 7, "details": "details"}, {"id": 6, "details": "details"}, {"id": 13, "details": "details"}], "selectedLinks": []},
+    
+    {"id": 2, "name": "Human villain dies", "code": "hvd", "description": "adasdasd", 
+    "links": [], "selectedLinks": []},
+    
+    {"id": 3, "name": "Intentional killing", "code": "ik", "description": "adasdasd", 
+    "links": [], "selectedLinks": []},
+    
+    {"id": 4, "name": "Using a human as a means to an end", "code": "uh", "description": "adasdasd", 
+    "links": [], "selectedLinks": []}, 
+    
+    {"id": 5, "name": "You did not tell the truth", "code": "ntt", "description": "adasdasd", 
+    "links": [], "selectedLinks": []},
+    
+    {"id": 6, "name": "Happiness", "description": "adasdasd", "code": "hs", 
+    "links": [], "selectedLinks": []},
+    
+    {"id": 7, "name": "Contract", "description": "adasdasd", "code": "ct", 
+    "links": [], "selectedLinks": []},
+    
+    {"id": 8, "name": "Freedom", "description": "adasdasd", "code": "fd", 
+    "links": [], "selectedLinks": []},
+    
+    {"id": 9, "name": "Golden rule", "description": "adasdasd", "code": "gr", 
+    "links": [], "selectedLinks": []},
+    
+    {"id": 10, "name": "Categorical imperative", "description": "adasdasd", "code": "ci", 
+    "links": [], "selectedLinks": []},
+    
+    {"id": 11, "name": "Animal dies", "description": "adasdasd", "code": "ad", 
+    "links": [], "selectedLinks": []},
+    
+    {"id": 12, "name": "Stealing", "description": "adasdasd", "code": "sn", 
+    "links": [], "selectedLinks": []},
+    
+    {"id": 13, "name": "Sentience", "description": "adasdasd", "code": "sn", 
+    "links": [], "selectedLinks": []},
+    
+    {"id": 13, "name": "Holy book", "description": "adasdasd", "code": "sn", 
+    "links": [], "selectedLinks": []}
   ]
 }

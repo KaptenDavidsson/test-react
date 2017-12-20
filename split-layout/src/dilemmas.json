@@ -13,6 +13,8 @@
       "exampleUtilFuncs": ["-hd", "-hd*inf"],
       "tags": ["Classical"]
     },
+
+
     {
       "id": 2, 
       "name": "Trolley problem (fat man)", 
@@ -30,6 +32,8 @@
       "exampleUtilFuncs": ["-hd", "-hd-ik*inf"],
       "tags": ["Classical"]
     },
+
+
     {
       "id": 3, 
       "name": "Trolley problem (fat villain)", 
@@ -42,6 +46,8 @@
       "exampleUtilFuncs": ["-hd", "-hd-ik*inf"],
       "tags": ["Classical"]
     },
+
+
     {
       "id": 4, 
       "name": "Ticking time bomb scenario", 
@@ -54,6 +60,8 @@
       "exampleUtilFuncs": [],
       "tags": ["Classical"]
     },
+
+
     {
       "id": 5, 
       "name": "Murderer ask question", 
@@ -66,6 +74,8 @@
       "exampleUtilFuncs": ["-hd", "-hd-ntt*inf"],
       "tags": ["Classical"]
     },
+
+
     {
       "id": 6, 
       "name": "Utility monster", 
@@ -78,6 +88,8 @@
       "exampleUtilFuncs": [],
       "tags": ["Classical"]
     },
+
+
     {
       "id": 7, 
       "name": "Mere addition paradox", 
@@ -90,6 +102,8 @@
       "exampleUtilFuncs": [],
       "tags": ["Classical"]
     },
+
+
     {
       "id": 7, 
       "name": "Mere addition paradox (average)", 
@@ -102,6 +116,8 @@
       "exampleUtilFuncs": [],
       "tags": ["Classical"]
     },
+
+
     {
       "id": 8, 
       "name": "The violinist", 
@@ -114,6 +130,8 @@
       "exampleUtilFuncs": [],
       "tags": ["Classical"]
     },
+
+
     {
       "id": 9, 
       "name": "Veil of ignorance", 
@@ -126,6 +144,8 @@
       "exampleUtilFuncs": [],
       "tags": ["Classical"]
     },
+
+
     {
       "id": 10, 
       "name": "Sophie's Choice", 
@@ -138,6 +158,8 @@
       "exampleUtilFuncs": [],
       "tags": ["Literature", "Fiction"]
     },
+
+
     {
       "id": 11, 
       "name": "Corrine's Choice", 
@@ -150,6 +172,8 @@
       "exampleUtilFuncs": [],
       "tags": ["Real life"]
     },
+
+
     {
       "id": 12, 
       "name": "The Overcrowded Lifeboat", 
@@ -162,6 +186,8 @@
       "exampleUtilFuncs": [],
       "tags": ["Literature", "Fiction"]
     },
+
+
     {
       "id": 13, 
       "name": "The Last Episode of Seinfeld", 
@@ -174,6 +200,8 @@
       "exampleUtilFuncs": [],
       "tags": ["TV", "Fiction"]
     },
+
+
     {
       "id": 14, 
       "name": "Robbin' Hood", 
@@ -186,6 +214,8 @@
       "exampleUtilFuncs": [],
       "tags": [""]
     },
+
+
     {
       "id": 15, 
       "name": "A Doctor's Dilemma", 
@@ -198,6 +228,8 @@
       "exampleUtilFuncs": [],
       "tags": [""]
     },
+
+
     {
       "id": 16, 
       "name": "Death sentence", 
@@ -210,6 +242,8 @@
       "exampleUtilFuncs": [],
       "tags": ["Political"]
     },
+
+
     {
       "id": 17, 
       "name": "Abortion time", 
@@ -222,6 +256,8 @@
       "exampleUtilFuncs": [],
       "tags": ["Political"]
     },
+
+
     {
       "id": 18, 
       "name": "Send criminals to paradise", 
@@ -234,6 +270,8 @@
       "exampleUtilFuncs": [],
       "tags": ["Justice", "Punishment"]
     },
+
+
     {
       "id": 19, 
       "name": "Death sentence", 
@@ -249,6 +287,8 @@
       "exampleUtilFuncs": [],
       "tags": ["Justice", "Punishment", "Real life"]
     },
+
+
     {
       "id": 20, 
       "name": "Eutanasia", 
@@ -261,6 +301,8 @@
       "exampleUtilFuncs": [],
       "tags": ["Justice"]
     },
+
+
     {
       "id": 21, 
       "name": "Who owns the land", 
@@ -273,6 +315,8 @@
       "exampleUtilFuncs": [],
       "tags": ["Justice"]
     },
+
+
     {
       "id": 22, 
       "name": "Separatists and seceding", 
@@ -285,6 +329,8 @@
       "exampleUtilFuncs": [],
       "tags": ["Justice"]
     },
+
+
     {
       "id": 23, 
       "name": "Organ donation", 
@@ -297,6 +343,8 @@
       "exampleUtilFuncs": [],
       "tags": ["Justice"]
     },
+
+    
     {
       "id": 24, 
       "name": "Legally incompetent", 

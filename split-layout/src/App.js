@@ -578,9 +578,18 @@ class App extends Component {
                               contentLabel="Test">
                               <div>
                                 <h3>Link value</h3>
+                                <Accordion accordion={false}>
                                   {item.links.map((link, index2) =>
-                                    <li className="sentiment list-group-item list-item-clickable" onClick={this.handleChooseValueLink.bind(this, link, item)}>{this.state.rightListSlider.filter(v => v.id == link)[0].name} <span className="glyphicon glyphicon-info-sign" onClick={(e) => this.showLinkInfoDialog(e, index)}></span></li>
+                                    <AccordionItem>
+                                      <AccordionItemTitle className="accordion-title">
+                                        <li className="sentiment list-group-item list-item-clickable" >{this.state.rightListSlider.filter(v => v.id == link.id)[0].name} <span className="glyphicon glyphicon-plus" onClick={this.handleChooseValueLink.bind(this, link, item)}></span></li>
+                                      </AccordionItemTitle>
+                                      <AccordionItemBody>
+                                        {link.details}
+                                      </AccordionItemBody>
+                                    </AccordionItem>
                                   )}
+                                </Accordion>
                                 </div>
                               <br />
                               <br />
