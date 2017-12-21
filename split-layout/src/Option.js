@@ -194,9 +194,9 @@ class Option extends Component {
                   <span className="show-function">{sentiment.func}</span>
                 </li>
               )}
+            <br />
             <span><input type="checkbox" checked={this.props.myPreferred.some(p => p.description == this.props.option.description)} onChange={(event) => this.handleChoosePreferred(event)} />Set this as my preferred answer</span>
           </div>
-          <br />
           <br />
           <button onClick={this.handleCloseModal}>Close</button>
         </ReactModal>

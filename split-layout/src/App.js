@@ -108,8 +108,17 @@ class App extends Component {
     this.setState({
       utilFunc: cookies.get('utilFunc') ? cookies.get('utilFunc') : "",
       rightList: cookies.get('myValues') ? cookies.get('myValues') : [],
+      sentiments: cookies.get('mySentiments') ? cookies.get('mySentiments') : []
     })
     this.handleFilterInterests();
+    
+    if (window.location.href.includes('#')) {
+      var dilemmaRoute = window.location.href.split('/#/')[1];
+      this.chooseLeft(this.dilemmas.filter(d => d.id == dilemmaRoute)[0]);
+    }
+    else {
+      this.chooseLeft(this.dilemmas[0]);
+    }
   }
 
   handleToggleRight() {
@@ -125,7 +134,8 @@ class App extends Component {
   }
 
   chooseLeft(item) {
-   this.setState({
+    window.location.href = window.location.href.split('#')[0] + "#/" + item.id;
+    this.setState({
       leftItem: item,
       hideLeft: true
     }) 
@@ -221,21 +231,33 @@ class App extends Component {
   }
 
   handleChooseSentiment(sentiment) {
+    const cookies = new Cookies();
+
     for (var value of this.state.rightListSlider) {
       if (sentiment.func.includes(value.code) && !this.state.rightList.some(v => v == value)) {
+
+        var newValues = [...this.state.rightList, value];
+        cookies.set('myValues', newValues, { path: '/' });
+
         this.setState({
-          rightList: [...this.state.rightList, value]
+          rightList: newValues
         })
       }
     }    
 
+    var newSentiments = [...this.state.sentiments, sentiment];
+    cookies.set('mySentiments', newSentiments, { path: '/' });
+
     this.setState({
-      sentiments: [...this.state.sentiments, sentiment],
+      sentiments: newSentiments,
       activeAccordionItems: [...this.state.activeAccordionItems, 0, 1]
     });
     
+    var newFunc = this.state.utilFunc + '+' + sentiment.func;
+    cookies.set('utilFunc', newFunc, { path: '/' });
+
     this.setState({
-      utilFunc: this.state.utilFunc + '+' + sentiment.func
+      utilFunc: newFunc
     })
   }
 
@@ -281,7 +303,7 @@ class App extends Component {
                 return false;
               }
 
-              return myTags.includes(allTags.filter(tt => tt.name.toLowerCase() == t.toLowerCase())[0].id)
+              return myTags.includes(allTags.filter(tt => tt.id == t)[0].id)
             });
         })
       });
@@ -441,7 +463,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-            <h3>Ethica 2000</h3>
+            <h2 className="header-title">Ethica 2000</h2>
         </header>
         <div className="wrapper">
           <div className="column-1">
@@ -465,7 +487,7 @@ class App extends Component {
 
               <ul className="list-inline">
                 {this.state.leftItem.tags.map((item, index) => 
-                  <li className="list-inline-item"><span className="glyphicon glyphicon-tag"></span> {item}</li>
+                  <li className="list-inline-item"><span className="glyphicon glyphicon-tag"></span> {this.tags.filter(t => t.id == item)[0].name}</li>
                 )}
               </ul>
               {this.state.leftItem.description}
@@ -528,7 +550,7 @@ class App extends Component {
                           {item.name}  
                         </h4>
                         {item.tags.map((tag, index) => 
-                          <span><span className="glyphicon glyphicon-tag"></span> {tag} </span>
+                          <span><span className="glyphicon glyphicon-tag"></span> {this.tags.filter(t => t.id == tag)[0].name} </span>
                         )}
                       </div>
                     </li>

@@ -10,13 +10,22 @@
 }
 
 .App-header {
-  background-color: #222;
+  background: linear-gradient(to right, #222,#222,#222, #bbd, #222);
   height: 60px;
   padding: 1px;
   color: white;
   text-align: center;
   font-weight: bold;
   position: relative;
+  text-shadow: 4px 4px #557;
+  border-style: solid;
+  border-color: #bbd;
+  border-width: 0px;
+  border-bottom-width: 3px;
+}
+
+.header-title {
+  margin-top: 10px;
 }
 
 .App-footer {
@@ -88,6 +97,7 @@
   padding-right: 20px;
   overflow-y: auto;
   height: 100%;
+  width: 100%;
 }
 
 .search-control {
