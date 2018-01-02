@@ -178,12 +178,6 @@
   margin-top: 20px;
 }
 
-.last-dilemma {
-  float: left;
-  cursor: pointer;
-  margin-top: 20px;
-}
-
 .dilemma-title {
   display: inline-block;
   margin-top: 10px;
@@ -192,6 +186,28 @@
 .dilemma-nav {
   display: flex;
   justify-content: space-between;
+}
+
+.previousDilemma {
+  display: inline-block;
+  cursor: pointer;
+  margin-top: 15px;
+  border-width: 1px;
+  border-color: grey;
+  border-style: solid;
+  border-radius: 3px;
+  background-color: rgb(217, 235, 251);
+  padding: 5px;
+  height: 30px;
+}
+
+.left-arrow {
+  margin-right: 5px;
+}
+
+
+.right-arrow {
+  margin-left: 5px;
 }
 
 .list-inline {
@@ -257,6 +273,13 @@
 
 .accordion-title {
   outline: none;
+  border-top: 1px black solid;
+}
+
+.my-profile {
+  width: 300px;
+  display: block;
+  margin: auto;
 }
 
 #slider {

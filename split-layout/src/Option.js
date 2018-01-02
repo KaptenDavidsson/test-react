@@ -169,14 +169,14 @@ class Option extends Component {
   render() {
     return (
       <div>
-        <div className={this.props.allUtilSame ? "option all-util-same" : (this.props.option.util == this.props.maxUtil ? "option has-max-util" : "option")} onClick={this.handleOpenModal}>
+        <div className={this.props.allUtilSame ? "option all-util-same" : (this.props.option.util == this.props.maxUtil ? "option has-max-util" : "option")}>
           <span className={this.props.maxUtil <= this.props.option.util ? "glyphicon glyphicon-ok" : ""}></span>  <label>{this.props.option.description}</label> {this.props.myPreferred.some(p => p.description == this.props.option.description) ? '(Preferred)' : ''}
+          <div className="prefer" onClick={this.handleOpenModal}>
+            I prefer this one
+          </div>
           {this.props.option.effects.map((effect, index) => 
             <p className="effect">{effect.optional ? <input type="checkbox" checked={this.props.myAssumptions.map(a => a.effect).some(a => a.id == effect.id)} onClick={this.handleAssumptionClick.bind(this)} onChange={(event) => this.handleChooseOptional(event, effect)} /> : <span className="glyphicon glyphicon-asterisk"></span>} {this.props.values.filter(v => v.code == effect.code)[0].name} = {effect.count} {effect.explanation ? '(' + effect.explanation + ')' : ''} {effect.inDepth ? <span className="glyphicon glyphicon-info-sign" onClick={(e) => this.handleShowEffectInfo(e, effect)}></span> : ""}</p>
           )}
-          <p className="add-effect" onClick={this.handleAddEffect.bind(this)}>
-            <span className="glyphicon glyphicon-plus-sign"></span> Add
-          </p>
           <span className="toggle-calc" onClick={this.handleToggleCalc.bind(this)}>{this.state.showFunc ? "Hide calculation" : "Show calculation"}</span>
           <div className={ this.state.showFunc ? "shown" : "hidden" }>
             <h4>{this.props.utilFunc} = {this.props.option.util}</h4>

@@ -6,7 +6,6 @@
   border-style: solid;
   margin-bottom: 20px;
 	background-color: rgb(230, 200, 200);
-	cursor: pointer;
 }
 
 .has-max-util {
@@ -60,4 +59,18 @@
 .add-effect {
   padding-left: 10px;
 	width: 60px;
+}
+
+.prefer {
+	float: right;
+  cursor: pointer;
+  margin-top: 15px;
+  border-width: 1px;
+  border-color: grey;
+  border-style: solid;
+  border-radius: 3px;
+  background-color: rgb(230, 200, 240);
+  padding: 5px;
+  height: 30px;
+
 }

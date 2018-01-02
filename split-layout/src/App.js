@@ -137,7 +137,7 @@ class App extends Component {
     window.location.href = window.location.href.split('#')[0] + "#/" + item.id;
     this.setState({
       leftItem: item,
-      hideLeft: true
+      hideLeft: true,
     }) 
   }
 
@@ -280,14 +280,22 @@ class App extends Component {
 
   handleNextDilemma() {
     this.setState({
-      leftItem: this.state.leftList[(this.state.leftList.map(d => d.id).indexOf(this.state.leftItem.id)+1)%this.state.leftList.length]
+      leftItem: this.getNextDilemma()
     });
+  }
+
+  getPreviousDilemma() {
+    return this.state.leftList[(this.state.leftList.map(d => d.id).indexOf(this.state.leftItem.id)-1+this.state.leftList.length)%this.state.leftList.length];
+  }
+
+  getNextDilemma() {
+    return this.state.leftList[(this.state.leftList.map(d => d.id).indexOf(this.state.leftItem.id)+1)%this.state.leftList.length];
   }
 
 
   handlePreviousDilemma() {
     this.setState({
-      leftItem: this.state.leftList[(this.state.leftList.map(d => d.id).indexOf(this.state.leftItem.id)-1+this.state.leftList.length)%this.state.leftList.length]
+      leftItem: this.getPreviousDilemma()
     });
   }
 
@@ -470,9 +478,16 @@ class App extends Component {
           <div className="column-1">
             <div className="padded-content">
               <div className="dilemma-nav">
-                <span className="glyphicon glyphicon-arrow-left last-dilemma" onClick={this.handlePreviousDilemma.bind(this)}></span>
-                <h1 className="dilemma-title">{this.state.leftItem.name}</h1>              
-                <span className="glyphicon glyphicon-arrow-right next-dilemma" onClick={this.handleNextDilemma.bind(this)}></span>
+                <div className="previousDilemma" onClick={this.handlePreviousDilemma.bind(this)}>
+                  <span className="glyphicon glyphicon-arrow-left left-arrow"></span>
+                  <span>{this.getPreviousDilemma().name}</span>
+                </div>
+                <h1 className="dilemma-title">{this.state.leftItem.name}</h1>
+
+                <div className="previousDilemma" onClick={this.handleNextDilemma.bind(this)}>
+                  <span>{this.getNextDilemma().name}</span>
+                  <span className="glyphicon glyphicon-arrow-right right-arrow"></span>
+                </div>              
               </div>
 
                 <div>
@@ -570,12 +585,14 @@ class App extends Component {
             */}
           </div>
           <div className="column-3">
-            <h1>My Profile</h1>
+            <div className="my-profile">
+              <h1>My Profile</h1>
+            </div>
             <div className="list-item padded-content">
               <Accordion accordion={false} activeItems={this.state.activeAccordionItems}>
                 <AccordionItem className={this.state.functionEditable ? 'inactive-sentiments' : ''}>
                   <AccordionItemTitle className="accordion-title">
-                    <h3>My Sentiments</h3>
+                    <h3>Sentiments</h3>
                   </AccordionItemTitle>
                   <AccordionItemBody>
                     {this.state.sentiments.map((sentiment, index) =>
@@ -585,7 +602,7 @@ class App extends Component {
                 </AccordionItem>
                 <AccordionItem>
                   <AccordionItemTitle className="accordion-title">
-                    <h3>My Values</h3>
+                    <h3>Values</h3>
                   </AccordionItemTitle>
                   <AccordionItemBody>
                     {this.state.rightList.map((item, index) =>
@@ -653,7 +670,7 @@ class App extends Component {
                 </AccordionItem>
                 <AccordionItem>
                   <AccordionItemTitle className="accordion-title">
-                    <h3>My Function</h3>
+                    <h3>Function</h3>
                   </AccordionItemTitle>
                   <AccordionItemBody>
                     <div>              
@@ -692,7 +709,7 @@ class App extends Component {
                 </AccordionItem>
                 <AccordionItem expanded={this.state.isAssumptionsExpanded}>
                   <AccordionItemTitle className="accordion-title">
-                    <h3>My Assumptions</h3>
+                    <h3>Assumptions</h3>
                   </AccordionItemTitle>
                   <AccordionItemBody>
                     {this.state.myAssumptions.map((assumption, index) =>
@@ -701,8 +718,8 @@ class App extends Component {
                   </AccordionItemBody>
                 </AccordionItem>
                 <AccordionItem>
-                  <AccordionItemTitle>
-                    <h3 className="my-interests-title">My Interests <p className="pick-interests" onClick={this.handlePickInterests.bind(this)}>Pick interests</p></h3>
+                  <AccordionItemTitle className="accordion-title">
+                    <h3 className="my-interests-title">Interests <p className="pick-interests" onClick={this.handlePickInterests.bind(this)}>Pick interests</p></h3>
                   </AccordionItemTitle>
                   <AccordionItemBody>
                     <ReactModal 
@@ -736,7 +753,7 @@ class App extends Component {
                   {this.state.rightListSlider.map((item, index) =>
                     <Accordion>
                       <AccordionItem>
-                        <AccordionItemTitle>
+                        <AccordionItemTitle className="accordion-title">
                           <div className="list-group-item list-item-clickable">
                             <h4>{item.name} ({item.code})<span className="glyphicon glyphicon-plus remove-button" onClick={this.addRightItem.bind(this, item)}></span></h4>
                           </div>
