@@ -26,6 +26,16 @@
 
 .header-title {
   margin-top: 10px;
+  display: inline-block;
+}
+
+.show-all-dilemmas {
+  float: left;
+  margin-left: 20px;
+  margin-top: 25px;
+  background-color: rgb(217, 235, 251);
+  color: black;
+  width: 150px;
 }
 
 .App-footer {
@@ -60,21 +70,17 @@
 }
 
 .column-1 {
-  width: 20px;
-}
-
-.column-2 {
   background-color:white;
   overflow:hidden; 
   width: 50%;
   min-width: 50%;
 }
 
-.column-3 {
-  width: 20px;
+.column-2 {
+  width: 5px;
 }
 
-.column-4 {
+.column-3 {
   background-color:white;
   overflow:hidden; 
   width: 50%;
@@ -144,9 +150,6 @@
   cursor: pointer;
 }
 
-.related {
-}
-
 .my-value-item {
   border-width: 1px;
   border-color: black;
@@ -172,16 +175,56 @@
   float: right;
   display: inline-block;
   cursor: pointer;
+  margin-top: 20px;
 }
 
 .last-dilemma {
   float: left;
   cursor: pointer;
+  margin-top: 20px;
+}
+
+.dilemma-title {
+  display: inline-block;
+  margin-top: 10px;
 }
 
 .dilemma-nav {
   display: flex;
   justify-content: space-between;
+}
+
+.list-inline {
+  font-size: 10px;
+  padding: 2px;
+  padding-bottom: 2px;
+}
+
+.related {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.related-text {
+  font-weight: bold;
+}
+
+.related-element {
+  display: inline-block;
+  background-color: rgb(217, 235, 251);
+  border-width: 1px;
+  border-color: grey;
+  border-style: solid;
+  border-radius: 3px;
+  margin-right: 2px;
+  padding: 5px;
+  cursor: pointer;
+
+}
+
+.tags {
+  display: flex;
+  justify-content: center;
 }
 
 .derived-value {

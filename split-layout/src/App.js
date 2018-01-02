@@ -464,32 +464,34 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
             <h2 className="header-title">Ethica 2000</h2>
+            <button onClick={this.handleToggleLeft.bind(this)} className="show-all-dilemmas">{this.state.hideLeft ? "Show all dilemmas" : "Hide all dilemmas"}</button>
         </header>
         <div className="wrapper">
           <div className="column-1">
-            <button onClick={this.handleToggleLeft.bind(this)} className="show-slider-button"><span className={this.state.hideLeft ? "glyphicon glyphicon-menu-right" : "glyphicon glyphicon-menu-left"}></span></button>
-          </div>
-          <div className="column-2">
             <div className="padded-content">
               <div className="dilemma-nav">
                 <span className="glyphicon glyphicon-arrow-left last-dilemma" onClick={this.handlePreviousDilemma.bind(this)}></span>
-                <div>
-                  
-                  <ul className="list-inline related">
-                    {this.state.leftItem.related.map((item, index) => 
-                      <li onClick={this.chooseLeft.bind(this, this.dilemmas.filter(i => i.id == item)[0])} className="list-inline-item list-group-item list-item-clickable">{this.dilemmas.filter(i => i.id == item)[0].name}</li>
-                    )}
-                  </ul>
-                </div>
+                <h1 className="dilemma-title">{this.state.leftItem.name}</h1>              
                 <span className="glyphicon glyphicon-arrow-right next-dilemma" onClick={this.handleNextDilemma.bind(this)}></span>
               </div>
-              <h1>{this.state.leftItem.name}</h1>              
 
-              <ul className="list-inline">
-                {this.state.leftItem.tags.map((item, index) => 
-                  <li className="list-inline-item"><span className="glyphicon glyphicon-tag"></span> {this.tags.filter(t => t.id == item)[0].name}</li>
-                )}
-              </ul>
+                <div>
+                <ul className="list-inline tags">
+                  {this.state.leftItem.tags.map((item, index) => 
+                    <li className="list-inline-item"><span className="glyphicon glyphicon-tag"></span> {this.tags.filter(t => t.id == item)[0].name}</li>
+                  )}
+                </ul>
+                </div>
+              <div>
+                  <span className="related related-text">Related:</span>
+                  <ul className="list-inline related">
+                    {this.state.leftItem.related.map((item, index) => 
+                      <li onClick={this.chooseLeft.bind(this, this.dilemmas.filter(i => i.id == item)[0])} className="related-element">{this.dilemmas.filter(i => i.id == item)[0].name}</li>
+                    )}
+                  </ul>
+              </div>
+              <div>
+              </div>
               {this.state.leftItem.description}
               <br />
               {this.state.leftItem.image ? <img src={'images/' + this.state.leftItem.image} /> : '' }
@@ -561,10 +563,14 @@ class App extends Component {
           </div>
 
           </div>
-          <div className="column-3">
+          <div className="column-2">
+
+            {/*
             <button onClick={this.handleToggleRight.bind(this)} className="show-slider-button"><span className={this.state.hideRight ? "glyphicon glyphicon-menu-right" : "glyphicon glyphicon-menu-left"}></span></button>
+            */}
           </div>
-          <div className="column-4">
+          <div className="column-3">
+            <h1>My Profile</h1>
             <div className="list-item padded-content">
               <Accordion accordion={false} activeItems={this.state.activeAccordionItems}>
                 <AccordionItem className={this.state.functionEditable ? 'inactive-sentiments' : ''}>

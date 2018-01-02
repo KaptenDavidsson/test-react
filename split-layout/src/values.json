@@ -39,7 +39,10 @@
     {"id": 13, "name": "Sentience", "description": "adasdasd", "code": "sn", 
     "links": [], "selectedLinks": []},
     
-    {"id": 13, "name": "Holy book", "description": "adasdasd", "code": "sn", 
+    {"id": 14, "name": "Holy book", "description": "adasdasd", "code": "sn", 
+    "links": [], "selectedLinks": []},
+    
+    {"id": 15, "name": "Authenticity", "description": "adasdasd", "code": "sn", 
     "links": [], "selectedLinks": []}
   ]
 }
