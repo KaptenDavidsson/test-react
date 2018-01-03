@@ -111,7 +111,7 @@ class Option extends Component {
   }
 
   handleChooseSentiment(sentiment) {
-    if (!this.props.mySentiments.some(s => s == sentiment)) {
+    if (!this.props.mySentiments.some(s => s.description == sentiment.description)) {
       this.props.onChooseSentiment(sentiment);
       this.setState({ showModal: false });
     }
@@ -195,7 +195,7 @@ class Option extends Component {
             You can also mark this as your preferred answer and let the program calculate a value function  <br />
             that favors this option.  <br /> <br />
             {this.props.option.sentiments.map((sentiment, index) =>
-              <li className={this.props.mySentiments.some(s => s == sentiment) ? 'sentiment': 'sentiment' } onClick={this.handleChooseSentiment.bind(this, sentiment)}>{sentiment.description} 
+              <li className={this.props.mySentiments.some(s => s.description == sentiment.description) ? 'sentiment inactive-sentiment': 'sentiment' } onClick={this.handleChooseSentiment.bind(this, sentiment)}>{sentiment.description} 
                 <span className="show-function">{sentiment.func}</span>
               </li>
             )}

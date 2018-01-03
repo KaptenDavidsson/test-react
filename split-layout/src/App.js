@@ -234,10 +234,11 @@ class App extends Component {
     const cookies = new Cookies();
 
     for (var value of this.state.rightListSlider) {
-      if (sentiment.func.includes(value.code) && !this.state.rightList.some(v => v == value)) {
+      if (sentiment.func.includes(value.code) && !this.state.rightList.some(v => v.code == value.code)) {
 
         var newValues = [...this.state.rightList, value];
         cookies.set('myValues', newValues, { path: '/' });
+
 
         this.setState({
           rightList: newValues
@@ -441,8 +442,6 @@ class App extends Component {
   }
 
   handleChoosePreferred(preferred) {
-    console.log(this.state.myPreferred);
-
     if (!this.state.myPreferred.some(p => p == preferred)) {
       this.setState({
         myPreferred: [...this.state.myPreferred, preferred ],
@@ -569,10 +568,6 @@ class App extends Component {
 
           </div>
           <div className="column-2">
-
-            {/*
-            <button onClick={this.handleToggleRight.bind(this)} className="show-slider-button"><span className={this.state.hideRight ? "glyphicon glyphicon-menu-right" : "glyphicon glyphicon-menu-left"}></span></button>
-            */}
           </div>
           <div className="column-3">
             <div className="my-profile">
@@ -593,7 +588,7 @@ class App extends Component {
                 </AccordionItem>
                 <AccordionItem>
                   <AccordionItemTitle className="accordion-title">
-                    <h3>Values</h3>
+                    <h3>Values <span className="show-all-values" onClick={this.handleToggleRight.bind(this)}>All Values</span></h3>
                   </AccordionItemTitle>
                   <AccordionItemBody>
                     {this.state.rightList.map((item, index) =>
@@ -706,7 +701,7 @@ class App extends Component {
                   </AccordionItemTitle>
                   <AccordionItemBody>
                     {this.state.myAssumptions.map((assumption, index) =>
-                      <li className="list-group-item" >{assumption.effect.explanation} ({assumption.option.description}) <span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.removeSentiment(e, index)}></span></li>
+                      <li className="list-group-item" >{assumption.effect.explanation} ({assumption.option.description}) <span className="glyphicon glyphicon-remove remove-button"></span></li>
                     )}
                     {this.state.myAssumptions.length == 0 ? <span>Empty</span> : ''}
                   </AccordionItemBody>
@@ -729,6 +724,9 @@ class App extends Component {
                           onClick={this.onClickInterest.bind(this)}
                         />
                           <span><input type="checkbox" defaultChecked={this.state.ishandleFilterInterestsChecked} onChange={this.handleFilterInterests.bind(this)} />Set default filter to my interests (can be changed afterwards)</span>
+                        
+                          <div className="sentiment-modal-separator"></div>
+
                         </div>
                       <br />
                       <br />
@@ -744,12 +742,13 @@ class App extends Component {
             </div>
             <div id="slider" className={this.state.hideRight ? "slide-out" : "slide-in"}>
               <div className="slider-content padded-content">
-                <div className="list-item">
+                <div>
+                  <span className="show-all-values" onClick={this.handleToggleRight.bind(this)}>Close</span>
                   {this.state.rightListSlider.map((item, index) =>
                     <Accordion>
                       <AccordionItem>
                         <AccordionItemTitle className="accordion-title">
-                          <div className="list-group-item list-item-clickable">
+                          <div>
                             <h4>{item.name} ({item.code})<span className="glyphicon glyphicon-plus remove-button" onClick={this.addRightItem.bind(this, item)}></span></h4>
                           </div>
                         </AccordionItemTitle>

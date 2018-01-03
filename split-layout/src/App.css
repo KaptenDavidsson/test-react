@@ -151,6 +151,17 @@
   width: 40px;
 }
 
+.show-all-values {
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 3px;
+  background-color: rgb(217, 235, 251);
+  padding: 5px;
+  margin-bottom: 5px;
+  width: 70px;
+  font-size: 12px;
+}
+
 .list-group-item {
   background-color: rgb(215,235,250);  
 }
