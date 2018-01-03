@@ -46,7 +46,7 @@ class App extends Component {
         left              : 0,
         right             : 0,
         bottom            : '60px',
-        backgroundColor   : 'rgba(255, 255, 255, 0.50)'
+        backgroundColor   : 'rgba(150, 150, 150, 0.50)'
     }
 
     this.customStyles = {
@@ -543,32 +543,22 @@ class App extends Component {
                       onChange={this.handleSearchLeft.bind(this)}
                       placeholder="Find">
                     </input>
+
                     <span><input type="checkbox" checked={this.state.ishandleFilterInterestsChecked} defaultChecked={this.state.ishandleFilterInterestsChecked} onChange={this.handleFilterInterests.bind(this)} />Show only my interests</span>
                     
-                    <p className="add-dilemma" onClick={this.handleAddDilemma.bind(this)}>
-                      <span className="glyphicon glyphicon-plus-sign"></span> Add
-                    </p>
-
-                    <ReactModal 
-                      style={this.customStyles}
-                      isOpen={this.state.showAddDilemmaModal}
-                      contentLabel="Minimal">
-                      <div>
-                        Add not suppored yet. Mail your suggestion to kaptendavidsson@yahoo.se. 
-                      </div>
-                      <br />
-                      <button onClick={this.handleCloseAddDilemma.bind(this)}>Close</button>
-                    </ReactModal>
                   </div>
                   {this.state.leftList.map((item, index) => 
-                    <li className="list-group-item list-item-clickable" key={index}>
-                      <div className="list-group-item-heading" onClick={this.chooseLeft.bind(this, item)}>
+                    <li className="dilemma" key={index}>
+                      <div onClick={this.chooseLeft.bind(this, item)} className="dilemma-feed-element">
                         <h4>
                           {item.name}  
                         </h4>
-                        {item.tags.map((tag, index) => 
-                          <span><span className="glyphicon glyphicon-tag"></span> {this.tags.filter(t => t.id == tag)[0].name} </span>
-                        )}
+                        <ul className="list-inline">
+                          {item.tags.map((tag, index) => 
+                            <li><span className="glyphicon glyphicon-tag"></span> {this.tags.filter(t => t.id == tag)[0].name} </li>
+                          )}
+                        </ul>
+                        {item.description.substr(0, 100)}...
                       </div>
                     </li>
                   )}
@@ -598,6 +588,7 @@ class App extends Component {
                     {this.state.sentiments.map((sentiment, index) =>
                       <li className="list-group-item" >{sentiment.description} <span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.removeSentiment(e, index)}></span></li>
                     )}
+                    {this.state.sentiments.length == 0 ? <span>Empty</span> : ''}
                   </AccordionItemBody>
                 </AccordionItem>
                 <AccordionItem>
@@ -664,8 +655,10 @@ class App extends Component {
                               </div>
                             </div>
                         )}
-                        </div>
-                    )}                  
+
+                      </div>
+                    )}
+                    {this.state.rightList.length == 0 ? <span>Empty</span> : ''}
                   </AccordionItemBody>
                 </AccordionItem>
                 <AccordionItem>
@@ -687,8 +680,8 @@ class App extends Component {
                         <button onClick={this.handleCloseCalculateFunc.bind(this)}>Close</button>
                       </ReactModal>
 
+                      <div className="edit-function" onClick={this.handleEditFunction.bind(this)}>{!this.state.functionEditable ? 'Edit' : 'Reset'}</div>
                       <div><input type="checkbox" onChange={this.handleShowFullFunctionNames.bind(this)} />Show full names</div>
-                      <span className="edit-function" onClick={this.handleEditFunction.bind(this)}>{!this.state.functionEditable ? 'edit' : 'reset'}</span>
                       
                       {!this.state.showFullNamesFunc ? 
                         <textarea 
@@ -715,11 +708,12 @@ class App extends Component {
                     {this.state.myAssumptions.map((assumption, index) =>
                       <li className="list-group-item" >{assumption.effect.explanation} ({assumption.option.description}) <span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.removeSentiment(e, index)}></span></li>
                     )}
+                    {this.state.myAssumptions.length == 0 ? <span>Empty</span> : ''}
                   </AccordionItemBody>
                 </AccordionItem>
                 <AccordionItem>
                   <AccordionItemTitle className="accordion-title">
-                    <h3 className="my-interests-title">Interests <p className="pick-interests" onClick={this.handlePickInterests.bind(this)}>Pick interests</p></h3>
+                    <h3 className="my-interests-title">Interests <span className="pick-interests" onClick={this.handlePickInterests.bind(this)}>Interest picker</span></h3>
                   </AccordionItemTitle>
                   <AccordionItemBody>
                     <ReactModal 
@@ -743,6 +737,7 @@ class App extends Component {
                     {this.state.myTags.map((tag, index) =>
                       <li className="list-group-item" >{this.tags.filter(t => t.id == tag)[0].name} <span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.removeSentiment(e, index)}></span></li>
                     )}
+                    {this.state.myTags.length == 0 ? <span>Empty</span> : ''}
                   </AccordionItemBody>
                 </AccordionItem>
               </Accordion>

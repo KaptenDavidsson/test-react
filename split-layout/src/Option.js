@@ -17,11 +17,11 @@ class Option extends Component {
         left              : 0,
         right             : 0,
         bottom            : '60px',
-        backgroundColor   : 'rgba(255, 255, 255, 0.50)'
+        backgroundColor   : 'rgba(150, 150, 150, 0.50)'
       },
       content : {
         top                   : '50%',
-        left                  : '25%',
+        left                  : '50%',
         right                 : 'auto',
         bottom                : 'auto',
         marginRight           : '-50%',
@@ -188,14 +188,21 @@ class Option extends Component {
           isOpen={this.state.showModal}
           contentLabel="Minimal Modal Example">
           <div>
-            <h3>Common sentiments (Choose one)</h3>
-              {this.props.option.sentiments.map((sentiment, index) =>
-                <li className={this.props.mySentiments.some(s => s == sentiment) ? 'sentiment list-group-item list-item-clickable inactive-sentiment': 'sentiment list-group-item list-item-clickable' } onClick={this.handleChooseSentiment.bind(this, sentiment)}>{sentiment.description} 
-                  <span className="show-function">{sentiment.func}</span>
-                </li>
-              )}
+            <h3>Preferred option</h3>
+            If this option is red it does not align with your value function. <br />
+            You may modify it by choosing a common sentiment below.  <br />
+            This is sometimes not enough so you might want to consider editing your value function manually.  <br />
+            You can also mark this as your preferred answer and let the program calculate a value function  <br />
+            that favors this option.  <br /> <br />
+            {this.props.option.sentiments.map((sentiment, index) =>
+              <li className={this.props.mySentiments.some(s => s == sentiment) ? 'sentiment': 'sentiment' } onClick={this.handleChooseSentiment.bind(this, sentiment)}>{sentiment.description} 
+                <span className="show-function">{sentiment.func}</span>
+              </li>
+            )}
             <br />
-            <span><input type="checkbox" checked={this.props.myPreferred.some(p => p.description == this.props.option.description)} onChange={(event) => this.handleChoosePreferred(event)} />Set this as my preferred answer</span>
+            <div className="sentiment-modal-separator"></div>
+            <br />
+            <span><input type="checkbox" checked={this.props.myPreferred.some(p => p.description == this.props.option.description)} onChange={(event) => this.handleChoosePreferred(event)} /> Mark this as my preferred answer</span>
           </div>
           <br />
           <button onClick={this.handleCloseModal}>Close</button>

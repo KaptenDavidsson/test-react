@@ -23,10 +23,6 @@
 	position: relative;
 }
 
-.sentiment {
-	cursor: pointer;
-}
-
 .clear-sentiments {
 	font-size: 12px;
 }
@@ -65,12 +61,25 @@
 	float: right;
   cursor: pointer;
   margin-top: 15px;
-  border-width: 1px;
-  border-color: grey;
-  border-style: solid;
+  border: 1px grey solid;
   border-radius: 3px;
   background-color: rgb(230, 200, 240);
   padding: 5px;
   height: 30px;
+}
 
+.sentiment {
+  background-color: rgb(217, 235, 251);
+  border: 1px grey solid;
+  border-radius: 3px;
+  margin-right: 2px;
+  padding: 5px;
+  cursor: pointer;
+  list-style-type: none;
+  margin-bottom: 5px;
+}
+
+.sentiment-modal-separator {
+	background-color: #aaa;
+	height: 2px;
 }

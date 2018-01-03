@@ -10,14 +10,13 @@
 }
 
 .App-header {
-  background: linear-gradient(to right, #222,#222,#222, #bbd, #222);
+  background: #222;
   height: 60px;
   padding: 1px;
   color: white;
   text-align: center;
   font-weight: bold;
   position: relative;
-  text-shadow: 4px 4px #557;
   border-style: solid;
   border-color: #bbd;
   border-width: 0px;
@@ -36,6 +35,19 @@
   background-color: rgb(217, 235, 251);
   color: black;
   width: 150px;
+}
+
+.dilemma {
+  cursor: pointer;
+  list-style-type: none;
+  border-top: black solid 1px;
+  margin-top: 10px;
+}
+
+.dilemma-feed-element {
+  margin: auto;
+  display: table;
+  width: 400px;
 }
 
 .App-footer {
@@ -130,8 +142,13 @@
 }
 
 .edit-function {
-  font-style: italic;
   cursor: pointer;
+  border: 1px solid black;
+  border-radius: 3px;
+  background-color: rgb(217, 235, 251);
+  padding: 5px;
+  margin-bottom: 5px;
+  width: 40px;
 }
 
 .list-group-item {
@@ -235,7 +252,6 @@
   margin-right: 2px;
   padding: 5px;
   cursor: pointer;
-
 }
 
 .tags {
@@ -252,10 +268,14 @@
 }
 
 .pick-interests {
-  font-style: italic;
-  display: inline;
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 3px;
+  background-color: rgb(217, 235, 251);
+  padding: 5px;
+  margin-bottom: 5px;
+  width: 80px;
   font-size: 12px;
-  font-weight: normal;
 }
 
 .my-interests-title {
@@ -263,8 +283,13 @@
 }
 
 .calculate-func {
-  font-style: italic;
   cursor: pointer;
+  border: 1px solid black;
+  border-radius: 3px;
+  background-color: rgb(217, 235, 251);
+  padding: 5px;
+  margin-bottom: 5px;
+  width: 180px;
 }
 
 .add-dilemma {
@@ -274,6 +299,7 @@
 .accordion-title {
   outline: none;
   border-top: 1px black solid;
+  margin-top: 10px;
 }
 
 .my-profile {
@@ -284,7 +310,7 @@
 
 #slider {
     position: absolute;
-    background: #EEEEEE;
+    background: #fff;
     transform: translateX(-100%);
     height: 100%;
     width: 100%;
