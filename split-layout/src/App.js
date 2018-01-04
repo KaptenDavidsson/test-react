@@ -104,6 +104,8 @@ class App extends Component {
   }
 
   componentDidMount() {
+    ReactModal.setAppElement('body');
+
     const cookies = new Cookies();
 
     this.setState({
@@ -442,10 +444,18 @@ class App extends Component {
     }); 
   }
 
-  handleChoosePreferred(preferred) {
+  handleChoosePreferred(preferred_opt) {
+
+    var preferred =  preferred_opt;
     if (!this.state.myPreferred.some(p => p == preferred)) {
+      var otherPreferred = this.state.leftItem.options.filter(o => o != preferred);
+
+      if (otherPreferred.length != 0) {
+        var myPreferred = this.state.myPreferred.filter(p => p != otherPreferred[0])
+      }
+
       this.setState({
-        myPreferred: [...this.state.myPreferred, preferred ],
+        myPreferred: [myPreferred, preferred ],
       });
     } 
     else {
@@ -601,9 +611,9 @@ class App extends Component {
                         contentLabel="Minimal">
                         <div>
                           Not implemented yet
-                        </div>
                         <br />
                         <button onClick={this.handleCloseCalculateFunc.bind(this)}>Close</button>
+                        </div>
                       </ReactModal>
 
                       <div className="edit-function" onClick={this.handleEditFunction.bind(this)}>{!this.state.functionEditable ? 'Edit' : 'Reset'}</div>
