@@ -17,6 +17,7 @@ import ReactDom from 'react-dom';
 import ReactModal from 'react-modal';
 import ImagePicker from 'react-image-picker'
 import 'react-image-picker/dist/index.css'
+import 'fourier-motzkin'
 
 
 class App extends Component {
@@ -45,7 +46,7 @@ class App extends Component {
         top               : '60px',
         left              : 0,
         right             : 0,
-        bottom            : '60px',
+        bottom            : 0,
         backgroundColor   : 'rgba(150, 150, 150, 0.50)'
     }
 
@@ -53,7 +54,7 @@ class App extends Component {
       overlay : modalOverlayStyle,
       content : {
         top                   : '25%',
-        left                  : '75%',
+        left                  : '50%',
         right                 : 'auto',
         bottom                : 'auto',
         marginRight           : '-50%',
@@ -458,6 +459,17 @@ class App extends Component {
     this.setState({
       showCalculateFunc: true
     })
+
+    var preferredMatrix = [];
+    for (var preferred of this.state.myPreferred) {
+      var effectArray = [];
+      for (var effect of preferred.effects) {
+        var index = this.values.indexOf(this.values.filter(v => v.code == effect.code)[0]);
+        effectArray[index] = effect.count;
+      }
+      preferredMatrix.push(effectArray);
+    }
+    console.log(preferredMatrix);
   }
 
   handleCloseCalculateFunc() {
@@ -575,6 +587,45 @@ class App extends Component {
             </div>
             <div className="list-item padded-content">
               <Accordion accordion={false} activeItems={this.state.activeAccordionItems}>
+              <AccordionItem>
+                  <AccordionItemTitle className="accordion-title">
+                    <h3>Function</h3>
+                  </AccordionItemTitle>
+                  <AccordionItemBody>
+                    <div>              
+                      <div className="calculate-func" onClick={this.handleShowCalculateFunc.bind(this)}>Calculate a function from my preferred answers</div>
+                      
+                      <ReactModal 
+                        style={this.customStyles}
+                        isOpen={this.state.showCalculateFunc}
+                        contentLabel="Minimal">
+                        <div>
+                          Not implemented yet
+                        </div>
+                        <br />
+                        <button onClick={this.handleCloseCalculateFunc.bind(this)}>Close</button>
+                      </ReactModal>
+
+                      <div className="edit-function" onClick={this.handleEditFunction.bind(this)}>{!this.state.functionEditable ? 'Edit' : 'Reset'}</div>
+                      <div><input type="checkbox" onChange={this.handleShowFullFunctionNames.bind(this)} />Show full names</div>
+                      
+                      {!this.state.showFullNamesFunc ? 
+                        <textarea 
+                          className={this.state.functionEditable ? "utility-function" : "utility-function utility-function-readonly"} 
+                          value={this.state.utilFunc}
+                          onChange={this.handleTextAreaChange.bind(this)}
+                          readOnly={!this.state.functionEditable}
+                        ></textarea>
+                        :
+                        <textarea 
+                          className="utility-function utility-function-readonly"
+                          value={this.state.fullNamesFunc}
+                          readOnly={true}
+                        ></textarea>
+                    }
+                    </div>
+                  </AccordionItemBody>
+                </AccordionItem>
                 <AccordionItem className={this.state.functionEditable ? 'inactive-sentiments' : ''}>
                   <AccordionItemTitle className="accordion-title">
                     <h3>Sentiments</h3>
@@ -656,45 +707,7 @@ class App extends Component {
                     {this.state.rightList.length == 0 ? <span>Empty</span> : ''}
                   </AccordionItemBody>
                 </AccordionItem>
-                <AccordionItem>
-                  <AccordionItemTitle className="accordion-title">
-                    <h3>Function</h3>
-                  </AccordionItemTitle>
-                  <AccordionItemBody>
-                    <div>              
-                      <div className="calculate-func" onClick={this.handleShowCalculateFunc.bind(this)}>Calculate a function from my preferred answers</div>
-                      
-                      <ReactModal 
-                        style={this.customStyles}
-                        isOpen={this.state.showCalculateFunc}
-                        contentLabel="Minimal">
-                        <div>
-                          Not implemented yet
-                        </div>
-                        <br />
-                        <button onClick={this.handleCloseCalculateFunc.bind(this)}>Close</button>
-                      </ReactModal>
-
-                      <div className="edit-function" onClick={this.handleEditFunction.bind(this)}>{!this.state.functionEditable ? 'Edit' : 'Reset'}</div>
-                      <div><input type="checkbox" onChange={this.handleShowFullFunctionNames.bind(this)} />Show full names</div>
-                      
-                      {!this.state.showFullNamesFunc ? 
-                        <textarea 
-                          className={this.state.functionEditable ? "utility-function" : "utility-function utility-function-readonly"} 
-                          value={this.state.utilFunc}
-                          onChange={this.handleTextAreaChange.bind(this)}
-                          readOnly={!this.state.functionEditable}
-                        ></textarea>
-                        :
-                        <textarea 
-                          className="utility-function utility-function-readonly"
-                          value={this.state.fullNamesFunc}
-                          readOnly={true}
-                        ></textarea>
-                    }
-                    </div>
-                  </AccordionItemBody>
-                </AccordionItem>
+                
                 <AccordionItem expanded={this.state.isAssumptionsExpanded}>
                   <AccordionItemTitle className="accordion-title">
                     <h3>Assumptions</h3>
@@ -715,7 +728,9 @@ class App extends Component {
                       style={this.chooseInterestsStyles}
                       isOpen={this.state.showInterestsModel}
                       contentLabel="Minimal Modal">
-                      <div>
+                      <div className="interestes-picker">
+                        <button onClick={this.handleCloseInterestsModal.bind(this)} className="close-interests-modal">X</button>
+
                         <h3>Choose interests</h3>
                         <ImagePicker 
                           images={this.startingTags.map((tag, i) => ({src: 'images/' + this.tags[tag].image, value: i}))}
@@ -726,6 +741,12 @@ class App extends Component {
                           <span><input type="checkbox" defaultChecked={this.state.ishandleFilterInterestsChecked} onChange={this.handleFilterInterests.bind(this)} />Set default filter to my interests (can be changed afterwards)</span>
                         
                           <div className="sentiment-modal-separator"></div>
+                          <br />
+
+                          This application lets you find out, organize and discuss your values and assumptions and a systematic manner. 
+                          Browse the ethical dilemmas on the left and decide what action you find most ethical. 
+                          You can either modify your value function on the right manually to make it fit the action (it will then turn green) 
+                          or click the action to get help to align your value function with this action. 
 
                         </div>
                       <br />

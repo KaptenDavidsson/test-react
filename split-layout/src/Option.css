@@ -37,6 +37,7 @@
 
 .toggle-calc {
 	font-style: italic;
+	cursor: pointer;
 }
 
 .show-function {

@@ -148,7 +148,7 @@
   background-color: rgb(217, 235, 251);
   padding: 5px;
   margin-bottom: 5px;
-  width: 40px;
+  width: 50px;
 }
 
 .show-all-values {
@@ -317,6 +317,14 @@
   width: 300px;
   display: block;
   margin: auto;
+}
+
+.interestes-picker {
+  width: 500px;
+}
+
+.close-interests-modal {
+  float: right;
 }
 
 #slider {
