@@ -17,7 +17,8 @@ import ReactDom from 'react-dom';
 import ReactModal from 'react-modal';
 import ImagePicker from 'react-image-picker'
 import 'react-image-picker/dist/index.css'
-import 'fourier-motzkin'
+import fme from 'fourier-motzkin'
+import ss from 'simple-simplex'
 
 
 class App extends Component {
@@ -444,23 +445,45 @@ class App extends Component {
     }); 
   }
 
-  handleChoosePreferred(preferred_opt) {
+  handleChoosePreferred(preferredOption) {
 
-    var preferred =  preferred_opt;
-    if (!this.state.myPreferred.some(p => p == preferred)) {
-      var otherPreferred = this.state.leftItem.options.filter(o => o != preferred);
+    var preferred =  { preferredOption: preferredOption, dilemmaId: this.state.leftItem.id }
+    if (!this.state.myPreferred.some(
+        p => p.preferredOption.description === preferred.preferredOption.description 
+        && p.dilemmaId === preferred.dilemmaId)) {
+      
+      var myPreferred = this.state.myPreferred.filter(p => p.dilemmaId != this.state.leftItem.id);
 
-      if (otherPreferred.length != 0) {
-        var myPreferred = this.state.myPreferred.filter(p => p != otherPreferred[0])
+      var func = {};
+      for (var i=0; i < this.values.length; i++) {
+        var value = this.values[i];
+        var preferredEffect = preferred.preferredOption.effects.filter(e => e.code == value.code);
+        if (preferredEffect.length > 0) {
+          func[value.code] = -preferredEffect[0].count;
+        }
+        else {
+          func[value.code] = 0;
+        }
+
+        var otherOption = this.state.leftItem.options.filter(o => o.description != preferred.preferredOption.description)[0];
+  
+        var otherEffect = otherOption.effects.filter(e => e.code == value.code);
+        if (otherEffect.length > 0) {
+          func[value.code] += otherEffect[0].count;
+        }
       }
 
+      preferred.func = func;
+
       this.setState({
-        myPreferred: [myPreferred, preferred ],
+        myPreferred: [...myPreferred, preferred],
       });
     } 
     else {
       this.setState({
-        myPreferred: this.state.myPreferred.filter( (a,i) => i !== this.state.myPreferred.indexOf(preferred)),
+        myPreferred: this.state.myPreferred.filter(p => 
+          p.preferredOption.description !== preferred.preferredOption.description 
+          && p.dilemmaId !== preferred.dilemmaId)
       });
     }
   }
@@ -470,16 +493,52 @@ class App extends Component {
       showCalculateFunc: true
     })
 
-    var preferredMatrix = [];
-    for (var preferred of this.state.myPreferred) {
-      var effectArray = [];
-      for (var effect of preferred.effects) {
-        var index = this.values.indexOf(this.values.filter(v => v.code == effect.code)[0]);
-        effectArray[index] = effect.count;
+    var preferredMatrix = this.state.myPreferred.map(p => (
+      {namedVector: p.func, constraint: '<=', constant: -1})
+    );
+    var sl = 12;
+    // var preferredMatrix = [];
+
+    for (var value of this.values.slice(0,sl)) {
+
+      var a = {namedVector: {}, constraint: '<=', constant: 100};
+      a.namedVector[value.code] = 1;
+      for (var value2 of this.values.slice(0,sl).filter(v => v.code != value.code)) {
+        a.namedVector[value2.code] = 0;
       }
-      preferredMatrix.push(effectArray);
+      var b = {namedVector: {}, constraint: '>=', constant: -100};
+      b.namedVector[value.code] = 1;
+      for (var value2 of this.values.slice(0,sl).filter(v => v.code != value.code)) {
+        b.namedVector[value2.code] = 0;
+      }
+      preferredMatrix.push(a)
+      preferredMatrix.push(b)
     }
-    console.log(preferredMatrix);
+
+    const SimpleSimplex = require('simple-simplex');
+
+    var objective = Object.assign(...this.values.slice(0,sl).map(v => ({[v.code]: 1})));
+
+    var sol = {
+      objective: objective,
+      constraints: preferredMatrix,
+      optimizationType: 'max',
+    };
+    console.log(JSON.stringify(sol));
+ 
+    // initialize a solver 
+    const solver = new SimpleSimplex(sol);
+     
+    // call the solve method with a method name 
+    const result = solver.solve({
+      methodName: 'simplex',
+    });
+     
+    // see the solution and meta data 
+    console.log({
+      solution: result.solution,
+      isOptimal: result.details.isOptimal,
+    });
   }
 
   handleCloseCalculateFunc() {
@@ -544,6 +603,7 @@ class App extends Component {
                     myAssumptions={this.state.myAssumptions}
                     mySentiments={this.state.sentiments}
                     myPreferred={this.state.myPreferred}
+                    dilemmaId={this.state.leftItem.id}
                     onUtilChange={this.handleUtilChange}
                     onChooseSentiment={this.handleChooseSentiment}
                     onMakeAssumption={this.makeAssumption}

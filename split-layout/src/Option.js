@@ -16,7 +16,7 @@ class Option extends Component {
         top               : '60px',
         left              : 0,
         right             : 0,
-        bottom            : '60px',
+        bottom            : 0,
         backgroundColor   : 'rgba(150, 150, 150, 0.50)'
       },
       content : {
@@ -170,7 +170,7 @@ class Option extends Component {
     return (
       <div>
         <div className={this.props.allUtilSame ? "option all-util-same" : (this.props.option.util == this.props.maxUtil ? "option has-max-util" : "option")}>
-          <span className={this.props.maxUtil <= this.props.option.util ? "glyphicon glyphicon-ok" : ""}></span>  <label>{this.props.option.description}</label> {this.props.myPreferred.some(p => p.description == this.props.option.description) ? '(Preferred)' : ''}
+          <span className={this.props.maxUtil <= this.props.option.util ? "glyphicon glyphicon-ok" : ""}></span>  <label>{this.props.option.description}</label> {this.props.myPreferred.some(p => p.preferredOption.description == this.props.option.description && p.dilemmaId == this.props.dilemmaId) ? '(Preferred)' : ''}
           <div className="prefer" onClick={this.handleOpenModal}>
             I prefer this one
           </div>
@@ -202,7 +202,7 @@ class Option extends Component {
             <br />
             <div className="sentiment-modal-separator"></div>
             <br />
-            <span><input type="checkbox" checked={this.props.myPreferred.some(p => p.description == this.props.option.description)} onChange={(event) => this.handleChoosePreferred(event)} /> Mark this as my preferred answer</span>
+            <span><input type="checkbox" checked={this.props.myPreferred.some(p => p.preferredOption.description == this.props.option.description && p.dilemmaId == this.props.dilemmaId)} onChange={(event) => this.handleChoosePreferred(event)} /> Mark this as my preferred answer</span>
           </div>
           <br />
           <button onClick={this.handleCloseModal}>Close</button>
