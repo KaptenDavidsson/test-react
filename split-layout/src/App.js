@@ -17,8 +17,7 @@ import ReactDom from 'react-dom';
 import ReactModal from 'react-modal';
 import ImagePicker from 'react-image-picker'
 import 'react-image-picker/dist/index.css'
-import fme from 'fourier-motzkin'
-import ss from 'simple-simplex'
+import fourierMotzkin from './fourierMotzkin.js'
 
 
 class App extends Component {
@@ -493,52 +492,38 @@ class App extends Component {
       showCalculateFunc: true
     })
 
-    var preferredMatrix = this.state.myPreferred.map(p => (
-      {namedVector: p.func, constraint: '<=', constant: -1})
-    );
-    var sl = 12;
-    // var preferredMatrix = [];
+    console.log(this.state.myPreferred);
 
-    for (var value of this.values.slice(0,sl)) {
-
-      var a = {namedVector: {}, constraint: '<=', constant: 100};
-      a.namedVector[value.code] = 1;
-      for (var value2 of this.values.slice(0,sl).filter(v => v.code != value.code)) {
-        a.namedVector[value2.code] = 0;
+    var preferredMatrix = [];
+    for (var preferred of this.state.myPreferred) {
+      var preferredArray = [];
+      for (var i = 0; i < this.values.length; i++) {
+        var value = this.values[i];
+        if (preferred.func[value.code]) {
+          preferredArray[i] = preferred.func[value.code];
+        }
+        else {
+          preferredArray[i] = 0;
+        }
       }
-      var b = {namedVector: {}, constraint: '>=', constant: -100};
-      b.namedVector[value.code] = 1;
-      for (var value2 of this.values.slice(0,sl).filter(v => v.code != value.code)) {
-        b.namedVector[value2.code] = 0;
-      }
-      preferredMatrix.push(a)
-      preferredMatrix.push(b)
+      preferredArray[this.values.length] = -1;
+      preferredMatrix.push(preferredArray);
     }
 
-    const SimpleSimplex = require('simple-simplex');
+    for (var i = 0; i < this.values.length; i++) {
+      var bounds1 = new Array(this.values.length+1).fill(0);
+      bounds1[i] = 1;
+      bounds1[this.values.length] = 100;
+      preferredMatrix.push(bounds1);
 
-    var objective = Object.assign(...this.values.slice(0,sl).map(v => ({[v.code]: 1})));
+      var bounds2 = new Array(this.values.length+1).fill(0);
+      bounds2[i] = -1;
+      bounds2[this.values.length] = -100;
+      preferredMatrix.push(bounds2);
+    }
 
-    var sol = {
-      objective: objective,
-      constraints: preferredMatrix,
-      optimizationType: 'max',
-    };
-    console.log(JSON.stringify(sol));
- 
-    // initialize a solver 
-    const solver = new SimpleSimplex(sol);
-     
-    // call the solve method with a method name 
-    const result = solver.solve({
-      methodName: 'simplex',
-    });
-     
-    // see the solution and meta data 
-    console.log({
-      solution: result.solution,
-      isOptimal: result.details.isOptimal,
-    });
+    preferredMatrix = [[1, 0, 7], [0, 1, 1], [-1, 0, -1], [0, -1, -1]];
+    console.log(fourierMotzkin(preferredMatrix));
   }
 
   handleCloseCalculateFunc() {
