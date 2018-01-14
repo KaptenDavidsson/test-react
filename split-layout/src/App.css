@@ -1,12 +1,23 @@
+:root {
+  --button-color: #48A7F9;
+  --neutral-option: #FFF468;
+  --preferred-option: #B4FF96;
+  --not-preferred-option: #FF4252;
+}
+
 .App {
   height: 100%;
   width: 100%;
   position: absolute;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.flat-button {
+  cursor: pointer;
+  border: 1px black solid;
+  border-radius: 3px;
+  background-color: var(--button-color);
+  padding: 5px;
+  color: black;
 }
 
 .App-header {
@@ -31,23 +42,27 @@
 .show-all-dilemmas {
   float: left;
   margin-left: 20px;
-  margin-top: 25px;
-  background-color: rgb(217, 235, 251);
-  color: black;
+  margin-top: 15px;
+  margin-bottom: 10px;
   width: 150px;
 }
 
 .dilemma {
   cursor: pointer;
   list-style-type: none;
-  border-top: black solid 1px;
+  border-top: var(--button-color) solid 2px;
   margin-top: 10px;
 }
 
 .dilemma-feed-element {
   margin: auto;
   display: table;
-  width: 400px;
+  width: 75%;
+  text-align: center;
+}
+
+.dilemma-feed-header {
+  font-weight: bold;
 }
 
 .App-footer {
@@ -130,6 +145,10 @@
 .remove-button {
   float: right;
   cursor: pointer;
+  padding: 2px;
+  background-color: var(--not-preferred-option);
+  border: 1px black solid;
+  border-radius: 3px;
 }
 
 .utility-function {
@@ -142,20 +161,12 @@
 }
 
 .edit-function {
-  cursor: pointer;
-  border: 1px solid black;
-  border-radius: 3px;
-  background-color: rgb(217, 235, 251);
   padding: 5px;
   margin-bottom: 5px;
   width: 50px;
 }
 
 .show-all-values {
-  cursor: pointer;
-  border: 1px solid black;
-  border-radius: 3px;
-  background-color: rgb(217, 235, 251);
   padding: 5px;
   margin-bottom: 5px;
   width: 70px;
@@ -216,15 +227,9 @@
   justify-content: space-between;
 }
 
-.previousDilemma {
+.next-dilemma {
   display: inline-block;
-  cursor: pointer;
   margin-top: 15px;
-  border-width: 1px;
-  border-color: grey;
-  border-style: solid;
-  border-radius: 3px;
-  background-color: rgb(217, 235, 251);
   padding: 5px;
   height: 30px;
 }
@@ -255,14 +260,8 @@
 
 .related-element {
   display: inline-block;
-  background-color: rgb(217, 235, 251);
-  border-width: 1px;
-  border-color: grey;
-  border-style: solid;
-  border-radius: 3px;
   margin-right: 2px;
   padding: 5px;
-  cursor: pointer;
 }
 
 .tags {
@@ -279,14 +278,13 @@
 }
 
 .pick-interests {
-  cursor: pointer;
-  border: 1px solid black;
-  border-radius: 3px;
-  background-color: rgb(217, 235, 251);
   padding: 5px;
   margin-bottom: 5px;
-  width: 80px;
+  margin-top: 15px;
+  margin-left: 10px;
+  width: 100px;
   font-size: 12px;
+  float: left;
 }
 
 .my-interests-title {
@@ -294,10 +292,6 @@
 }
 
 .calculate-func {
-  cursor: pointer;
-  border: 1px solid black;
-  border-radius: 3px;
-  background-color: rgb(217, 235, 251);
   padding: 5px;
   margin-bottom: 5px;
   width: 180px;

@@ -5,15 +5,15 @@
   border-color: rgb(230, 230, 230);
   border-style: solid;
   margin-bottom: 20px;
-	background-color: rgb(230, 200, 200);
+	background-color: var(--not-preferred-option);
 }
 
 .has-max-util {
-	background-color: rgb(200, 230, 200);
+	background-color: var(--preferred-option);
 }
 
 .all-util-same {
-	background-color: rgb(217, 235, 251);
+	background-color: var(--neutral-option);
 }
 
 .choose-modal {
@@ -35,10 +35,6 @@
 	visibility: hidden;;
 }
 
-.toggle-calc {
-	font-style: italic;
-	cursor: pointer;
-}
 
 .show-function {
 	float: right;
@@ -60,13 +56,8 @@
 
 .prefer {
 	float: right;
-  cursor: pointer;
-  border: 1px grey solid;
-  border-radius: 3px;
-  background-color: rgb(50, 50, 100);
   padding: 5px;
   height: 30px;
-  color: white;
 }
 
 .sentiment {

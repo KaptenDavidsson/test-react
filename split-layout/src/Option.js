@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './Option.css'; 
-import ReactDom from 'react-dom';
 import ReactModal from 'react-modal';
 
 
@@ -38,7 +37,7 @@ class Option extends Component {
   componentDidUpdate() {
     var vars = {};
     for (var effect of this.props.option.effects) {
-      if (!effect.optional || this.props.myAssumptions.map(a => a.effect).some(a => a.id == effect.id)) {
+      if (!effect.optional || this.props.myAssumptions.map(a => a.effect).some(a => a.id === effect.id)) {
         if (effect.code in vars) {
           vars[effect.code] += effect.count;
         }
@@ -53,14 +52,14 @@ class Option extends Component {
     var sum = 0;
     for (var s of formattedUtilFunc.split('+')) {
       var prod = 1;
-      if (s == '') continue;
+      if (s === '') continue;
 
       for (var p of s.split('*')) {
-          if (p == '') {
+          if (p === '') {
             prod = 0;
             continue;
           }
-        if (!vars.hasOwnProperty(p.replace('-', '')) && !Number.isInteger(Number.parseInt(p)) && p != 'inf') {
+        if (!vars.hasOwnProperty(p.replace('-', '')) && !Number.isInteger(Number.parseInt(p)) && p !== 'inf') {
           ;prod = 0;
         }
 
@@ -75,17 +74,17 @@ class Option extends Component {
           else if (vars.hasOwnProperty(p)) {
             prod *= vars[p];
           }
-          else if (p == 'inf') {
-            if (Math.sign(prod) == 1) {
+          else if (p === 'inf') {
+            if (Math.sign(prod) === 1) {
               sum = 'inf';
-              if (this.props.option.util != sum) {
+              if (this.props.option.util !== sum) {
                 this.props.onUtilChange({...this.props.option, util: sum});
               }
               return;
             }
             else {
               sum = '-inf';
-              if (this.props.option.util != sum) {
+              if (this.props.option.util !== sum) {
                 this.props.onUtilChange({...this.props.option, util: sum});
               }
               return;
@@ -97,7 +96,7 @@ class Option extends Component {
       sum += prod;
     }
 
-    if (this.props.option.util != sum && Number.isInteger(sum)) {
+    if (this.props.option.util !== sum && Number.isInteger(sum)) {
       this.props.onUtilChange({...this.props.option, util: sum});
     }
   }  
@@ -111,7 +110,7 @@ class Option extends Component {
   }
 
   handleChooseSentiment(sentiment) {
-    if (!this.props.mySentiments.some(s => s.description == sentiment.description)) {
+    if (!this.props.mySentiments.some(s => s.description === sentiment.description)) {
       this.props.onChooseSentiment(sentiment);
       this.setState({ showModal: false });
     }
@@ -169,15 +168,15 @@ class Option extends Component {
   render() {
     return (
       <div>
-        <div className={this.props.allUtilSame ? "option all-util-same" : (this.props.option.util == this.props.maxUtil ? "option has-max-util" : "option")}>
-          <span className={this.props.maxUtil <= this.props.option.util ? "glyphicon glyphicon-ok" : ""}></span>  <label>{this.props.option.description}</label> {this.props.myPreferred.some(p => p.preferredOption.description == this.props.option.description && p.dilemmaId == this.props.dilemmaId) ? '(Preferred)' : ''}
-          <div className="prefer" onClick={this.handleOpenModal}>
+        <div className={this.props.allUtilSame ? "option all-util-same" : (this.props.option.util === this.props.maxUtil ? "option has-max-util" : "option")}>
+          <span className={this.props.maxUtil <= this.props.option.util ? "glyphicon glyphicon-ok" : ""}></span>  <label>{this.props.option.description}</label> {this.props.myPreferred.some(p => p.preferredOption.description === this.props.option.description && p.dilemmaId === this.props.dilemmaId) ? '(Preferred)' : ''}
+          <div className="flat-button prefer" onClick={this.handleOpenModal}>
             I prefer this one
           </div>
           {this.props.option.effects.map((effect, index) => 
-            <p className="effect">{effect.optional ? <input type="checkbox" checked={this.props.myAssumptions.map(a => a.effect).some(a => a.id == effect.id)} onClick={this.handleAssumptionClick.bind(this)} onChange={(event) => this.handleChooseOptional(event, effect)} /> : <span className="glyphicon glyphicon-asterisk"></span>} {this.props.values.filter(v => v.code == effect.code)[0].name} = {effect.count} {effect.explanation ? '(' + effect.explanation + ')' : ''} {effect.inDepth ? <span className="glyphicon glyphicon-info-sign" onClick={(e) => this.handleShowEffectInfo(e, effect)}></span> : ""}</p>
+            <p key={index} className="effect">{effect.optional ? <input type="checkbox" checked={this.props.myAssumptions.map(a => a.effect).some(a => a.id === effect.id)} onClick={this.handleAssumptionClick.bind(this)} onChange={(event) => this.handleChooseOptional(event, effect)} /> : <span className="glyphicon glyphicon-asterisk"></span>} {this.props.values.filter(v => v.code === effect.code)[0].name} = {effect.count} {effect.explanation ? '(' + effect.explanation + ')' : ''} {effect.inDepth ? <span className="glyphicon glyphicon-info-sign" onClick={(e) => this.handleShowEffectInfo(e, effect)}></span> : ""}</p>
           )}
-          <span className="toggle-calc" onClick={this.handleToggleCalc.bind(this)}>{this.state.showFunc ? "Hide calculation" : "Show calculation"}</span>
+          <span className="flat-button" onClick={this.handleToggleCalc.bind(this)}>{this.state.showFunc ? "Hide calculation" : "Show calculation"}</span>
           <div className={ this.state.showFunc ? "shown" : "hidden" }>
             <h4>{this.props.utilFunc} = {this.props.option.util}</h4>
           </div>
@@ -195,14 +194,14 @@ class Option extends Component {
             You can also mark this as your preferred answer and let the program calculate a value function  <br />
             that favors this option.  <br /> <br />
             {this.props.option.sentiments.map((sentiment, index) =>
-              <li className={this.props.mySentiments.some(s => s.description == sentiment.description) ? 'sentiment inactive-sentiment': 'sentiment' } onClick={this.handleChooseSentiment.bind(this, sentiment)}>{sentiment.description} 
+              <li key={index} className={this.props.mySentiments.some(s => s.description === sentiment.description) ? 'sentiment inactive-sentiment': 'sentiment' } onClick={this.handleChooseSentiment.bind(this, sentiment)}>{sentiment.description} 
                 <span className="show-function">{sentiment.func}</span>
               </li>
             )}
             <br />
             <div className="sentiment-modal-separator"></div>
             <br />
-            <span><input type="checkbox" checked={this.props.myPreferred.some(p => p.preferredOption.description == this.props.option.description && p.dilemmaId == this.props.dilemmaId)} onChange={(event) => this.handleChoosePreferred(event)} /> Mark this as my preferred answer</span>
+            <span><input type="checkbox" checked={this.props.myPreferred.some(p => p.preferredOption.description === this.props.option.description && p.dilemmaId === this.props.dilemmaId)} onChange={(event) => this.handleChoosePreferred(event)} /> Mark this as my preferred answer</span>
           </div>
           <br />
           <button onClick={this.handleCloseModal}>Close</button>
