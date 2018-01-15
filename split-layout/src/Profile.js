@@ -7,6 +7,8 @@ import {
     AccordionItemTitle,
     AccordionItemBody,
 } from 'react-accessible-accordion';
+import { Checkbox, RaisedButton } from 'material-ui';
+
 
 class Profile extends Component {
   constructor(props) {
@@ -135,7 +137,7 @@ class Profile extends Component {
                     </ReactModal>
 
                     <div className="flat-button edit-function" onClick={this.handleEditFunction.bind(this)}>{!this.props.functionEditable ? 'Edit' : 'Reset'}</div>
-                    <div><input type="checkbox" onChange={this.handleShowFullFunctionNames.bind(this)} />Show full names</div>
+                    <div><Checkbox onCheck={this.handleShowFullFunctionNames.bind(this)} label="Show full names" /></div>
                     
                     {!this.props.showFullNamesFunc ? 
                       <textarea 
@@ -169,7 +171,7 @@ class Profile extends Component {
               </AccordionItem>
               <AccordionItem>
                 <AccordionItemTitle className="accordion-title">
-                  <h3>Values <span className="flat-button show-all-values" onClick={this.props.handleToggleRight.bind(this)}>All Values</span></h3>
+                  <h3>Values <span className="flat-button show-all-values" onClick={this.props.handleShowAllValues}>All Values</span></h3>
                 </AccordionItemTitle>
                 <AccordionItemBody>
                   <div>
@@ -257,7 +259,7 @@ class Profile extends Component {
               </AccordionItem>
               <AccordionItem>
                 <AccordionItemTitle className="accordion-title">
-                  <h3 className="my-interests-title">Interests</h3>
+                  <h3 className="my-interests-title">Interests <span className="flat-button show-all-values" onClick={this.props.handleShowAllInterests}>All Interests</span></h3>
                 </AccordionItemTitle>
                 <AccordionItemBody>
                   <div>

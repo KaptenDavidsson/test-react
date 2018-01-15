@@ -102,7 +102,8 @@ class App extends Component {
     this.handleChoosePreferred = this.handleChoosePreferred.bind(this);
     this.removeSentiment = this.removeSentiment.bind(this);
     this.removeTag = this.removeTag.bind(this);
-
+    this.handleShowAllValues = this.handleShowAllValues.bind(this);
+    this.handleShowAllInterests = this.handleShowAllInterests.bind(this);
   }
 
   componentDidMount() {
@@ -126,10 +127,19 @@ class App extends Component {
     }
   }
 
-  handleToggleRight() {
+  handleShowAllValues() {
     this.setState({
-      hideRight: !this.state.hideRight
+      hideRight: !this.state.hideRight,
+      rightListSlider: this.values
     })
+  }
+
+  handleShowAllInterests() {
+    this.setState({
+      hideRight: !this.state.hideRight,
+      rightListSlider: this.tags
+    })
+
   }
 
   handleToggleLeft() {
@@ -487,7 +497,7 @@ class App extends Component {
                 multiple={true}
                 onClick={this.onClickInterest.bind(this)}
               />
-                <span><input type="checkbox" defaultChecked={this.state.ishandleFilterInterestsChecked} onChange={this.handleFilterInterests.bind(this)} />Set default filter to my interests (can be changed afterwards)</span>
+                <Checkbox checked={this.state.ishandleFilterInterestsChecked} onCheck={this.handleFilterInterests.bind(this)} label="Set default filter to my interests (can be changed afterwards)"></Checkbox>
               
                 <div className="sentiment-modal-separator"></div>
                 <br />
@@ -575,7 +585,7 @@ class App extends Component {
                       placeholder="Find">
                     </input>
 
-                    <span><input type="checkbox" checked={this.state.ishandleFilterInterestsChecked} defaultChecked={this.state.ishandleFilterInterestsChecked} onChange={this.handleFilterInterests.bind(this)} />Show only my interests</span>
+                    <Checkbox checked={this.state.ishandleFilterInterestsChecked} onCheck={this.handleFilterInterests.bind(this)} label="Show only my interests" />
                     
                   </div>
                   {this.state.leftList.map((item, index) => 
@@ -605,7 +615,6 @@ class App extends Component {
             <Profile
               handleTextAreaChange={this.handleTextAreaChange}
               sentiments={this.state.sentiments}
-              handleToggleRight={this.handleToggleRight}
               rightList={this.state.rightList}
               myAssumptions={this.state.myAssumptions}
               myTags={this.state.myTags}
@@ -615,11 +624,13 @@ class App extends Component {
               removeSentiment={this.removeSentiment}
               removeRightItem={this.removeRightItem}
               removeTag={this.removeTag}
+              handleShowAllValues={this.handleShowAllValues}
+              handleShowAllInterests={this.handleShowAllInterests}
             ></Profile>
           <div id="slider" className={this.state.hideRight ? "slide-out" : "slide-in"}>
             <div className="slider-content padded-content">
               <div>
-                <span className="show-all-values" onClick={this.handleToggleRight.bind(this)}>Close</span>
+                <RaisedButton backgroundColor="#48A7F9" onClick={this.handleShowAllValues.bind(this)}>Close</RaisedButton>
                 <Accordion>
                   {this.state.rightListSlider.map((item, index) =>
                     <AccordionItem key={index}>

@@ -177,7 +177,7 @@ class Option extends Component {
             I prefer this one
           </div>
           {this.props.option.effects.map((effect, index) => 
-            <p key={index} className="effect">{effect.optional ? <input type="checkbox" checked={this.props.myAssumptions.map(a => a.effect).some(a => a.id === effect.id)} onClick={this.handleAssumptionClick.bind(this)} onChange={(event) => this.handleChooseOptional(event, effect)} /> : <span className="glyphicon glyphicon-asterisk"></span>} {this.props.values.filter(v => v.code === effect.code)[0].name} = {effect.count} {effect.explanation ? '(' + effect.explanation + ')' : ''} {effect.inDepth ? <span className="glyphicon glyphicon-info-sign" onClick={(e) => this.handleShowEffectInfo(e, effect)}></span> : ""}</p>
+            <p key={index} className="effect">{effect.optional ? <Checkbox checked={this.props.myAssumptions.map(a => a.effect).some(a => a.id === effect.id)} onCheck={(event) => this.handleChooseOptional(event, effect)} /> : <span className="glyphicon glyphicon-asterisk"></span>} {this.props.values.filter(v => v.code === effect.code)[0].name} = {effect.count} {effect.explanation ? '(' + effect.explanation + ')' : ''} {effect.inDepth ? <span className="glyphicon glyphicon-info-sign" onClick={(e) => this.handleShowEffectInfo(e, effect)}></span> : ""}</p>
           )}
           <span className="flat-button" onClick={this.handleToggleCalc.bind(this)}>{this.state.showFunc ? "Hide calculation" : "Show calculation"}</span>
           <div className={ this.state.showFunc ? "shown" : "hidden" }>
