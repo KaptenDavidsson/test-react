@@ -16,6 +16,8 @@ import Profile from './Profile.js'
 import ReactModal from 'react-modal';
 import ImagePicker from 'react-image-picker'
 import 'react-image-picker/dist/index.css'
+import { Checkbox, RaisedButton } from 'material-ui';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 class App extends Component {
@@ -98,6 +100,8 @@ class App extends Component {
     this.makeAssumption = this.makeAssumption.bind(this);
     this.onPickInterest = this.onPickInterest.bind(this);
     this.handleChoosePreferred = this.handleChoosePreferred.bind(this);
+    this.removeSentiment = this.removeSentiment.bind(this);
+    this.removeTag = this.removeTag.bind(this);
 
   }
 
@@ -181,6 +185,21 @@ class App extends Component {
 
     this.setState({
       sentiments: newList
+    })
+  }
+
+  removeTag(event, index) {
+    event.preventDefault();
+
+    var newList = this.state.myTags.filter(function(e,i) {
+        return i !== index;
+      });
+
+    const cookies = new Cookies();
+    cookies.set('myTags', newList, { path: '/' });
+
+    this.setState({
+      myTags: newList
     })
   }
 
@@ -448,10 +467,11 @@ class App extends Component {
 
   render() {
     return (
+      <MuiThemeProvider>
       <div className="App">
         <header className="App-header">
           <h2 className="header-title">Ethica 2000</h2>
-          <div onClick={this.handleToggleLeft.bind(this)} className="flat-button show-all-dilemmas">{this.state.hideLeft ? "Show all dilemmas" : "Hide all dilemmas"}</div>
+          <RaisedButton backgroundColor="#48A7F9" onClick={this.handleToggleLeft.bind(this)} className="show-all-dilemmas">{this.state.hideLeft ? "Show all dilemmas" : "Hide all dilemmas"}</RaisedButton>
           <span className="flat-button pick-interests" onClick={this.handlePickInterests.bind(this)}>Start screen</span>
           <ReactModal 
             style={this.chooseInterestsStyles}
@@ -592,6 +612,9 @@ class App extends Component {
               tags={this.tags}
               rightListSlider={this.state.rightListSlider}
               handleChooseValueLink={this.handleChooseValueLink}
+              removeSentiment={this.removeSentiment}
+              removeRightItem={this.removeRightItem}
+              removeTag={this.removeTag}
             ></Profile>
           <div id="slider" className={this.state.hideRight ? "slide-out" : "slide-in"}>
             <div className="slider-content padded-content">
@@ -619,6 +642,7 @@ class App extends Component {
           </div>
         </div>
       </div>
+      </MuiThemeProvider>
     );
   }
 }

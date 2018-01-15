@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './Option.css'; 
 import ReactModal from 'react-modal';
+import { Checkbox, RaisedButton } from 'material-ui';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 class Option extends Component {
@@ -167,6 +169,7 @@ class Option extends Component {
 
   render() {
     return (
+      <MuiThemeProvider>
       <div>
         <div className={this.props.allUtilSame ? "option all-util-same" : (this.props.option.util === this.props.maxUtil ? "option has-max-util" : "option")}>
           <span className={this.props.maxUtil <= this.props.option.util ? "glyphicon glyphicon-ok" : ""}></span>  <label>{this.props.option.description}</label> {this.props.myPreferred.some(p => p.preferredOption.description === this.props.option.description && p.dilemmaId === this.props.dilemmaId) ? '(Preferred)' : ''}
@@ -201,7 +204,12 @@ class Option extends Component {
             <br />
             <div className="sentiment-modal-separator"></div>
             <br />
+
+            <Checkbox label="Mark this as my preferred answer" checked={this.props.myPreferred.some(p => p.preferredOption.description === this.props.option.description && p.dilemmaId === this.props.dilemmaId)} onCheck={(event) => this.handleChoosePreferred(event)} ></Checkbox>
+
+            {/*
             <span><input type="checkbox" checked={this.props.myPreferred.some(p => p.preferredOption.description === this.props.option.description && p.dilemmaId === this.props.dilemmaId)} onChange={(event) => this.handleChoosePreferred(event)} /> Mark this as my preferred answer</span>
+            */}
           </div>
           <br />
           <button onClick={this.handleCloseModal}>Close</button>
@@ -231,6 +239,7 @@ class Option extends Component {
           <button onClick={this.handleCloseAddEffect.bind(this)}>Close</button>
         </ReactModal>
       </div>
+      </MuiThemeProvider>
     );
   }
 

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "fourier-motzkin": "^0.0.2",
+    "material-ui": "^0.20.0",
     "react": "^16.1.0",
     "react-accessible-accordion": "^1.0.1",
     "react-collapsible": "^2.0.3",

@@ -161,7 +161,7 @@ class Profile extends Component {
                 <AccordionItemBody>
                   <div>
                     {this.props.sentiments.map((sentiment, index) =>
-                      <li key={index} className="list-group-item" >{sentiment.description} <span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.removeSentiment(e, index)}></span></li>
+                      <li key={index} className="list-group-item" >{sentiment.description} <span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.props.removeSentiment(e, index)}></span></li>
                     )}
                     {this.props.sentiments.length === 0 ? <span>Empty</span> : ''}
                   </div>
@@ -262,7 +262,7 @@ class Profile extends Component {
                 <AccordionItemBody>
                   <div>
                     {this.props.myTags.map((tag, index) =>
-                      <li key={index} className="list-group-item" >{this.props.tags.filter(t => t.id === tag)[0].name} <span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.removeSentiment(e, index)}></span></li>
+                      <li key={index} className="list-group-item" >{this.props.tags.filter(t => t.id === tag)[0].name} <span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.props.removeTag(e, index)}></span></li>
                     )}
                     {this.props.myTags.length === 0 ? <span>Empty</span> : ''}
                   </div>
