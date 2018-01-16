@@ -122,23 +122,7 @@ class Profile extends Component {
                   <h3>Function</h3>
                 </AccordionItemTitle>
                 <AccordionItemBody>
-                  <div>              
-                    <div className="flat-button calculate-func" onClick={this.handleShowCalculateFunc.bind(this)}>Calculate a function from my preferred answers</div>
-                    
-                    <ReactModal 
-                      style={this.customStyles}
-                      isOpen={this.props.showCalculateFunc}
-                      contentLabel="Minimal">
-                      <div>
-                        Not implemented yet
-                      <br />
-                      <button onClick={this.handleCloseCalculateFunc.bind(this)}>Close</button>
-                      </div>
-                    </ReactModal>
-
-                    <div className="flat-button edit-function" onClick={this.handleEditFunction.bind(this)}>{!this.props.functionEditable ? 'Edit' : 'Reset'}</div>
-                    <div><Checkbox onCheck={this.handleShowFullFunctionNames.bind(this)} label="Show full names" /></div>
-                    
+                  <div>
                     {!this.props.showFullNamesFunc ? 
                       <textarea 
                         className={this.props.functionEditable ? "utility-function" : "utility-function utility-function-readonly"} 
@@ -152,7 +136,25 @@ class Profile extends Component {
                         value={this.props.fullNamesFunc}
                         readOnly={true}
                       ></textarea>
-                  }
+                    }    
+
+                    <div>          
+                      <RaisedButton backgroundColor="#48A7F9" onClick={this.handleShowCalculateFunc.bind(this)}>Calculate a function from my preferred answers</RaisedButton>
+                      
+                      <ReactModal 
+                        style={this.customStyles}
+                        isOpen={this.props.showCalculateFunc}
+                        contentLabel="Minimal">
+                        <div>
+                          Not implemented yet
+                        <br />
+                        <button onClick={this.handleCloseCalculateFunc.bind(this)}>Close</button>
+                        </div>
+                      </ReactModal>
+
+                      <RaisedButton backgroundColor="#48A7F9" onClick={this.handleEditFunction.bind(this)}>{!this.props.functionEditable ? 'Edit' : 'Reset'}</RaisedButton>
+                      <Checkbox onCheck={this.handleShowFullFunctionNames.bind(this)} label="Show full names" />
+                    </div>
                   </div>
                 </AccordionItemBody>
               </AccordionItem>
@@ -163,7 +165,7 @@ class Profile extends Component {
                 <AccordionItemBody>
                   <div>
                     {this.props.sentiments.map((sentiment, index) =>
-                      <li key={index} className="list-group-item" >{sentiment.description} <span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.props.removeSentiment(e, index)}></span></li>
+                      <li key={index} className="my-list-item" >{sentiment.description} <span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.props.removeSentiment(e, index)}></span></li>
                     )}
                     {this.props.sentiments.length === 0 ? <span>Empty</span> : ''}
                   </div>
@@ -177,7 +179,7 @@ class Profile extends Component {
                   <div>
                     {this.props.rightList.map((item, index) =>
                       <div key={index}>
-                          <div className="my-value-item">
+                          <div className="my-list-item">
                             <div className="value-name">
                               <h4>{item.name} ({item.code})</h4>
                             </div>
@@ -197,7 +199,7 @@ class Profile extends Component {
                                   {item.links.map((link, index2) =>
                                     <AccordionItem key={index}>
                                       <AccordionItemTitle className="accordion-title">
-                                        <li key={index} className="sentiment list-group-item list-item-clickable" >{this.props.rightListSlider.filter(v => v.id === link.id)[0].name} <span className="glyphicon glyphicon-plus" onClick={this.props.handleChooseValueLink.bind(this, link, item)}></span></li>
+                                        <li key={index} className="sentiment my-list-item" >{this.props.rightListSlider.filter(v => v.id === link.id)[0].name} <span className="glyphicon glyphicon-plus" onClick={this.props.handleChooseValueLink.bind(this, link, item)}></span></li>
                                       </AccordionItemTitle>
                                       <AccordionItemBody>
                                         <div>
@@ -251,7 +253,7 @@ class Profile extends Component {
                 <AccordionItemBody>
                   <div>
                     {this.props.myAssumptions.map((assumption, index) =>
-                      <li key={index} className="list-group-item" >{assumption.effect.explanation} ({assumption.option.description}) <span className="glyphicon glyphicon-remove remove-button"></span></li>
+                      <li key={index} className="my-list-item" >{assumption.effect.explanation} ({assumption.option.description}) <span className="glyphicon glyphicon-remove remove-button"></span></li>
                     )}
                     {this.props.myAssumptions.length === 0 ? <span>Empty</span> : ''}
                   </div>
@@ -264,7 +266,7 @@ class Profile extends Component {
                 <AccordionItemBody>
                   <div>
                     {this.props.myTags.map((tag, index) =>
-                      <li key={index} className="list-group-item" >{this.props.tags.filter(t => t.id === tag)[0].name} <span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.props.removeTag(e, index)}></span></li>
+                      <li key={index} className="my-list-item">{this.props.tags.filter(t => t.id === tag)[0].name} <span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.props.removeTag(e, index)}></span></li>
                     )}
                     {this.props.myTags.length === 0 ? <span>Empty</span> : ''}
                   </div>

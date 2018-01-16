@@ -284,7 +284,7 @@ class App extends Component {
       activeAccordionItems: [...this.state.activeAccordionItems, 0, 1]
     });
     
-    var newFunc = this.state.utilFunc + '+' + sentiment.func;
+    var newFunc = this.state.utilFunc + (this.state.utilFunc !== '' && sentiment.func[0] !== '-' ? '+' : '') + sentiment.func;
     cookies.set('utilFunc', newFunc, { path: '/' });
 
     this.setState({
@@ -481,7 +481,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <h2 className="header-title">Ethica 2000</h2>
-          <RaisedButton backgroundColor="#48A7F9" onClick={this.handleToggleLeft.bind(this)} className="show-all-dilemmas">{this.state.hideLeft ? "Show all dilemmas" : "Hide all dilemmas"}</RaisedButton>
+          <RaisedButton backgroundColor="#48A7F9" onClick={this.handleToggleLeft.bind(this)} className="show-all-dilemmas">{this.state.hideLeft ? "Browse all dilemmas" : "Hide all dilemmas"}</RaisedButton>
           <span className="flat-button pick-interests" onClick={this.handlePickInterests.bind(this)}>Start screen</span>
           <ReactModal 
             style={this.chooseInterestsStyles}
@@ -489,6 +489,17 @@ class App extends Component {
             contentLabel="Minimal Modal">
             <div className="interestes-picker">
               <button onClick={this.handleCloseInterestsModal.bind(this)} className="close-interests-modal">X</button>
+                
+                <h3>Welcome!</h3>
+              
+                This application lets you find out, organize and discuss your values and assumptions and a systematic manner. 
+                Browse the ethical dilemmas on the left and decide what action you find most ethical. 
+                You can either modify your value function on the right manually to make it fit the action (it will then turn green) 
+                or click the action to get help to align your value function with this action. 
+              
+              <br />                
+              <br />                
+              <div className="sentiment-modal-separator"></div>
 
               <h3>Choose interests</h3>
               <ImagePicker 
@@ -497,20 +508,12 @@ class App extends Component {
                 multiple={true}
                 onClick={this.onClickInterest.bind(this)}
               />
+              {/*
                 <Checkbox checked={this.state.ishandleFilterInterestsChecked} onCheck={this.handleFilterInterests.bind(this)} label="Set default filter to my interests (can be changed afterwards)"></Checkbox>
-              
-                <div className="sentiment-modal-separator"></div>
-                <br />
-
-                This application lets you find out, organize and discuss your values and assumptions and a systematic manner. 
-                Browse the ethical dilemmas on the left and decide what action you find most ethical. 
-                You can either modify your value function on the right manually to make it fit the action (it will then turn green) 
-                or click the action to get help to align your value function with this action. 
-
+              */}
               </div>
             <br />
-            <br />
-            <button onClick={this.handleCloseInterestsModal.bind(this)}>Choose</button>
+            <RaisedButton backgroundColor="#48A7F9" onClick={this.handleCloseInterestsModal.bind(this)}>Choose</RaisedButton>
           </ReactModal>
         </header>
         <div className="wrapper">
@@ -550,6 +553,7 @@ class App extends Component {
               <br />
               {this.state.leftItem.image ? <img src={'images/' + this.state.leftItem.image} /> : '' }
               <br />
+              <h3>Choices ()</h3>
               <br />
               <div> 
                 {this.state.leftItem.options.map((option, index) => 

@@ -171,7 +171,10 @@ class Option extends Component {
     return (
       <MuiThemeProvider>
       <div>
+      {/*
         <div className={this.props.allUtilSame ? "option all-util-same" : (this.props.option.util === this.props.maxUtil ? "option has-max-util" : "option")}>
+      */}
+        <div className="option neutral-choice">
           <span className={this.props.maxUtil <= this.props.option.util ? "glyphicon glyphicon-ok" : ""}></span>  <label>{this.props.option.description}</label> {this.props.myPreferred.some(p => p.preferredOption.description === this.props.option.description && p.dilemmaId === this.props.dilemmaId) ? '(Preferred)' : ''}
           <div className="flat-button prefer" onClick={this.handleOpenModal}>
             I prefer this one
@@ -179,7 +182,9 @@ class Option extends Component {
           {this.props.option.effects.map((effect, index) => 
             <p key={index} className="effect">{effect.optional ? <Checkbox checked={this.props.myAssumptions.map(a => a.effect).some(a => a.id === effect.id)} onCheck={(event) => this.handleChooseOptional(event, effect)} /> : <span className="glyphicon glyphicon-asterisk"></span>} {this.props.values.filter(v => v.code === effect.code)[0].name} = {effect.count} {effect.explanation ? '(' + effect.explanation + ')' : ''} {effect.inDepth ? <span className="glyphicon glyphicon-info-sign" onClick={(e) => this.handleShowEffectInfo(e, effect)}></span> : ""}</p>
           )}
-          <span className="flat-button" onClick={this.handleToggleCalc.bind(this)}>{this.state.showFunc ? "Hide calculation" : "Show calculation"}</span>
+          <br />
+          <span className="glyphicon glyphicon-triangle-right"></span><span className="show-calc-button" onClick={this.handleToggleCalc.bind(this)}>{this.state.showFunc ? "Hide calculation" : "Show calculation"}</span>
+          <br/>
           <div className={ this.state.showFunc ? "shown" : "hidden" }>
             <h4>{this.props.utilFunc} = {this.props.option.util}</h4>
           </div>

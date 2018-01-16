@@ -72,6 +72,15 @@
 }
 
 .sentiment-modal-separator {
-	background-color: #aaa;
+	background-color: var(--button-color);
 	height: 2px;
+}
+
+.neutral-choice {
+	background-color: #ddd;
+}
+
+.show-calc-button {
+	font-style: italic;
+	cursor: pointer;
 }

@@ -1,15 +1,16 @@
 {
 	"tags": [
-		{ "id": 0, "name": "Real life", "description": "Real life questions", "image": ""},
-		{ "id": 1, "name": "Thought experiment", "description": "Teoretical thought experiments", "image": "thought-experiment.png"},
-		{ "id": 2, "name": "Justice", "image": "justice.png"},
-		{ "id": 3, "name": "Classical", "image": ""},
-		{ "id": 4, "name": "Political", "image": "politics.png"},
-		{ "id": 5, "name": "Fiction", "description": "Has appeared in books, TV shows, music or other works of fiction", "image": "fiction.png"},
-		{ "id": 6, "name": "TV", "image": ""},
-		{ "id": 7, "name": "Literature", "image": ""},
-		{ "id": 8, "name": "Punishment", "image": ""}
+		{ "id": 0, "name": "Everything", "description": "Everything", "image": "everything.png"},
+		{ "id": 1, "name": "Real life", "description": "Real life questions", "image": ""},
+		{ "id": 2, "name": "Thought experiment", "description": "Teoretical thought experiments", "image": "thought-experiment.png"},
+		{ "id": 3, "name": "Justice", "image": "justice.png"},
+		{ "id": 4, "name": "Classical", "image": ""},
+		{ "id": 5, "name": "Political", "image": "politics.png"},
+		{ "id": 6, "name": "Fiction", "description": "Has appeared in books, TV shows, music or other works of fiction", "image": "fiction.png"},
+		{ "id": 7, "name": "TV", "image": ""},
+		{ "id": 8, "name": "Literature", "image": ""},
+		{ "id": 9, "name": "Punishment", "image": ""}
 	],
-	"startingTags": [1,2,4,5],
-	"myTags": [1,2]
+	"startingTags": [2,3,5,6,0],
+	"myTags": [0]
 }

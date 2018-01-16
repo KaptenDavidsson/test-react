@@ -139,7 +139,7 @@
 }
 
 .accordion-item-title {
-  border: black 2px solid;
+  border: var(--button-color) 3px solid;
   padding: 5px;
 }
 
@@ -153,8 +153,8 @@
 }
 
 .utility-function {
-  width: 100%;
-  height: 100px;
+  width: 50%;
+  height: 50px;
 }
 
 .utility-function-readonly {
@@ -304,7 +304,7 @@
 
 .accordion-title {
   outline: none;
-  border-top: 1px black solid;
+  border-top: 2px var(--button-color) solid;
   margin-top: 10px;
 }
 
@@ -320,6 +320,8 @@
 
 .close-interests-modal {
   float: right;
+  margin-top: -30px;
+  margin-right: -10px;
 }
 
 #slider {
@@ -385,4 +387,12 @@
   to { transform: rotate(360deg); }
 }
 
+.my-list-item {
+  list-style-type: none;
+  border-bottom: 1px solid black;
+  padding: 5px;
+}
 
+.my-list-item:first-child {
+  border-top: 1px solid black;
+}
