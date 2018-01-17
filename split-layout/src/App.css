@@ -211,13 +211,6 @@
   float: left;
 } 
 
-.next-dilemma {
-  float: right;
-  display: inline-block;
-  cursor: pointer;
-  margin-top: 20px;
-}
-
 .dilemma-title {
   display: inline-block;
   margin-top: 10px;
@@ -230,9 +223,9 @@
 
 .next-dilemma {
   display: inline-block;
-  margin-top: 15px;
+  margin-top: 10px;
   padding: 5px;
-  height: 30px;
+  height: 45px;
 }
 
 .left-arrow {

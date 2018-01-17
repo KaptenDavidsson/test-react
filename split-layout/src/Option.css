@@ -57,7 +57,9 @@
 .prefer {
 	float: right;
   padding: 5px;
-  height: 30px;
+  width: 300px;
+  height: 100%;
+  cursor: pointer;
 }
 
 .sentiment {
@@ -83,4 +85,15 @@
 .show-calc-button {
 	font-style: italic;
 	cursor: pointer;
+}
+
+.option-title {
+	font-size: 22px;
+	font-weight: bold;
+	padding-bottom: 20px;
+}
+
+.modify-function-help {
+	width: 800px;
+
 }

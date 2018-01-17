@@ -116,30 +116,21 @@ class Profile extends Component {
           <h1>My Profile</h1>
         </div>
           <div className="list-item padded-content">
-            <Accordion accordion={false} activeItems={this.state.activeAccordionItems}>
+            <Accordion accordion={false} activeItems={this.props.activeAccordionItems}>
             <AccordionItem>
                 <AccordionItemTitle className="accordion-title">
                   <h3>Function</h3>
                 </AccordionItemTitle>
                 <AccordionItemBody>
                   <div>
-                    {!this.props.showFullNamesFunc ? 
                       <textarea 
-                        className={this.props.functionEditable ? "utility-function" : "utility-function utility-function-readonly"} 
+                        className="utility-function"
                         value={this.props.utilFunc}
-                        onChange={this.props.handleTextAreaChange.bind(this)}
-                        readOnly={!this.props.functionEditable}
-                      ></textarea>
-                      :
-                      <textarea 
-                        className="utility-function utility-function-readonly"
-                        value={this.props.fullNamesFunc}
-                        readOnly={true}
-                      ></textarea>
-                    }    
+                        onChange={this.props.handleTextAreaChange}
+                      ></textarea> 
 
                     <div>          
-                      <RaisedButton backgroundColor="#48A7F9" onClick={this.handleShowCalculateFunc.bind(this)}>Calculate a function from my preferred answers</RaisedButton>
+                      <RaisedButton backgroundColor="#48A7F9" onClick={this.handleShowCalculateFunc.bind(this)}>Calculate </RaisedButton>
                       
                       <ReactModal 
                         style={this.customStyles}
@@ -152,12 +143,15 @@ class Profile extends Component {
                         </div>
                       </ReactModal>
 
+                      {/*
                       <RaisedButton backgroundColor="#48A7F9" onClick={this.handleEditFunction.bind(this)}>{!this.props.functionEditable ? 'Edit' : 'Reset'}</RaisedButton>
                       <Checkbox onCheck={this.handleShowFullFunctionNames.bind(this)} label="Show full names" />
+                      */}
                     </div>
                   </div>
                 </AccordionItemBody>
               </AccordionItem>
+              {/*
               <AccordionItem className={this.props.functionEditable ? 'inactive-sentiments' : ''}>
                 <AccordionItemTitle className="accordion-title">
                   <h3>Sentiments</h3>
@@ -171,6 +165,7 @@ class Profile extends Component {
                   </div>
                 </AccordionItemBody>
               </AccordionItem>
+            */}
               <AccordionItem>
                 <AccordionItemTitle className="accordion-title">
                   <h3>Values <span className="flat-button show-all-values" onClick={this.props.handleShowAllValues}>All Values</span></h3>

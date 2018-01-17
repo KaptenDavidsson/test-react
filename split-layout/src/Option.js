@@ -171,22 +171,25 @@ class Option extends Component {
     return (
       <MuiThemeProvider>
       <div>
-      {/*
-        <div className={this.props.allUtilSame ? "option all-util-same" : (this.props.option.util === this.props.maxUtil ? "option has-max-util" : "option")}>
-      */}
-        <div className="option neutral-choice">
-          <span className={this.props.maxUtil <= this.props.option.util ? "glyphicon glyphicon-ok" : ""}></span>  <label>{this.props.option.description}</label> {this.props.myPreferred.some(p => p.preferredOption.description === this.props.option.description && p.dilemmaId === this.props.dilemmaId) ? '(Preferred)' : ''}
-          <div className="flat-button prefer" onClick={this.handleOpenModal}>
-            I prefer this one
-          </div>
+        <div className={this.props.allUtilSame ? "option neutral-choice" : (this.props.option.util === this.props.maxUtil ? "option has-max-util" : "option neutral-choice")}>
+        {/*<div className="option neutral-choice">*/}
+          <span className="option-title">{this.props.option.description}</span> {this.props.myPreferred.some(p => p.preferredOption.description === this.props.option.description && p.dilemmaId === this.props.dilemmaId) ? '(Preferred)' : ''}
+          
+          {!this.props.allUtilSame && this.props.option.util === this.props.maxUtil ? 
+            <div className="prefer">According to your function you prefer this choice</div> 
+            : 
+            <div className="prefer" onClick={this.handleOpenModal}>According to your function you do not prefer this choice. Click here for help in modifying your function towards this choice</div>}
+
           {this.props.option.effects.map((effect, index) => 
-            <p key={index} className="effect">{effect.optional ? <Checkbox checked={this.props.myAssumptions.map(a => a.effect).some(a => a.id === effect.id)} onCheck={(event) => this.handleChooseOptional(event, effect)} /> : <span className="glyphicon glyphicon-asterisk"></span>} {this.props.values.filter(v => v.code === effect.code)[0].name} = {effect.count} {effect.explanation ? '(' + effect.explanation + ')' : ''} {effect.inDepth ? <span className="glyphicon glyphicon-info-sign" onClick={(e) => this.handleShowEffectInfo(e, effect)}></span> : ""}</p>
+            <p key={index} className="effect">{effect.optional ? <Checkbox checked={this.props.myAssumptions.map(a => a.effect).some(a => a.id === effect.id)} onCheck={(event) => this.handleChooseOptional(event, effect)} /> 
+            : 
+            <span className="glyphicon glyphicon-asterisk"></span>} {this.props.values.filter(v => v.code === effect.code)[0].name} = {effect.count} {effect.explanation ? '(' + effect.explanation + ')' : ''} {effect.inDepth ? <span className="glyphicon glyphicon-info-sign" onClick={(e) => this.handleShowEffectInfo(e, effect)}></span> : ""}</p>
           )}
           <br />
           <span className="glyphicon glyphicon-triangle-right"></span><span className="show-calc-button" onClick={this.handleToggleCalc.bind(this)}>{this.state.showFunc ? "Hide calculation" : "Show calculation"}</span>
           <br/>
           <div className={ this.state.showFunc ? "shown" : "hidden" }>
-            <h4>{this.props.utilFunc} = {this.props.option.util}</h4>
+            <h4>f(x): {this.props.utilFunc} = {this.props.option.util}</h4>
           </div>
         </div>
 
@@ -194,21 +197,21 @@ class Option extends Component {
           style={this.customStyles}
           isOpen={this.state.showModal}
           contentLabel="Minimal Modal Example">
-          <div>
-            <h3>Preferred option</h3>
-            If this option is red it does not align with your value function. <br />
-            You may modify it by choosing a common sentiment below.  <br />
-            This is sometimes not enough so you might want to consider editing your value function manually.  <br />
-            You can also mark this as your preferred answer and let the program calculate a value function  <br />
-            that favors this option.  <br /> <br />
+          <div className="modify-function-help">
+            Click some of the common sentiments below to add this to your function.
+
+            <br />
+            <br />
             {this.props.option.sentiments.map((sentiment, index) =>
-              <li key={index} className={this.props.mySentiments.some(s => s.description === sentiment.description) ? 'sentiment inactive-sentiment': 'sentiment' } onClick={this.handleChooseSentiment.bind(this, sentiment)}>{sentiment.description} 
-                <span className="show-function">{sentiment.func}</span>
+              <li className="my-list-item" key={index}>{sentiment.description} 
+                <span className="show-function">({sentiment.func})</span>
+                <RaisedButton onClick={() => this.props.handleAddSentimentCode(sentiment)}>Add</RaisedButton>
               </li>
             )}
             <br />
             <div className="sentiment-modal-separator"></div>
             <br />
+
 
             <Checkbox label="Mark this as my preferred answer" checked={this.props.myPreferred.some(p => p.preferredOption.description === this.props.option.description && p.dilemmaId === this.props.dilemmaId)} onCheck={(event) => this.handleChoosePreferred(event)} ></Checkbox>
 

@@ -104,6 +104,8 @@ class App extends Component {
     this.removeTag = this.removeTag.bind(this);
     this.handleShowAllValues = this.handleShowAllValues.bind(this);
     this.handleShowAllInterests = this.handleShowAllInterests.bind(this);
+    this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
+    this.handleAddSentimentCode = this.handleAddSentimentCode.bind(this);
   }
 
   componentDidMount() {
@@ -229,9 +231,11 @@ class App extends Component {
 
     const cookies = new Cookies();
     cookies.set('utilFunc', event.target.value, { path: '/' });
+    console.log(event.target.value);
 
    this.setState({
-      utilFunc: event.target.value
+      utilFunc: event.target.value,
+      activeAccordionItems: [...this.state.activeAccordionItems, 0]
     })
   }
 
@@ -474,6 +478,18 @@ class App extends Component {
     }
   }
 
+  handleAddSentimentCode(sentiment) {
+    console.log('test');
+    var newFunc = this.state.utilFunc + (this.state.utilFunc !== '' && sentiment.func[0] !== '-' ? '+' : '') + sentiment.func;
+
+    const cookies = new Cookies();
+    cookies.set('utilFunc', newFunc, { path: '/' });
+
+    this.setState({
+      utilFunc: newFunc
+    })
+  }
+
 
   render() {
     return (
@@ -481,8 +497,8 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <h2 className="header-title">Ethica 2000</h2>
-          <RaisedButton backgroundColor="#48A7F9" onClick={this.handleToggleLeft.bind(this)} className="show-all-dilemmas">{this.state.hideLeft ? "Browse all dilemmas" : "Hide all dilemmas"}</RaisedButton>
-          <span className="flat-button pick-interests" onClick={this.handlePickInterests.bind(this)}>Start screen</span>
+          <RaisedButton onClick={this.handleToggleLeft.bind(this)} className="pick-interests">{this.state.hideLeft ? "Browse all dilemmas" : "Hide all dilemmas"}</RaisedButton>
+          <RaisedButton className="pick-interests" onClick={this.handlePickInterests.bind(this)}>Start screen</RaisedButton>
           <ReactModal 
             style={this.chooseInterestsStyles}
             isOpen={this.state.showInterestsModel}
@@ -520,16 +536,16 @@ class App extends Component {
           <div className="column-1">
             <div className="padded-content">
               <div className="dilemma-nav">
-                <div className="flat-button next-dilemma" onClick={this.handlePreviousDilemma.bind(this)}>
+                <RaisedButton className="next-dilemma" onClick={this.handlePreviousDilemma.bind(this)}>
                   <span className="glyphicon glyphicon-arrow-left left-arrow"></span>
                   <span>{this.getPreviousDilemma().name}</span>
-                </div>
+                </RaisedButton>
                 <h1 className="dilemma-title">{this.state.leftItem.name}</h1>
 
-                <div className="flat-button next-dilemma" onClick={this.handleNextDilemma.bind(this)}>
+                <RaisedButton className="next-dilemma" onClick={this.handleNextDilemma.bind(this)}>
                   <span>{this.getNextDilemma().name}</span>
                   <span className="glyphicon glyphicon-arrow-right right-arrow"></span>
-                </div>              
+                </RaisedButton>              
               </div>
 
                 <div>
@@ -543,7 +559,7 @@ class App extends Component {
                   <span className="related related-text">Related:</span>
                   <ul className="list-inline related">
                     {this.state.leftItem.related.map((item, index) => 
-                      <li onClick={this.chooseLeft.bind(this, this.dilemmas.filter(i => i.id === item)[0])} className="flat-button related-element" key={index}>{this.dilemmas.filter(i => i.id === item)[0].name}</li>
+                      <RaisedButton onClick={this.chooseLeft.bind(this, this.dilemmas.filter(i => i.id === item)[0])} className="related-element" key={index}>{this.dilemmas.filter(i => i.id === item)[0].name}</RaisedButton>
                     )}
                   </ul>
               </div>
@@ -553,7 +569,7 @@ class App extends Component {
               <br />
               {this.state.leftItem.image ? <img src={'images/' + this.state.leftItem.image} /> : '' }
               <br />
-              <h3>Choices ()</h3>
+              <h3>Choices (Make a choice by modifying your value function)</h3>
               <br />
               <div> 
                 {this.state.leftItem.options.map((option, index) => 
@@ -571,7 +587,9 @@ class App extends Component {
                     onUtilChange={this.handleUtilChange}
                     onChooseSentiment={this.handleChooseSentiment}
                     onMakeAssumption={this.makeAssumption}
-                    handleChoosePreferred={this.handleChoosePreferred}></Option>
+                    handleAddSentimentCode={this.handleAddSentimentCode}
+                    handleChoosePreferred={this.handleChoosePreferred}>
+                  </Option>
                 )}
               </div>
 
@@ -630,6 +648,9 @@ class App extends Component {
               removeTag={this.removeTag}
               handleShowAllValues={this.handleShowAllValues}
               handleShowAllInterests={this.handleShowAllInterests}
+              utilFunc={this.state.utilFunc}
+              handleTextAreaChange={this.handleTextAreaChange}
+              activeAccordionItems={this.activeAccordionItems}
             ></Profile>
           <div id="slider" className={this.state.hideRight ? "slide-out" : "slide-in"}>
             <div className="slider-content padded-content">
