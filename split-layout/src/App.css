@@ -145,11 +145,7 @@
 
 .remove-button {
   float: right;
-  cursor: pointer;
   padding: 2px;
-  background-color: var(--not-preferred-option);
-  border: 1px black solid;
-  border-radius: 3px;
 }
 
 .utility-function {
@@ -254,7 +250,7 @@
 
 .related-element {
   display: inline-block;
-  margin-right: 2px;
+  margin-right: 20px;
   padding: 5px;
 }
 
@@ -289,6 +285,10 @@
   padding: 5px;
   margin-bottom: 5px;
   width: 180px;
+}
+
+.calculate-button {
+  padding-left: 10px;
 }
 
 .add-dilemma {
@@ -384,6 +384,7 @@
   list-style-type: none;
   border-bottom: 1px solid black;
   padding: 5px;
+  width: 60%;
 }
 
 .my-list-item:first-child {

@@ -94,6 +94,30 @@
 }
 
 .modify-function-help {
-	width: 800px;
+	width: 600px;
 
+}
+
+.modify-function-help-header {
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.sentiment-function-helper {
+  list-style-type: none;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  padding: 5px;
+  width: 75%;
+  padding: 10px;
+}
+
+.sentiment-function-helper:first-child {
+  border-top: 1px solid black;
+}
+
+.sentiment-function-helper-func {
+	margin-left: 10px;
 }

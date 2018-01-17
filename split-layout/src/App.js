@@ -661,7 +661,7 @@ class App extends Component {
                     <AccordionItem key={index}>
                       <AccordionItemTitle className="accordion-title">
                         <div>
-                          <h4>{item.name} ({item.code})<span className="glyphicon glyphicon-plus remove-button" onClick={this.addRightItem.bind(this, item)}></span></h4>
+                          <h4>{item.name} ({item.code})<RaisedButton className="remove-button" onClick={this.addRightItem.bind(this, item)}>Add</RaisedButton></h4>
                         </div>
                       </AccordionItemTitle>
                       <AccordionItemBody>

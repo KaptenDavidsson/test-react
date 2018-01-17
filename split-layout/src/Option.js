@@ -176,9 +176,9 @@ class Option extends Component {
           <span className="option-title">{this.props.option.description}</span> {this.props.myPreferred.some(p => p.preferredOption.description === this.props.option.description && p.dilemmaId === this.props.dilemmaId) ? '(Preferred)' : ''}
           
           {!this.props.allUtilSame && this.props.option.util === this.props.maxUtil ? 
-            <div className="prefer">According to your function you prefer this choice</div> 
+            <div className="prefer">According to your function this is the moral choice</div> 
             : 
-            <div className="prefer" onClick={this.handleOpenModal}>According to your function you do not prefer this choice. Click here for help in modifying your function towards this choice</div>}
+            <div className="prefer" onClick={this.handleOpenModal}>According to your function this is not the moral choice. Click here for help in modifying your function towards this choice</div>}
 
           {this.props.option.effects.map((effect, index) => 
             <p key={index} className="effect">{effect.optional ? <Checkbox checked={this.props.myAssumptions.map(a => a.effect).some(a => a.id === effect.id)} onCheck={(event) => this.handleChooseOptional(event, effect)} /> 
@@ -198,21 +198,27 @@ class Option extends Component {
           isOpen={this.state.showModal}
           contentLabel="Minimal Modal Example">
           <div className="modify-function-help">
-            Click some of the common sentiments below to add this to your function.
+            <div className="modify-function-help-header">Modify function</div>
+
+            Click some of the common sentiments below to add it to your function.
 
             <br />
             <br />
+            <div>
             {this.props.option.sentiments.map((sentiment, index) =>
-              <li className="my-list-item" key={index}>{sentiment.description} 
-                <span className="show-function">({sentiment.func})</span>
+              <li className="sentiment-function-helper" key={index}> 
+                <div>{sentiment.description}</div>
                 <RaisedButton onClick={() => this.props.handleAddSentimentCode(sentiment)}>Add</RaisedButton>
+                <span className="sentiment-function-helper-func">({sentiment.func})</span>
               </li>
             )}
+            </div>
             <br />
             <div className="sentiment-modal-separator"></div>
             <br />
-
-
+            ...or mark this choice as your preferred answer and let the application calculate an appropriate function for you.
+            <br />
+            <br />
             <Checkbox label="Mark this as my preferred answer" checked={this.props.myPreferred.some(p => p.preferredOption.description === this.props.option.description && p.dilemmaId === this.props.dilemmaId)} onCheck={(event) => this.handleChoosePreferred(event)} ></Checkbox>
 
             {/*

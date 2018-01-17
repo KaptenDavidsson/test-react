@@ -130,7 +130,7 @@ class Profile extends Component {
                       ></textarea> 
 
                     <div>          
-                      <RaisedButton backgroundColor="#48A7F9" onClick={this.handleShowCalculateFunc.bind(this)}>Calculate </RaisedButton>
+                      <RaisedButton className="calculate-button" onClick={this.handleShowCalculateFunc.bind(this)}>Calculate </RaisedButton>
                       
                       <ReactModal 
                         style={this.customStyles}
@@ -168,7 +168,7 @@ class Profile extends Component {
             */}
               <AccordionItem>
                 <AccordionItemTitle className="accordion-title">
-                  <h3>Values <span className="flat-button show-all-values" onClick={this.props.handleShowAllValues}>All Values</span></h3>
+                  <h3>Values <RaisedButton className="show-all-values" onClick={this.props.handleShowAllValues}>All Values</RaisedButton></h3>
                 </AccordionItemTitle>
                 <AccordionItemBody>
                   <div>
@@ -248,7 +248,7 @@ class Profile extends Component {
                 <AccordionItemBody>
                   <div>
                     {this.props.myAssumptions.map((assumption, index) =>
-                      <li key={index} className="my-list-item" >{assumption.effect.explanation} ({assumption.option.description}) <span className="glyphicon glyphicon-remove remove-button"></span></li>
+                      <li key={index} className="my-list-item" >{assumption.effect.explanation} ({assumption.option.description}) <RaisedButton className="remove-button">Remove</RaisedButton></li>
                     )}
                     {this.props.myAssumptions.length === 0 ? <span>Empty</span> : ''}
                   </div>
@@ -256,12 +256,12 @@ class Profile extends Component {
               </AccordionItem>
               <AccordionItem>
                 <AccordionItemTitle className="accordion-title">
-                  <h3 className="my-interests-title">Interests <span className="flat-button show-all-values" onClick={this.props.handleShowAllInterests}>All Interests</span></h3>
+                  <h3 className="my-interests-title">Interests <RaisedButton className="show-all-values" onClick={this.props.handleShowAllInterests}>All Interests</RaisedButton></h3>
                 </AccordionItemTitle>
                 <AccordionItemBody>
                   <div>
                     {this.props.myTags.map((tag, index) =>
-                      <li key={index} className="my-list-item">{this.props.tags.filter(t => t.id === tag)[0].name} <span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.props.removeTag(e, index)}></span></li>
+                      <li key={index} className="my-list-item">{this.props.tags.filter(t => t.id === tag)[0].name} <RaisedButton className="remove-button" onClick={(e) => this.props.removeTag(e, index)}>Remove</RaisedButton></li>
                     )}
                     {this.props.myTags.length === 0 ? <span>Empty</span> : ''}
                   </div>
