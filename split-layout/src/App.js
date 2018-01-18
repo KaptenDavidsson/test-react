@@ -96,7 +96,6 @@ class App extends Component {
     this.handleUtilChange = this.handleUtilChange.bind(this);
     this.handleChooseSentiment = this.handleChooseSentiment.bind(this);
     this.handleClearSentiments = this.handleClearSentiments.bind(this);
-    this.handleCloseModal = this.handleCloseModal.bind(this);
     this.makeAssumption = this.makeAssumption.bind(this);
     this.onPickInterest = this.onPickInterest.bind(this);
     this.handleChoosePreferred = this.handleChoosePreferred.bind(this);
@@ -106,6 +105,7 @@ class App extends Component {
     this.handleShowAllInterests = this.handleShowAllInterests.bind(this);
     this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
     this.handleAddSentimentCode = this.handleAddSentimentCode.bind(this);
+    this.removeRightItem = this.removeRightItem.bind(this);
   }
 
   componentDidMount() {
@@ -213,16 +213,6 @@ class App extends Component {
     this.setState({
       myTags: newList
     })
-  }
-
-  showLinkValuesDialog(event, index) {
-    this.setState({
-      showModal: true
-    });
-  }
-
-  handleCloseModal() {
-    this.setState({ showModal: false });
   }
 
   handleTextAreaChange(event) {
@@ -651,17 +641,32 @@ class App extends Component {
               utilFunc={this.state.utilFunc}
               handleTextAreaChange={this.handleTextAreaChange}
               activeAccordionItems={this.activeAccordionItems}
+              showLinkValuesDialog={this.showLinkValuesDialog}
+              removeRightItem={this.removeRightItem}
+              customStyles={this.customStyles}
             ></Profile>
           <div id="slider" className={this.state.hideRight ? "slide-out" : "slide-in"}>
             <div className="slider-content padded-content">
               <div>
-                <RaisedButton backgroundColor="#48A7F9" onClick={this.handleShowAllValues.bind(this)}>Close</RaisedButton>
+                <RaisedButton onClick={this.handleShowAllValues.bind(this)}>
+                  <div className="RaisedButton">
+                    Close
+                  </div>
+                </RaisedButton>
                 <Accordion>
                   {this.state.rightListSlider.map((item, index) =>
                     <AccordionItem key={index}>
-                      <AccordionItemTitle className="accordion-title">
+                      <AccordionItemTitle className="accordion-title-values">
                         <div>
-                          <h4>{item.name} ({item.code})<RaisedButton className="remove-button" onClick={this.addRightItem.bind(this, item)}>Add</RaisedButton></h4>
+                          <div className="my-list-item-text">
+                            {item.name} ({item.code})
+                          </div>
+
+                        <div className="remove-button">
+                          <RaisedButton onClick={this.addRightItem.bind(this, item)}>
+                            <div className="remove-button-content">Add</div>
+                          </RaisedButton>
+                        </div>
                         </div>
                       </AccordionItemTitle>
                       <AccordionItemBody>

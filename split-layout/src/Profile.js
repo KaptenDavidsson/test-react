@@ -18,8 +18,12 @@ class Profile extends Component {
       activeAccordionItems: [],
       fullNamesFunc: '',
       showFullNamesFunc: false,
-      functionEditable: false
+      functionEditable: false,
+      showModal: false
     }
+
+    this.showLinkValuesDialog = this.showLinkValuesDialog.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
 
@@ -109,6 +113,15 @@ class Profile extends Component {
     }); 
   }
 
+  showLinkValuesDialog(event, index) {
+    this.setState({
+      showModal: true
+    });
+  }
+  handleCloseModal() {
+    this.setState({ showModal: false });
+  }
+
   render() {
     return (
       <div>
@@ -173,22 +186,31 @@ class Profile extends Component {
                 <AccordionItemBody>
                   <div>
                     {this.props.rightList.map((item, index) =>
-                      <div key={index}>
-                          <div className="my-list-item">
-                            <div className="value-name">
-                              <h4>{item.name} ({item.code})</h4>
-                            </div>
+                      <div key={index}>              
+                      <div>
+                            <li key={index} className="my-list-item">
+                              <div className="my-list-item-text">
+                                {item.name} ({item.code})
+                              </div> 
+                              <div className="remove-button">
+                                <RaisedButton fullWidth={true} onClick={(e) => this.showLinkValuesDialog(e, index)}>
+                                  <div className="remove-button-content">Link</div>
+                                </RaisedButton>
+                              </div>
 
-                            <div className="values-buttons">
-                              <span className="glyphicon glyphicon-link remove-button" onClick={(e) => this.showLinkValuesDialog(e, index)}></span>
-                              <span className="glyphicon glyphicon-remove remove-button" onClick={(e) => this.removeRightItem(e, index)}></span>
-                            </div>
+                              <div className="remove-button">
+                                <RaisedButton fullWidth={true}  onClick={(e) => this.props.removeRightItem(e, index)}>
+                                  <div className="remove-button-content">Remove</div>
+                                </RaisedButton>
+                              </div>
+                            </li>
+                          </div>
 
                             <ReactModal 
-                              style={this.customStyles}
-                              isOpen={this.props.showModal}
+                              style={this.props.customStyles}
+                              isOpen={this.state.showModal}
                               contentLabel="Test">
-                              <div>
+                              <div className="link-dialog">
                                 <h3>Link value</h3>
                                 <Accordion accordion={false}>
                                   {item.links.map((link, index2) =>
@@ -207,9 +229,10 @@ class Profile extends Component {
                                 </div>
                               <br />
                               <br />
-                              <button onClick={this.handleCloseModal}>Close</button>
+                              <RaisedButton onClick={this.handleCloseModal}>
+                                Close
+                              </RaisedButton>
                             </ReactModal>
-                          </div>
 
                           <ReactModal 
                             style={this.customStyles}
@@ -219,7 +242,9 @@ class Profile extends Component {
                               Link info 
                             </div>
                             <br />
-                            <button onClick={this.closeLinkInfoDialog.bind(this)}>Close</button>
+                            <RaisedButton onClick={this.closeLinkInfoDialog.bind(this)}>
+                              Close
+                            </RaisedButton>
                           </ReactModal>
                       
                           {item.selectedLinks.map((link, index2) =>
@@ -248,7 +273,16 @@ class Profile extends Component {
                 <AccordionItemBody>
                   <div>
                     {this.props.myAssumptions.map((assumption, index) =>
-                      <li key={index} className="my-list-item" >{assumption.effect.explanation} ({assumption.option.description}) <RaisedButton className="remove-button">Remove</RaisedButton></li>
+                      <li key={index} className="my-list-item" >
+                        <div className="my-list-item-text">
+                          {assumption.effect.explanation} ({assumption.option.description}) 
+                        </div>
+                        <div className="remove-button">
+                          <RaisedButton>
+                            <div className="remove-button-content">Remove</div>
+                          </RaisedButton>
+                        </div>
+                      </li>
                     )}
                     {this.props.myAssumptions.length === 0 ? <span>Empty</span> : ''}
                   </div>
@@ -261,12 +295,15 @@ class Profile extends Component {
                 <AccordionItemBody>
                   <div>
                     {this.props.myTags.map((tag, index) =>
-                      <li key={index} className="my-list-item">{this.props.tags.filter(t => t.id === tag)[0].name} 
-                      <div className="remove-button">
-                        <RaisedButton fullWidth={true} onClick={(e) => this.props.removeTag(e, index)}>
-                          <div className="remove-button-content">Remove</div>
-                        </RaisedButton>
-                      </div>
+                      <li key={index} className="my-list-item">
+                        <div className="my-list-item-text">
+                          {this.props.tags.filter(t => t.id === tag)[0].name}
+                        </div> 
+                        <div className="remove-button">
+                          <RaisedButton fullWidth={true} onClick={(e) => this.props.removeTag(e, index)}>
+                            <div className="remove-button-content">Remove</div>
+                          </RaisedButton>
+                        </div>
                       </li>
                     )}
                     {this.props.myTags.length === 0 ? <span>Empty</span> : ''}

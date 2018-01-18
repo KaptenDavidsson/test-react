@@ -181,9 +181,18 @@ class Option extends Component {
             <div className="prefer" onClick={this.handleOpenModal}>According to your function this is not the moral choice. Click here for help in modifying your function towards this choice</div>}
 
           {this.props.option.effects.map((effect, index) => 
-            <p key={index} className="effect">{effect.optional ? <Checkbox checked={this.props.myAssumptions.map(a => a.effect).some(a => a.id === effect.id)} onCheck={(event) => this.handleChooseOptional(event, effect)} /> 
-            : 
-            <span className="glyphicon glyphicon-asterisk"></span>} {this.props.values.filter(v => v.code === effect.code)[0].name} = {effect.count} {effect.explanation ? '(' + effect.explanation + ')' : ''} {effect.inDepth ? <span className="glyphicon glyphicon-info-sign" onClick={(e) => this.handleShowEffectInfo(e, effect)}></span> : ""}</p>
+            <p key={index} className="effect">
+            {effect.optional ? 
+              <Checkbox 
+                checked={this.props.myAssumptions.map(a => a.effect).some(a => a.id === effect.id)} 
+                onCheck={(event) => this.handleChooseOptional(event, effect)} /> 
+              : 
+              <span className="glyphicon glyphicon-asterisk"></span>
+            }
+            <div> 
+              {this.props.values.filter(v => v.code === effect.code)[0].name} = {effect.count} {effect.explanation ? '(' + effect.explanation + ')' : ''} {effect.inDepth ? <span className="glyphicon glyphicon-info-sign" onClick={(e) => this.handleShowEffectInfo(e, effect)}></span> : ""}
+            </div>
+            </p>
           )}
           <br />
           <span className="glyphicon glyphicon-triangle-right"></span><span className="show-calc-button" onClick={this.handleToggleCalc.bind(this)}>{this.state.showFunc ? "Hide calculation" : "Show calculation"}</span>
