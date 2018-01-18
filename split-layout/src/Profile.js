@@ -261,7 +261,13 @@ class Profile extends Component {
                 <AccordionItemBody>
                   <div>
                     {this.props.myTags.map((tag, index) =>
-                      <li key={index} className="my-list-item">{this.props.tags.filter(t => t.id === tag)[0].name} <RaisedButton className="remove-button" onClick={(e) => this.props.removeTag(e, index)}>Remove</RaisedButton></li>
+                      <li key={index} className="my-list-item">{this.props.tags.filter(t => t.id === tag)[0].name} 
+                      <div className="remove-button">
+                        <RaisedButton fullWidth={true} onClick={(e) => this.props.removeTag(e, index)}>
+                          <div className="remove-button-content">Remove</div>
+                        </RaisedButton>
+                      </div>
+                      </li>
                     )}
                     {this.props.myTags.length === 0 ? <span>Empty</span> : ''}
                   </div>
