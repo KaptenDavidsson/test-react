@@ -106,6 +106,8 @@ class App extends Component {
     this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
     this.handleAddSentimentCode = this.handleAddSentimentCode.bind(this);
     this.removeRightItem = this.removeRightItem.bind(this);
+    this.handleCloseInterestsModal = this.handleCloseInterestsModal.bind(this);
+    this.handleChooseInterestsModal = this.handleChooseInterestsModal.bind(this);
   }
 
   componentDidMount() {
@@ -375,7 +377,7 @@ class App extends Component {
     });
   }
 
-  handleCloseInterestsModal(event) {
+  handleChooseInterestsModal(event) {
     event.stopPropagation();
 
     this.setState({
@@ -390,10 +392,28 @@ class App extends Component {
     }
   }
 
-  onPickInterest(tags) {
+  handleCloseInterestsModal(event) {
     this.setState({
-      myTags: tags.map(t => this.startingTags[t.value])
-    })
+      myTags: this.tags.map(t => t.id).slice(1, this.tags.length),
+      showInterestsModel: false,
+      leftItem: this.state.leftList[0]
+    });
+  }
+
+  onPickInterest(tags) {
+    console.log(tags);
+
+    if (tags.some(t => t.value === (this.startingTags.length-1))) {
+      this.setState({
+        myTags: this.tags.map(t => t.id).slice(1, this.tags.length)
+      })
+    }
+    else {
+      this.setState({
+        myTags: tags.map(t => this.startingTags[t.value]).slice(1, this.tags.length)
+      })
+    }
+
   }
 
   onClickInterest(event) {
@@ -487,8 +507,16 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <h2 className="header-title">Ethica 2000</h2>
-          <RaisedButton onClick={this.handleToggleLeft.bind(this)} className="pick-interests">{this.state.hideLeft ? "Browse all dilemmas" : "Hide all dilemmas"}</RaisedButton>
-          <RaisedButton className="pick-interests" onClick={this.handlePickInterests.bind(this)}>Start screen</RaisedButton>
+          <RaisedButton onClick={this.handleToggleLeft.bind(this)} className="pick-interests">
+            <div>
+              {this.state.hideLeft ? "Browse all dilemmas" : "Hide all dilemmas"}
+            </div>
+          </RaisedButton>
+          <RaisedButton className="pick-interests" onClick={this.handlePickInterests.bind(this)}>
+            <div>
+              Start screen
+            </div>
+          </RaisedButton>
           <ReactModal 
             style={this.chooseInterestsStyles}
             isOpen={this.state.showInterestsModel}
@@ -519,22 +547,30 @@ class App extends Component {
               */}
               </div>
             <br />
-            <RaisedButton backgroundColor="#48A7F9" onClick={this.handleCloseInterestsModal.bind(this)}>Choose</RaisedButton>
+            <RaisedButton onClick={this.handleChooseInterestsModal.bind(this)}>
+              <div>
+                Choose
+              </div>
+            </RaisedButton>
           </ReactModal>
         </header>
         <div className="wrapper">
           <div className="column-1">
             <div className="padded-content">
               <div className="dilemma-nav">
-                <RaisedButton className="next-dilemma" onClick={this.handlePreviousDilemma.bind(this)}>
-                  <span className="glyphicon glyphicon-arrow-left left-arrow"></span>
-                  <span>{this.getPreviousDilemma().name}</span>
+                <RaisedButton className="next-dilemma"  onClick={this.handlePreviousDilemma.bind(this)}>
+                  <div className="button-content">
+                    <span className="glyphicon glyphicon-arrow-left"></span>
+                    <span> {this.getPreviousDilemma().name}</span>
+                  </div>
                 </RaisedButton>
-                <h1 className="dilemma-title">{this.state.leftItem.name}</h1>
+                <h3 className="dilemma-title">{this.state.leftItem.name}</h3>
 
                 <RaisedButton className="next-dilemma" onClick={this.handleNextDilemma.bind(this)}>
-                  <span>{this.getNextDilemma().name}</span>
-                  <span className="glyphicon glyphicon-arrow-right right-arrow"></span>
+                  <div className="button-content">
+                    <span>{this.getNextDilemma().name}</span>
+                    <span className="glyphicon glyphicon-arrow-right right-arrow"></span>
+                  </div>
                 </RaisedButton>              
               </div>
 
@@ -549,7 +585,11 @@ class App extends Component {
                   <span className="related related-text">Related:</span>
                   <ul className="list-inline related">
                     {this.state.leftItem.related.map((item, index) => 
-                      <RaisedButton onClick={this.chooseLeft.bind(this, this.dilemmas.filter(i => i.id === item)[0])} className="related-element" key={index}>{this.dilemmas.filter(i => i.id === item)[0].name}</RaisedButton>
+                      <RaisedButton onClick={this.chooseLeft.bind(this, this.dilemmas.filter(i => i.id === item)[0])} className="related-element" key={index}>
+                        <div className="button-content">
+                          {this.dilemmas.filter(i => i.id === item)[0].name}
+                        </div>
+                      </RaisedButton>
                     )}
                   </ul>
               </div>
@@ -559,7 +599,7 @@ class App extends Component {
               <br />
               {this.state.leftItem.image ? <img src={'images/' + this.state.leftItem.image} /> : '' }
               <br />
-              <h3>Choices (Make a choice by modifying your value function)</h3>
+              <h4>Choices (Make a choice by modifying your value function)</h4>
               <br />
               <div> 
                 {this.state.leftItem.options.map((option, index) => 
@@ -650,7 +690,9 @@ class App extends Component {
               <div>
                 <RaisedButton onClick={this.handleShowAllValues.bind(this)}>
                   <div className="RaisedButton">
-                    Close
+                    <div className="button-content">
+                      Close
+                    </div>
                   </div>
                 </RaisedButton>
                 <Accordion>

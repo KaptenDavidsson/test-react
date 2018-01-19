@@ -159,9 +159,7 @@
 }
 
 .show-all-values {
-  padding: 5px;
   margin-bottom: 5px;
-  width: 70px;
   font-size: 12px;
 }
 
@@ -215,8 +213,6 @@
 .next-dilemma {
   display: inline-block;
   margin-top: 10px;
-  padding: 5px;
-  height: 45px;
 }
 
 .left-arrow {
@@ -246,7 +242,6 @@
 .related-element {
   display: inline-block;
   margin-right: 20px;
-  padding: 5px;
 }
 
 .tags {
@@ -263,7 +258,6 @@
 }
 
 .pick-interests {
-  padding: 5px;
   margin-bottom: 5px;
   margin-top: 15px;
   margin-left: 10px;
@@ -413,6 +407,7 @@
 
 .button-content {
   padding-left: 5px;
+  padding-right: 5px;
 }
 
 .link-dialog {

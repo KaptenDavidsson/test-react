@@ -170,28 +170,25 @@ class Option extends Component {
   render() {
     return (
       <MuiThemeProvider>
-      <div>
-        <div className={this.props.allUtilSame ? "option neutral-choice" : (this.props.option.util === this.props.maxUtil ? "option has-max-util" : "option neutral-choice")}>
+      <div className={this.props.allUtilSame ? "option-flex-box option neutral-choice" : (this.props.option.util === this.props.maxUtil ? "option-flex-box option has-max-util" : "option-flex-box option neutral-choice")}>
+      <div className="option-left-tile">
+        <div >
         {/*<div className="option neutral-choice">*/}
           <span className="option-title">{this.props.option.description}</span> {this.props.myPreferred.some(p => p.preferredOption.description === this.props.option.description && p.dilemmaId === this.props.dilemmaId) ? '(Preferred)' : ''}
-          
-          {!this.props.allUtilSame && this.props.option.util === this.props.maxUtil ? 
-            <div className="prefer">According to your function this is the moral choice</div> 
-            : 
-            <div className="prefer" onClick={this.handleOpenModal}>According to your function this is not the moral choice. Click here for help in modifying your function towards this choice</div>}
 
           {this.props.option.effects.map((effect, index) => 
             <p key={index} className="effect">
             {effect.optional ? 
-              <Checkbox 
+              <span><Checkbox 
+                className="effect-checkbox"
                 checked={this.props.myAssumptions.map(a => a.effect).some(a => a.id === effect.id)} 
-                onCheck={(event) => this.handleChooseOptional(event, effect)} /> 
+                onCheck={(event) => this.handleChooseOptional(event, effect)} /></span>
               : 
               <span className="glyphicon glyphicon-asterisk"></span>
             }
-            <div> 
+            <span> 
               {this.props.values.filter(v => v.code === effect.code)[0].name} = {effect.count} {effect.explanation ? '(' + effect.explanation + ')' : ''} {effect.inDepth ? <span className="glyphicon glyphicon-info-sign" onClick={(e) => this.handleShowEffectInfo(e, effect)}></span> : ""}
-            </div>
+            </span>
             </p>
           )}
           <br />
@@ -200,6 +197,14 @@ class Option extends Component {
           <div className={ this.state.showFunc ? "shown" : "hidden" }>
             <h4>f(x): {this.props.utilFunc} = {this.props.option.util}</h4>
           </div>
+        </div>
+        </div>
+        <div>
+          {!this.props.allUtilSame && this.props.option.util === this.props.maxUtil ? 
+            <div className="prefer">According to your function this is the moral choice</div> 
+            : 
+            <div className="prefer" onClick={this.handleOpenModal}>According to your function this is not the moral choice. Click here for help in modifying your function towards this choice</div>
+          }
         </div>
 
         <ReactModal 

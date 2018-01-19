@@ -121,3 +121,15 @@
 .sentiment-function-helper-func {
 	margin-left: 10px;
 }
+
+.option-flex-box {
+  display: flex;
+}
+
+.option-left-tile {
+	width: 80%;
+}
+
+.effect-checkbox {
+	width: 30px;
+}

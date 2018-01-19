@@ -143,7 +143,9 @@ class Profile extends Component {
                       ></textarea> 
 
                     <div>          
-                      <RaisedButton className="calculate-button" onClick={this.handleShowCalculateFunc.bind(this)}>Calculate </RaisedButton>
+                      <RaisedButton onClick={this.handleShowCalculateFunc.bind(this)}>
+                        <div className="button-content">Calculate</div> 
+                      </RaisedButton>
                       
                       <ReactModal 
                         style={this.customStyles}
@@ -181,7 +183,10 @@ class Profile extends Component {
             */}
               <AccordionItem>
                 <AccordionItemTitle className="accordion-title">
-                  <h3>Values <RaisedButton className="show-all-values" onClick={this.props.handleShowAllValues}>All Values</RaisedButton></h3>
+                  <h3>Values <RaisedButton className="show-all-values" onClick={this.props.handleShowAllValues}>
+                    <div className="button-content">All Values</div>
+                  </RaisedButton>
+                  </h3>
                 </AccordionItemTitle>
                 <AccordionItemBody>
                   <div>
@@ -290,7 +295,10 @@ class Profile extends Component {
               </AccordionItem>
               <AccordionItem>
                 <AccordionItemTitle className="accordion-title">
-                  <h3 className="my-interests-title">Interests <RaisedButton className="show-all-values" onClick={this.props.handleShowAllInterests}>All Interests</RaisedButton></h3>
+                  <h3 className="my-interests-title">Interests 
+                  <RaisedButton className="show-all-values" onClick={this.props.handleShowAllInterests}>
+                    <div className="button-content">All Interests</div>
+                  </RaisedButton></h3>
                 </AccordionItemTitle>
                 <AccordionItemBody>
                   <div>
