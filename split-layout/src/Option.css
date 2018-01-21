@@ -55,7 +55,7 @@
 }
 
 .prefer {
-	float: right;
+  float: right;
   padding: 5px;
   width: 300px;
   height: 100%;
@@ -90,7 +90,7 @@
 .option-title {
 	font-size: 22px;
 	font-weight: bold;
-	padding-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 .modify-function-help {
@@ -112,6 +112,9 @@
   padding: 5px;
   width: 75%;
   padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: #ccc;
 }
 
 .sentiment-function-helper:first-child {
@@ -132,4 +135,24 @@
 
 .effect-checkbox {
 	width: 30px;
+}
+
+.effect-text {
+	font-weight: bold;
+	margin-left: 25px;
+}
+
+.marked-as-preferred {
+	font-size: 12px;
+	margin-left: 5px;
+}
+
+.effect-info {
+	margin-left: 40px;
+	cursor: pointer;
+	font-style: italic;
+}
+
+.sentiment-description {
+	margin-bottom: 15px;
 }

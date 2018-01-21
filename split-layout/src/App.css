@@ -37,6 +37,7 @@
 
 .header-title {
   margin-top: 10px;
+  margin-left: -200px;
   display: inline-block;
 }
 
@@ -144,8 +145,8 @@
 }
 
 .utility-function {
-  width: 50%;
-  height: 50px;
+  width: 60%;
+  height: 100px;
 }
 
 .utility-function-readonly {
@@ -400,6 +401,10 @@
   font-size: 10px;
 }
 
+.link-button {
+  margin-right: 10px;
+}
+
 .my-list-item-text {
   margin-top: 10px;
   float: left;
@@ -412,4 +417,27 @@
 
 .link-dialog {
   width: 500px;
+}
+
+.make-a-choice-text {
+  font-size: 12px;
+}
+
+.assumption-info-text {
+  margin-bottom: 20px;
+}
+
+
+.profile-list-header {
+  cursor: pointer;
+  border-top: var(--button-color) 3px solid;
+  padding-top: 10px;
+}
+
+.linked-list-item {
+  margin-left: 30px;
+}
+
+.margin-top {
+  margin-top: 10px;
 }

@@ -212,19 +212,6 @@
 
 
     {
-      "id": 16, 
-      "name": "Death sentence", 
-      "description": "",
-      "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "hs" }], "sentiments": []},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "hs"}], "sentiments": []}
-      ],
-      "related": [],
-      "tags": [5]
-    },
-
-
-    {
       "id": 17, 
       "name": "Abortion time", 
       "description": "",

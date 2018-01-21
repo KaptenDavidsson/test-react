@@ -37,66 +37,93 @@ class Option extends Component {
   }
 
   componentDidUpdate() {
-    var vars = {};
-    for (var effect of this.props.option.effects) {
-      if (!effect.optional || this.props.myAssumptions.map(a => a.effect).some(a => a.id === effect.id)) {
-        if (effect.code in vars) {
-          vars[effect.code] += effect.count;
-        }
-        else {
-          vars[effect.code] = effect.count;
+  //   var vars = {};
+  //   for (var effect of this.props.option.effects) {
+  //     if (!effect.optional || this.props.myAssumptions.map(a => a.effect).some(a => a.id === effect.id)) {
+  //       if (effect.code in vars) {
+  //         vars[effect.code] += effect.count;
+  //       }
+  //       else {
+  //         vars[effect.code] = effect.count;
+  //       }
+  //     }
+  //   }
+
+  //   var formattedUtilFunc = this.props.utilFunc.replace(/-/g, '+-');
+
+  //   var sum = 0;
+  //   for (var s of formattedUtilFunc.split('+')) {
+  //     var prod = 1;
+  //     if (s === '') continue;
+
+  //     for (var p of s.split('*')) {
+  //         if (p === '') {
+  //           prod = 0;
+  //           continue;
+  //         }
+  //       if (!vars.hasOwnProperty(p.replace('-', '')) && !Number.isInteger(Number.parseInt(p)) && p !== 'inf') {
+  //         ;prod = 0;
+  //       }
+
+  //       if (p.includes('-') && !Number.isInteger(Number.parseInt(p)) && vars.hasOwnProperty(p.replace('-', ''))) {
+
+  //         prod *= -vars[p.replace('-', '')];
+  //       }
+  //       else {
+  //         if (Number.isInteger(Number.parseInt(p))) {
+  //           prod *= p;
+  //         }
+  //         else if (vars.hasOwnProperty(p)) {
+  //           prod *= vars[p];
+  //         }
+  //         else if (p === 'inf') {
+  //           if (Math.sign(prod) === 1) {
+  //             sum = 'inf';
+  //             if (this.props.option.util !== sum) {
+  //               this.props.onUtilChange({...this.props.option, util: sum});
+  //             }
+  //             return;
+  //           }
+  //           else {
+  //             sum = '-inf';
+  //             if (this.props.option.util !== sum) {
+  //               this.props.onUtilChange({...this.props.option, util: sum});
+  //             }
+  //             return;
+  //           }
+  //         }
+  //       }
+  //     }
+
+  //     sum += prod;
+  //   }
+
+    var valueCounts = {}
+    for (var value of this.props.values) {
+      if (this.props.option.effects.map(e => e.code).includes(value.code)) {
+          valueCounts[value.code] = this.props.option.effects.filter(e => e.code == value.code)[0].count;
+      }
+      else {
+        valueCounts[value.code] = 0;
+      }
+
+      if (this.props.myAssumptions.map(a => a.effect.code).includes(value.code)) {
+        for (var assumption of this.props.myAssumptions.filter(a => a.effect.code == value.code && a.option.description == this.props.option.description)) {
+          valueCounts[value.code] += assumption.effect.count;
         }
       }
     }
 
-    var formattedUtilFunc = this.props.utilFunc.replace(/-/g, '+-');
 
+    var funcWithVars = Object.entries(valueCounts).map(e => 'var ' + e[0] + '=' + e[1]).join(';') + ';' + this.props.utilFunc;
     var sum = 0;
-    for (var s of formattedUtilFunc.split('+')) {
-      var prod = 1;
-      if (s === '') continue;
 
-      for (var p of s.split('*')) {
-          if (p === '') {
-            prod = 0;
-            continue;
-          }
-        if (!vars.hasOwnProperty(p.replace('-', '')) && !Number.isInteger(Number.parseInt(p)) && p !== 'inf') {
-          ;prod = 0;
-        }
-
-        if (p.includes('-') && !Number.isInteger(Number.parseInt(p)) && vars.hasOwnProperty(p.replace('-', ''))) {
-
-          prod *= -vars[p.replace('-', '')];
-        }
-        else {
-          if (Number.isInteger(Number.parseInt(p))) {
-            prod *= p;
-          }
-          else if (vars.hasOwnProperty(p)) {
-            prod *= vars[p];
-          }
-          else if (p === 'inf') {
-            if (Math.sign(prod) === 1) {
-              sum = 'inf';
-              if (this.props.option.util !== sum) {
-                this.props.onUtilChange({...this.props.option, util: sum});
-              }
-              return;
-            }
-            else {
-              sum = '-inf';
-              if (this.props.option.util !== sum) {
-                this.props.onUtilChange({...this.props.option, util: sum});
-              }
-              return;
-            }
-          }
-        }
-      }
-
-      sum += prod;
+    try {
+      sum = eval(funcWithVars);
     }
+    catch(e) {
+
+    } 
 
     if (this.props.option.util !== sum && Number.isInteger(sum)) {
       this.props.onUtilChange({...this.props.option, util: sum});
@@ -174,25 +201,37 @@ class Option extends Component {
       <div className="option-left-tile">
         <div >
         {/*<div className="option neutral-choice">*/}
-          <span className="option-title">{this.props.option.description}</span> {this.props.myPreferred.some(p => p.preferredOption.description === this.props.option.description && p.dilemmaId === this.props.dilemmaId) ? '(Preferred)' : ''}
+          <div className="option-title">
+            {this.props.option.description}
+            <span className="marked-as-preferred">
+              {this.props.myPreferred.some(p => p.preferredOption.description === this.props.option.description && p.dilemmaId === this.props.dilemmaId) ? '(Marked as Preferred)' : ''}
+            </span>
+          </div> 
+
 
           {this.props.option.effects.map((effect, index) => 
-            <p key={index} className="effect">
+            <div key={index} className="effect">
             {effect.optional ? 
-              <span><Checkbox 
-                className="effect-checkbox"
-                checked={this.props.myAssumptions.map(a => a.effect).some(a => a.id === effect.id)} 
-                onCheck={(event) => this.handleChooseOptional(event, effect)} /></span>
+              <span className="effect-checkbox">
+                <Checkbox 
+                  checked={this.props.myAssumptions.map(a => a.effect).some(a => a.id === effect.id)} 
+                  onCheck={(event) => this.handleChooseOptional(event, effect)} 
+                  label={(this.props.values.filter(v => v.code === effect.code)[0].name + '=' + effect.count) + ' ' + (effect.explanation ? '(' + effect.explanation + ')' : '')}
+                  />
+              </span>
               : 
+              <div>
               <span className="glyphicon glyphicon-asterisk"></span>
+              <span className="effect-text">{this.props.values.filter(v => v.code === effect.code)[0].name} = {effect.count} {effect.explanation ? '(' + effect.explanation + ')' : ''}</span>
+              </div>
             }
-            <span> 
-              {this.props.values.filter(v => v.code === effect.code)[0].name} = {effect.count} {effect.explanation ? '(' + effect.explanation + ')' : ''} {effect.inDepth ? <span className="glyphicon glyphicon-info-sign" onClick={(e) => this.handleShowEffectInfo(e, effect)}></span> : ""}
+            <span className="effect-info"> 
+               {effect.inDepth ? <span onClick={(e) => this.handleShowEffectInfo(e, effect)}>This is an assumption! (Read more)</span> : ""}
             </span>
-            </p>
+            </div>
           )}
           <br />
-          <span className="glyphicon glyphicon-triangle-right"></span><span className="show-calc-button" onClick={this.handleToggleCalc.bind(this)}>{this.state.showFunc ? "Hide calculation" : "Show calculation"}</span>
+          <span className={this.state.showFunc ? "glyphicon glyphicon-triangle-bottom" : "glyphicon glyphicon-triangle-right"}></span> <span className="show-calc-button" onClick={this.handleToggleCalc.bind(this)}>{this.state.showFunc ? "Hide calculation" : "Show calculation"}</span>
           <br/>
           <div className={ this.state.showFunc ? "shown" : "hidden" }>
             <h4>f(x): {this.props.utilFunc} = {this.props.option.util}</h4>
@@ -221,7 +260,7 @@ class Option extends Component {
             <div>
             {this.props.option.sentiments.map((sentiment, index) =>
               <li className="sentiment-function-helper" key={index}> 
-                <div>{sentiment.description}</div>
+                <div className="sentiment-description">{sentiment.description}</div>
                 <RaisedButton onClick={() => this.props.handleAddSentimentCode(sentiment)}>Add</RaisedButton>
                 <span className="sentiment-function-helper-func">({sentiment.func})</span>
               </li>
@@ -240,7 +279,7 @@ class Option extends Component {
             */}
           </div>
           <br />
-          <button onClick={this.handleCloseModal}>Close</button>
+          <RaisedButton onClick={this.handleCloseModal}>Close</RaisedButton>
         </ReactModal>
 
         <ReactModal 
@@ -248,23 +287,17 @@ class Option extends Component {
           isOpen={this.state.showEffectInfo}
           contentLabel="Minimal">
           <div>
-            <h3>Effect</h3>
-            {this.state.modalEffect.inDepth}
+            <h3>Assumption</h3>
+            <div className="assumption-info-text">
+              In this context an assumption is every effect that is not explicitly or implicitly stated as part of the dilemma. 
+            </div>
+            <div>
+              {this.state.modalEffect.inDepth}
+            </div>
           </div>
           <br />
           <br />
-          <button onClick={this.handleCloseEffectInfo.bind(this)}>Close</button>
-        </ReactModal>
-
-        <ReactModal 
-          style={this.customStyles}
-          isOpen={this.state.showAddEffectModal}
-          contentLabel="Minimal">
-          <div>
-            Add not suppored yet. Mail your suggestion to kaptendavidsson@yahoo.se. 
-          </div>
-          <br />
-          <button onClick={this.handleCloseAddEffect.bind(this)}>Close</button>
+          <RaisedButton onClick={this.handleCloseEffectInfo.bind(this)}>Close</RaisedButton>
         </ReactModal>
       </div>
       </MuiThemeProvider>

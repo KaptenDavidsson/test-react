@@ -88,7 +88,8 @@ class App extends Component {
       activeAccordionItems: [],
       myPreferred: [],
       fullNamesFunc: '',
-      showFullNamesFunc: false
+      showFullNamesFunc: false,
+      showFilterModal: false
     };
 
     this.interestImageList = ['images/justice.png', 'images/thought-experiment.png'];
@@ -108,6 +109,9 @@ class App extends Component {
     this.removeRightItem = this.removeRightItem.bind(this);
     this.handleCloseInterestsModal = this.handleCloseInterestsModal.bind(this);
     this.handleChooseInterestsModal = this.handleChooseInterestsModal.bind(this);
+    this.handleOpenFilterModal = this.handleOpenFilterModal.bind(this);
+    this.handleCheckTag = this.handleCheckTag.bind(this);
+    this.handleChooseValueLink = this.handleChooseValueLink.bind(this);
   }
 
   componentDidMount() {
@@ -289,6 +293,9 @@ class App extends Component {
   }
 
   handleChooseValueLink(link, value) {
+    console.log(this.state.rightList);
+    console.log(value);
+
     this.setState(prevState => ({
       rightList: prevState.rightList.map(v => v.id === value.id ? { ...v, selectedLinks: [...v.selectedLinks, link] } : v)
     }));
@@ -326,11 +333,18 @@ class App extends Component {
     });
   }
 
-  handleFilterInterests() {
-    var myTags = this.state.myTags;
+  handleFilterInterests(myTags) {
+    console.log(myTags);
+    var noTags = !myTags || !myTags.length;
+    console.log(noTags);
+    console.log(this.state.ishandleFilterInterestsChecked);
+
+    if (noTags) {
+      myTags = this.state.myTags;
+    }
     var allTags = this.tags;
 
-    if (!this.state.ishandleFilterInterestsChecked) {
+    if (!this.state.ishandleFilterInterestsChecked || !noTags && this.state.ishandleFilterInterestsChecked ) {
       this.setState({
         leftList: this.dilemmas.filter(function(d,i) {
           return d.tags.some(function(t) {
@@ -348,9 +362,11 @@ class App extends Component {
         leftList: this.dilemmas
       });
     }
-    this.setState({
-      ishandleFilterInterestsChecked: !this.state.ishandleFilterInterestsChecked
-    });
+    if (noTags) {
+      this.setState({
+        ishandleFilterInterestsChecked: !this.state.ishandleFilterInterestsChecked
+      });
+    }
   }
 
   makeAssumption(effect, option) {
@@ -358,13 +374,11 @@ class App extends Component {
     if (!this.state.myAssumptions.some(a => a.effect.id === effect.id)) {
       this.setState({
         myAssumptions: [...this.state.myAssumptions, { effect: effect, option: option} ],
-        activeAccordionItems: [...this.state.activeAccordionItems, 3],
       });
     } 
     else {
       this.setState({
         myAssumptions: this.state.myAssumptions.filter( (a,i) => i !== this.state.myAssumptions.map(a => a.effect).indexOf(effect)),
-        activeAccordionItems: [...this.state.activeAccordionItems, 3],
       });
     }
   }
@@ -400,20 +414,23 @@ class App extends Component {
     });
   }
 
-  onPickInterest(tags) {
+  onPickInterest(imageTags) {
     console.log(tags);
 
-    if (tags.some(t => t.value === (this.startingTags.length-1))) {
-      this.setState({
-        myTags: this.tags.map(t => t.id).slice(1, this.tags.length)
-      })
+    var tags;
+
+    if (imageTags.some(t => t.value === (this.startingTags.length-1))) {
+        tags =  this.tags.map(t => t.id).slice(1, this.tags.length)
     }
     else {
-      this.setState({
-        myTags: tags.map(t => this.startingTags[t.value]).slice(1, this.tags.length)
-      })
+        tags = imageTags.map(t => this.startingTags[t.value])
     }
 
+    this.setState({
+      myTags: tags
+    })
+
+    this.handleFilterInterests(tags);
   }
 
   onClickInterest(event) {
@@ -498,6 +515,29 @@ class App extends Component {
     this.setState({
       utilFunc: newFunc
     })
+  }
+
+  handleOpenFilterModal() {
+    this.setState({
+      showFilterModal: !this.state.showFilterModal
+    })
+  }
+
+  handleCheckTag(event, tag) {
+    var tags;
+
+    if (!this.state.myTags.some(t => t == tag.id)) {
+        tags = [...this.state.myTags, tag.id];
+    }
+    else {
+        tags = this.state.myTags.filter(t => t != tag.id);
+    }
+
+    this.setState({
+      myTags: tags
+    })
+
+    this.handleFilterInterests(tags);
   }
 
 
@@ -599,7 +639,7 @@ class App extends Component {
               <br />
               {this.state.leftItem.image ? <img src={'images/' + this.state.leftItem.image} /> : '' }
               <br />
-              <h4>Choices (Make a choice by modifying your value function)</h4>
+              <h4>Choices <span className="make-a-choice-text">(Make a choice by modifying your value function)</span></h4>
               <br />
               <div> 
                 {this.state.leftItem.options.map((option, index) => 
@@ -638,7 +678,10 @@ class App extends Component {
                     </input>
 
                     <Checkbox checked={this.state.ishandleFilterInterestsChecked} onCheck={this.handleFilterInterests.bind(this)} label="Show only my interests" />
-                    
+                    <RaisedButton>
+                      <div className="button-content" onClick={this.handleOpenFilterModal}>Modify filter</div>
+                    </RaisedButton>
+
                   </div>
                   {this.state.leftList.map((item, index) => 
                     <li className="dilemma" key={index}>
@@ -658,6 +701,29 @@ class App extends Component {
 
               </div>
             </div>
+
+          <ReactModal 
+            style={this.chooseInterestsStyles}
+            isOpen={this.state.showFilterModal}
+            contentLabel="Minimal Modal">
+            <div className="interestes-picker">
+
+              {this.tags.map((tag, index) =>
+                <Checkbox 
+                  label={tag.name}
+                  checked={this.state.myTags.some(t => t == tag.id)}
+                  onCheck={(event) => this.handleCheckTag(event, tag)}
+                />
+                    
+              )}
+              
+            <RaisedButton onClick={this.handleOpenFilterModal.bind(this)}>
+              <div>
+                Close
+              </div>
+            </RaisedButton>
+            </div>
+          </ReactModal>
           </div>
 
           </div>
@@ -688,7 +754,7 @@ class App extends Component {
           <div id="slider" className={this.state.hideRight ? "slide-out" : "slide-in"}>
             <div className="slider-content padded-content">
               <div>
-                <RaisedButton onClick={this.handleShowAllValues.bind(this)}>
+                <RaisedButton className="margin-top" onClick={this.handleShowAllValues.bind(this)}>
                   <div className="RaisedButton">
                     <div className="button-content">
                       Close
