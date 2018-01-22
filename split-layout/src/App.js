@@ -122,7 +122,10 @@ class App extends Component {
     this.setState({
       utilFunc: cookies.get('utilFunc') ? cookies.get('utilFunc') : "",
       rightList: cookies.get('myValues') ? cookies.get('myValues') : [],
-      sentiments: cookies.get('mySentiments') ? cookies.get('mySentiments') : []
+      sentiments: cookies.get('mySentiments') ? cookies.get('mySentiments') : [],
+      myAssumptions: cookies.get('myAssumptions') ? cookies.get('myAssumptions') : [],
+      myPreferred: cookies.get('myPreferred') ? cookies.get('myPreferred') : [],
+      myTags: cookies.get('myTags') ? cookies.get('myTags') : []
     })
     this.handleFilterInterests();
     
@@ -293,12 +296,14 @@ class App extends Component {
   }
 
   handleChooseValueLink(link, value) {
-    console.log(this.state.rightList);
-    console.log(value);
+    var newList = [...this.state.rightList.map(v => v.id === value.id ? { ...v, selectedLinks: [...v.selectedLinks, link] } : v)]
 
-    this.setState(prevState => ({
-      rightList: prevState.rightList.map(v => v.id === value.id ? { ...v, selectedLinks: [...v.selectedLinks, link] } : v)
-    }));
+    const cookies = new Cookies();
+    cookies.set('myValues', newList, { path: '/' });
+
+    this.setState({
+      rightList: newList
+    });
   }
 
   handleClearSentiments() {
@@ -371,16 +376,22 @@ class App extends Component {
 
   makeAssumption(effect, option) {
 
+    var newList;
+
     if (!this.state.myAssumptions.some(a => a.effect.id === effect.id)) {
-      this.setState({
-        myAssumptions: [...this.state.myAssumptions, { effect: effect, option: option} ],
-      });
+      newList = [...this.state.myAssumptions, { effect: effect, option: option} ];
     } 
     else {
-      this.setState({
-        myAssumptions: this.state.myAssumptions.filter( (a,i) => i !== this.state.myAssumptions.map(a => a.effect).indexOf(effect)),
-      });
+      newList = this.state.myAssumptions.filter( (a,i) => i !== this.state.myAssumptions.map(a => a.effect).indexOf(effect));
     }
+
+    const cookies = new Cookies();
+    cookies.set('myAssumptions', newList, { path: '/' });
+
+    this.setState({
+      myAssumptions: newList
+    })
+
   }
 
   handlePickInterests(event) {
@@ -412,10 +423,14 @@ class App extends Component {
       showInterestsModel: false,
       leftItem: this.state.leftList[0]
     });
+
+
+    const cookies = new Cookies();
+    cookies.set('myTags', this.tags.map(t => t.id).slice(1, this.tags.length), { path: '/' });
+
   }
 
   onPickInterest(imageTags) {
-    console.log(tags);
 
     var tags;
 
@@ -425,6 +440,9 @@ class App extends Component {
     else {
         tags = imageTags.map(t => this.startingTags[t.value])
     }
+
+    const cookies = new Cookies();
+    cookies.set('myTags', tags, { path: '/' });
 
     this.setState({
       myTags: tags
@@ -464,6 +482,8 @@ class App extends Component {
 
   handleChoosePreferred(preferredOption) {
 
+    var newList;
+
     var preferred =  { preferredOption: preferredOption, dilemmaId: this.state.leftItem.id }
     if (!this.state.myPreferred.some(
         p => p.preferredOption.description === preferred.preferredOption.description 
@@ -492,17 +512,19 @@ class App extends Component {
 
       preferred.func = func;
 
-      this.setState({
-        myPreferred: [...myPreferred, preferred],
-      });
+      newList = [...myPreferred, preferred];
     } 
     else {
-      this.setState({
-        myPreferred: this.state.myPreferred.filter(p => 
+      newList = this.state.myPreferred.filter(p => 
           p.preferredOption.description !== preferred.preferredOption.description 
-          && p.dilemmaId !== preferred.dilemmaId)
-      });
+          && p.dilemmaId !== preferred.dilemmaId);
     }
+    const cookies = new Cookies();
+    cookies.set('myPreferred', newList, { path: '/' });
+
+    this.setState({
+      myPreferred: newList
+    })
   }
 
   handleAddSentimentCode(sentiment) {

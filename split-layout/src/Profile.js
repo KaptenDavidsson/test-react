@@ -25,6 +25,27 @@ class Profile extends Component {
       viewedValue: null,
       showLinkValueModal: null
     }
+    
+    var modalOverlayStyle = {
+        position          : 'fixed',
+        top               : '60px',
+        left              : 0,
+        right             : 0,
+        bottom            : 0,
+        backgroundColor   : 'rgba(150, 150, 150, 0.50)'
+    }
+
+    this.customStyles = {
+      overlay : modalOverlayStyle,
+      content : {
+        top                   : '25%',
+        left                  : '50%',
+        right                 : 'auto',
+        bottom                : 'auto',
+        marginRight           : '-50%',
+        transform             : 'translate(-50%, -50%)'
+      }
+    };
 
     this.showLinkValuesDialog = this.showLinkValuesDialog.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
@@ -113,7 +134,7 @@ class Profile extends Component {
     return (
       <div>
         <div className="my-profile">
-          <h1>My Profile</h1>
+          <h3 className="dilemma-title">My Profile</h3>
         </div>
           <div className="list-item padded-content">
                   <h3>Function</h3>
@@ -131,7 +152,7 @@ class Profile extends Component {
                       
                       <ReactModal 
                         style={this.customStyles}
-                        isOpen={this.props.showCalculateFunc}
+                        isOpen={this.state.showCalculateFunc}
                         contentLabel="Minimal">
                         <div>
                           Not implemented yet
@@ -142,7 +163,7 @@ class Profile extends Component {
                     </div>
                   </div>
                   <div>
-                    <h3 className="profile-list-header"><span onClick={this.toggleValues.bind(this)}>Values</span> <RaisedButton className="show-all-values" onClick={this.props.handleShowAllValues}>
+                    <h3 className="profile-list-header"><span className={this.state.isValuesOpen ? "glyphicon glyphicon-triangle-bottom" : "glyphicon glyphicon-triangle-right"}></span><span onClick={this.toggleValues.bind(this)}> Values</span> <RaisedButton className="show-all-values" onClick={this.props.handleShowAllValues}>
                       <div className="button-content">All Values</div>
                     </RaisedButton>
                     </h3>
@@ -192,7 +213,7 @@ class Profile extends Component {
                   ''
                 }
                   <div>              
-                    <h3 onClick={this.toggleAssumptions.bind(this)} className="profile-list-header">Assumptions</h3>
+                    <h3 onClick={this.toggleAssumptions.bind(this)} className="profile-list-header"><span className={this.state.isAssumptionsOpen ? "glyphicon glyphicon-triangle-bottom" : "glyphicon glyphicon-triangle-right"}></span> Assumptions</h3>
                   </div>
                   {this.state.isAssumptionsOpen ?
                   <div>

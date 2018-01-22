@@ -239,7 +239,10 @@ class Option extends Component {
         </div>
         </div>
         <div>
-          {!this.props.allUtilSame && this.props.option.util === this.props.maxUtil ? 
+          {this.props.allUtilSame ?  
+            <div className="prefer" onClick={this.handleOpenModal}>According to your function all choices are equally moral. Click here for help in modifying your function towards this choice</div> 
+            :
+            this.props.option.util === this.props.maxUtil ? 
             <div className="prefer">According to your function this is the moral choice</div> 
             : 
             <div className="prefer" onClick={this.handleOpenModal}>According to your function this is not the moral choice. Click here for help in modifying your function towards this choice</div>
