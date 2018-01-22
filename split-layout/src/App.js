@@ -623,14 +623,14 @@ class App extends Component {
                 <RaisedButton className="next-dilemma"  onClick={this.handlePreviousDilemma.bind(this)}>
                   <div className="button-content">
                     <span className="glyphicon glyphicon-arrow-left"></span>
-                    <span> {this.getPreviousDilemma().name}</span>
+                    <span> {this.getPreviousDilemma().name.length < 15 ? this.getPreviousDilemma().name : this.getPreviousDilemma().name.substr(0,15) + '...'}</span>
                   </div>
                 </RaisedButton>
                 <h3 className="dilemma-title">{this.state.leftItem.name}</h3>
 
                 <RaisedButton className="next-dilemma" onClick={this.handleNextDilemma.bind(this)}>
                   <div className="button-content">
-                    <span>{this.getNextDilemma().name}</span>
+                    <span>{this.getNextDilemma().name.length < 15 ? this.getNextDilemma().name : this.getNextDilemma().name.substr(0,15) + '...'}</span>
                     <span className="glyphicon glyphicon-arrow-right right-arrow"></span>
                   </div>
                 </RaisedButton>              

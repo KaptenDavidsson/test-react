@@ -192,8 +192,8 @@ class Profile extends Component {
                           </div>
                       
                           {item.selectedLinks.map((link, index2) =>
-                            <div className="my-list-item">
-                              <div className="my-list-item-text linked-list-item">
+                            <div className="my-list-item linked-list-item">
+                              <div>
                                 <div>{this.props.rightListSlider.filter(v => v.id === link.id)[0].name} ({this.props.rightListSlider.filter(v => v.id === link.id)[0].code})</div>
                               </div>
 
