@@ -381,7 +381,6 @@
   list-style-type: none;
   padding: 5px;
   height: 50px;
-  width: 60%;
   border-radius: 3px;
 }
 
@@ -398,6 +397,10 @@
 
 .link-button {
   margin-right: 10px;
+}
+
+.values-list {
+  width: 75%;
 }
 
 .my-list-item-text {
@@ -430,11 +433,17 @@
 }
 
 .linked-list-item {
-  margin-left: 30px;
-  height: 30px;
+  margin-top: 4px;
+  margin-left: 40px;
+  margin-bottom: 15px;
+  padding-right: 5px;
 }
 
 .margin-top {
   margin-top: 10px;
-  vertical-align: top;
+}
+
+.linked-remove-button {
+  float: right;
+  margin-top: -5px;
 }

@@ -169,7 +169,7 @@ class Profile extends Component {
                     </h3>
                   </div>
                   {this.state.isValuesOpen ? 
-                    <div>
+                    <div className="values-list">
                     {this.props.rightList.map((item, index) =>
                       <div key={index}>              
                           <div>
@@ -192,13 +192,11 @@ class Profile extends Component {
                           </div>
                       
                           {item.selectedLinks.map((link, index2) =>
-                            <div className="my-list-item linked-list-item">
-                              <div>
-                                <div>{this.props.rightListSlider.filter(v => v.id === link.id)[0].name} ({this.props.rightListSlider.filter(v => v.id === link.id)[0].code})</div>
-                              </div>
+                            <div className="linked-list-item">
+                              <span>{this.props.rightListSlider.filter(v => v.id === link.id)[0].name} ({this.props.rightListSlider.filter(v => v.id === link.id)[0].code})</span>
 
-                              <div className="remove-button">
-                                <RaisedButton fullWidth={true} onClick={(e) => this.removeRightItem(e, index2)}>
+                              <div className="linked-remove-button">
+                                <RaisedButton fullWidth={true} onClick={(e) => this.props.removeRightItem(e, index2)}>
                                   <div className="remove-button-content">Remove</div>
                                 </RaisedButton>
                               </div>
