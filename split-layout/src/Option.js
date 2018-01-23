@@ -261,6 +261,9 @@ class Option extends Component {
             <br />
             <br />
             <div>
+
+            {this.props.option.sentiments.length == 0 ? 'No sentiments yet' : ''}
+
             {this.props.option.sentiments.map((sentiment, index) =>
               <li className="sentiment-function-helper" key={index}> 
                 <div className="sentiment-description">{sentiment.description}</div>

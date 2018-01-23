@@ -196,7 +196,7 @@ class Profile extends Component {
                               <span>{this.props.rightListSlider.filter(v => v.id === link.id)[0].name} ({this.props.rightListSlider.filter(v => v.id === link.id)[0].code})</span>
 
                               <div className="linked-remove-button">
-                                <RaisedButton fullWidth={true} onClick={(e) => this.props.removeRightItem(e, index2)}>
+                                <RaisedButton fullWidth={true} onClick={() => this.props.handleRemoveValueLink(link, item)}>
                                   <div className="remove-button-content">Remove</div>
                                 </RaisedButton>
                               </div>

@@ -18,6 +18,7 @@ import ImagePicker from 'react-image-picker'
 import 'react-image-picker/dist/index.css'
 import { Checkbox, RaisedButton } from 'material-ui';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+// import get_variables from './Fourier_Motzkin.min.js'
 
 
 class App extends Component {
@@ -112,6 +113,7 @@ class App extends Component {
     this.handleOpenFilterModal = this.handleOpenFilterModal.bind(this);
     this.handleCheckTag = this.handleCheckTag.bind(this);
     this.handleChooseValueLink = this.handleChooseValueLink.bind(this);
+    this.handleRemoveValueLink = this.handleRemoveValueLink.bind(this);
   }
 
   componentDidMount() {
@@ -254,12 +256,9 @@ class App extends Component {
     const value =  target.value;
 
     this.setState({
-      leftList: this.dilemmas.filter(function(d,i) {
-        return d.name.toLowerCase().includes(value.toLowerCase()) || 
-          d.tags.some(function(t) { 
-            return t.toLowerCase().includes(value.toLowerCase()) 
-          });
-      })
+      leftList: this.dilemmas.filter(
+        d => d.name.toLowerCase().includes(value.toLowerCase())
+      )
     });
   }
 
@@ -324,10 +323,14 @@ class App extends Component {
   }
 
   getPreviousDilemma() {
+    if (this.state.leftList.length === 0) return { name: ''};
+
     return this.state.leftList[(this.state.leftList.map(d => d.id).indexOf(this.state.leftItem.id)-1+this.state.leftList.length)%this.state.leftList.length];
   }
 
   getNextDilemma() {
+    if (this.state.leftList.length === 0) return { name: ''};
+
     return this.state.leftList[(this.state.leftList.map(d => d.id).indexOf(this.state.leftItem.id)+1)%this.state.leftList.length];
   }
 
@@ -563,6 +566,22 @@ class App extends Component {
   }
 
 
+  handleRemoveValueLink(link, value) {
+    console.log(link);
+    console.log(value);
+
+    var newList = [...this.state.rightList.map(v => v.id === value.id ? 
+      { ...v, selectedLinks: v.selectedLinks.filter(sl => sl.id != link.id) } : v)]
+
+    const cookies = new Cookies();
+    cookies.set('myValues', newList, { path: '/' });
+
+    this.setState({
+      rightList: newList
+    });
+  }
+
+
   render() {
     return (
       <MuiThemeProvider>
@@ -772,6 +791,7 @@ class App extends Component {
               showLinkValuesDialog={this.showLinkValuesDialog}
               removeRightItem={this.removeRightItem}
               customStyles={this.customStyles}
+              handleRemoveValueLink={this.handleRemoveValueLink}
             ></Profile>
           <div id="slider" className={this.state.hideRight ? "slide-out" : "slide-in"}>
             <div className="slider-content padded-content">
