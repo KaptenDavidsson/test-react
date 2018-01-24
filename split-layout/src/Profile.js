@@ -8,6 +8,7 @@ import {
     AccordionItemBody,
 } from 'react-accessible-accordion';
 import { Checkbox, RaisedButton } from 'material-ui';
+import { get_variables, test_variables } from './Fourier_Motzkin.js'
 
 
 class Profile extends Component {
@@ -56,6 +57,16 @@ class Profile extends Component {
     this.setState({
       showCalculateFunc: true
     })
+
+    var mx = [[ 1,  1,  1,  -1],
+     [ -2,  1,  -1,  1],
+     [ -1,  0,  0,  0],
+     [ 0, -1,  0,  0],
+     [ 0,  0, -1,  0]]
+
+    var vs = get_variables(mx)
+    console.log(vs);
+    test_variables(mx, vs)  
   }
 
 

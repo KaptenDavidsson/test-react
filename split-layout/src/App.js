@@ -18,7 +18,6 @@ import ImagePicker from 'react-image-picker'
 import 'react-image-picker/dist/index.css'
 import { Checkbox, RaisedButton } from 'material-ui';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-// import get_variables from './Fourier_Motzkin.min.js'
 
 
 class App extends Component {
