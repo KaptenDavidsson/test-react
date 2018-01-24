@@ -13,7 +13,6 @@ function print_matrix(mx) {
 }
 
 function normalize(mx) {
-    console.log(mx);
 	return mx.map(y => y.map(x => first_non_zero(y) !== 0 ? x/Math.abs(first_non_zero(y)) : 1));
 }
 
@@ -27,11 +26,21 @@ function partition(mx, col) {
 }
 
 function add(a, b) {
-	return a.map((i, ai) => a + b[i]);
+	var d = a.map((i, ai) => ai + b[i]);
+    console.log(d);
+    return d;
 }
 
 function pairs(a, b) {
-	return a.length === 0 ? [] : b.map(bi => add(a[0], bi)) + pairs(a.splice(1, a.length), b);
+    if (a.length === 0) {
+        return [];
+    }
+    else {
+        var c = b.map(bi => add(a[0], bi));
+        c.concat(pairs(a.splice(1, a.length), b));
+        console.log(c);
+        return c;
+    }
 }
 
 function find_singles_row(mx) {
@@ -71,27 +80,21 @@ function fourierMotzkin(mx) {
     var orig_mx = mx;
     var parts = {};
     var row_counter = 0;
-    for (var col_counter = 0; col_counter < mx[0].length-2; col_counter++) {
-        console.log('test1')
+    for (var col_counter = 0; col_counter < mx[0].length-3; col_counter++) {
         mx = normalize(mx);
-        console.log('test2')
-        console.log(mx);
         parts = partition(mx.slice(row_counter, mx.length), col_counter);
-        console.log('test3')
-        console.log(parts)
         mx = mx.slice(row_counter, mx.length);
-        mx.push(parts[1]);
-        mx.push(pairs(parts[1], parts[-1]));
-        console.log(mx)
-        mx.push(parts[0]);
-        console.log(mx)
-        row_counter += parts[1].length;
-        console.log('test4')
+        mx = mx.concat(parts['1']);
+        console.log(pairs(parts['1'], parts['-1']));
+        mx = mx.concat(pairs(parts['1'], parts['-1']));
+        mx = mx.concat(parts['0']);
+        row_counter += parts['1'].length;
     }
     
     mx = normalize(mx);
+    mx = mx.concat(orig_mx);
     console.log(mx);
-    return normalize(orig_mx) + mx;
+    return mx;
 }
 
 function remove_empty_cols(mx) {
