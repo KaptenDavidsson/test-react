@@ -72,11 +72,21 @@ function fourierMotzkin(mx) {
     var parts = {};
     var row_counter = 0;
     for (var col_counter = 0; col_counter < mx[0].length-2; col_counter++) {
-        console.log('hej')
+        console.log('test1')
         mx = normalize(mx);
+        console.log('test2')
+        console.log(mx);
         parts = partition(mx.slice(row_counter, mx.length), col_counter);
-        mx = mx.slice(row_counter, mx.length) + parts[1] + pairs(parts[1], parts[-1]) + parts[0];
+        console.log('test3')
+        console.log(parts)
+        mx = mx.slice(row_counter, mx.length);
+        mx.push(parts[1]);
+        mx.push(pairs(parts[1], parts[-1]));
+        console.log(mx)
+        mx.push(parts[0]);
+        console.log(mx)
         row_counter += parts[1].length;
+        console.log('test4')
     }
     
     mx = normalize(mx);
