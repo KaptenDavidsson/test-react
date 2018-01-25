@@ -61,11 +61,9 @@ class Profile extends Component {
     var mx = [[ 1,  1,  1,  -1],
      [ -2,  1,  -1,  1],
      [ -1,  0,  0,  0],
-     [ 0, -1,  0,  0],
-     [ 0,  0, -1,  0]]
+     [ 0, -1,  0,  0]]
 
     var vs = get_variables(mx)
-    console.log(vs);
     test_variables(mx, vs)  
   }
 

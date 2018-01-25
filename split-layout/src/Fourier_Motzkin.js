@@ -56,14 +56,12 @@ function find_singles_row(mx) {
 }
 
 function get_bounds(rows) {
-    console.log(rows)
 	var bounds = []
 	var mi = rows.filter(x => x[x.length-2] === -1).map(x => x[x.length-1]);
 	bounds.push(mi.length > 0 ? Math.max(...mi) : -10);
-	var ma = rows.filter(x => x[x.length-2] === 1).map(x => x[x.length-1]);
+	var ma = rows.filter(x => x[x.length-2] === 1).map(x => -x[x.length-1]);
     bounds.push(ma.length > 0 ? Math.min(...ma) : 10);
 
-    console.log(bounds)
     if (bounds[0] > bounds[1]) {
         throw 'Unsolvable';
    	}
@@ -133,14 +131,11 @@ function bounds_int_range(bounds) {
 
 function get_closest_to_zero(bounds) {
     var a = bounds.indexOf(Math.min(...bounds.map(b => Math.abs(b))));
-    console.log(a);
-
     return bounds[a];
 }
             
 export function get_variables(mx) {
     mx = fourierMotzkin(mx);
-    print_matrix(mx);
     var vs = [1];
 
     for (var i = 0; i < mx[0].length-1; i++) {
@@ -163,6 +158,6 @@ export function get_variables(mx) {
 export function test_variables(mx, vs) {
     console.log(vs);
     for (var row of mx) {
-        console.log(row.map((i,x) => x*vs[i]).reduce( ( p, c ) => p + c, 0 ));
+        console.log(row.map((x, i) => x*vs[i]).reduce( ( p, c ) => p + c, 0 ));
     }
 }
