@@ -7,8 +7,9 @@ function first_non_zero(row) {
 }
 
 function print_matrix(mx) {
+    console.log('print matrix')
     for (var s of mx) {
-        console.log('\t'.join(s));
+        console.log(s.join(' '));
     }
 }
 
@@ -26,8 +27,7 @@ function partition(mx, col) {
 }
 
 function add(a, b) {
-	var d = a.map((i, ai) => ai + b[i]);
-    console.log(d);
+	var d = a.map((ai, i) => ai + b[i]);
     return d;
 }
 
@@ -37,29 +37,33 @@ function pairs(a, b) {
     }
     else {
         var c = b.map(bi => add(a[0], bi));
-        c.concat(pairs(a.splice(1, a.length), b));
-        console.log(c);
+        c = c.concat(pairs(a.splice(1, a.length), b));
         return c;
     }
 }
 
 function find_singles_row(mx) {
+
+    mx = JSON.parse(JSON.stringify(mx))
 	var singles_row = [];
 	for (var row of mx) {
-		if (row[row.length-2].reduce( ( p, c ) => p + c, 0 )  === 0) {
+		if (row.slice(0, row.length-2).reduce( ( p, c ) => p + c, 0 )  === 0) {
 			singles_row.push(row);
 		}
 	}
+
 	return singles_row;
 }
 
 function get_bounds(rows) {
+    console.log(rows)
 	var bounds = []
-	var mi = rows.filter(x => x[-2] === -1)[-1];
-	bounds.push(mi.length > 0 ? Math.max(mi) : -10);
-	var ma = rows.filter(x => x[-2] === 1)[-1];
-	bounds.push(ma.length > 0 ? Math.max(mi) : -10);
+	var mi = rows.filter(x => x[x.length-2] === -1).map(x => x[x.length-1]);
+	bounds.push(mi.length > 0 ? Math.max(...mi) : -10);
+	var ma = rows.filter(x => x[x.length-2] === 1).map(x => x[x.length-1]);
+    bounds.push(ma.length > 0 ? Math.min(...ma) : 10);
 
+    console.log(bounds)
     if (bounds[0] > bounds[1]) {
         throw 'Unsolvable';
    	}
@@ -69,8 +73,8 @@ function get_bounds(rows) {
 
 function replace_last(mx, value) {
     for (var row of mx) {
-        row[-1] += row[-2]*value;
-        row.splice(-2,-2);
+        row[row.length-1] += row[row.length-2]*value;
+        row = row.splice(-2,1);
     }
         
     return mx;
@@ -85,7 +89,6 @@ function fourierMotzkin(mx) {
         parts = partition(mx.slice(row_counter, mx.length), col_counter);
         mx = mx.slice(row_counter, mx.length);
         mx = mx.concat(parts['1']);
-        console.log(pairs(parts['1'], parts['-1']));
         mx = mx.concat(pairs(parts['1'], parts['-1']));
         mx = mx.concat(parts['0']);
         row_counter += parts['1'].length;
@@ -93,7 +96,6 @@ function fourierMotzkin(mx) {
     
     mx = normalize(mx);
     mx = mx.concat(orig_mx);
-    console.log(mx);
     return mx;
 }
 
@@ -130,22 +132,26 @@ function bounds_int_range(bounds) {
 }
 
 function get_closest_to_zero(bounds) {
-    return bounds[bounds.indexOf(Math.min(bounds.map(b => Math.abs(b))))];
+    var a = bounds.indexOf(Math.min(...bounds.map(b => Math.abs(b))));
+    console.log(a);
+
+    return bounds[a];
 }
             
 export function get_variables(mx) {
     mx = fourierMotzkin(mx);
+    print_matrix(mx);
     var vs = [1];
 
     for (var i = 0; i < mx[0].length-1; i++) {
         var bounds = get_bounds(find_singles_row(mx));
         
-        if (bounds_int_range(bounds)) {
+        // if (bounds_int_range(bounds)) {
             var v = get_closest_to_zero(bounds);
-        }
-        else {
-            var v = Math.floor(Math.random() * bounds[1]) + bounds[0];
-        }
+        // }
+        // else {
+        //     var v = Math.floor(Math.random() * bounds[1]) + bounds[0];
+        // }
         
         vs.push(v);
         mx = replace_last(mx, v);
