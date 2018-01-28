@@ -191,7 +191,7 @@
         { "description": "Divide the money equally", "effects": [{"count": 100, "code": "happiness"}], "sentiments": []}
       ],
       "related": [],
-      "tags": []
+      "tags": [3]
     },
 
 
@@ -204,7 +204,7 @@
         { "description": "Divide the money equally", "effects": [{"count": 100, "code": "happiness"}], "sentiments": []}
       ],
       "related": [],
-      "tags": []
+      "tags": [1]
     },
 
 
@@ -241,8 +241,8 @@
       "options": [
         { "description": "Practice death sentence", "effects": [
           {"count": 1, "code": "human_dies" }, 
-          {"id": 0, "count": -10, "code": "human_dies", "optional": true, "explanation": "This might reduce crime and save 10 lives", "inDepth": "More info"}, 
-          {"id": 1, "count": 10, "code": "human_dies", "optional": true, "explanation": "This might normalize murder and lead to 10 more murders", "inDepth": "More info2"}], "sentiments": []},
+          {"id": 0, "count": -10, "code": "human_dies", "optional": true, "explanation": "This might reduce crime and save 10 lives", "inDepth": ""}, 
+          {"id": 1, "count": 10, "code": "human_dies", "optional": true, "explanation": "This might normalize murder and lead to 10 more murders", "inDepth": ""}], "sentiments": []},
         { "description": "Do not practice death sentence", "effects": [], "sentiments": []}
       ],
       "related": [],

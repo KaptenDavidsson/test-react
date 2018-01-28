@@ -92,6 +92,8 @@ class App extends Component {
       showFilterModal: false
     };
 
+    this.buttonColor = '#6BB9F4'
+
     this.interestImageList = ['images/justice.png', 'images/thought-experiment.png'];
 
     this.handleUtilChange = this.handleUtilChange.bind(this);
@@ -383,7 +385,7 @@ class App extends Component {
       newList = [...this.state.myAssumptions, { effect: effect, option: option} ];
     } 
     else {
-      newList = this.state.myAssumptions.filter( (a,i) => i !== this.state.myAssumptions.map(a => a.effect).indexOf(effect));
+      newList = this.state.myAssumptions.filter( (a,i) => i !== this.state.myAssumptions.map(a => a.effect.explanation).indexOf(effect.explanation));
     }
 
     const cookies = new Cookies();
@@ -560,6 +562,10 @@ class App extends Component {
       myTags: tags
     })
 
+
+    const cookies = new Cookies();
+    cookies.set('myTags', tags, { path: '/' });
+
     this.handleFilterInterests(tags);
   }
 
@@ -586,12 +592,12 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <h2 className="header-title">Ethica 2000</h2>
-          <RaisedButton onClick={this.handleToggleLeft.bind(this)} className="pick-interests">
+          <RaisedButton backgroundColor={this.buttonColor} backgroundColor={this.buttonColor} onClick={this.handleToggleLeft.bind(this)} className="pick-interests">
             <div>
               {this.state.hideLeft ? "Browse all dilemmas" : "Hide all dilemmas"}
             </div>
           </RaisedButton>
-          <RaisedButton className="pick-interests" onClick={this.handlePickInterests.bind(this)}>
+          <RaisedButton backgroundColor={this.buttonColor} className="pick-interests" onClick={this.handlePickInterests.bind(this)}>
             <div>
               Start screen
             </div>
@@ -606,9 +612,11 @@ class App extends Component {
                 <h3>Welcome!</h3>
               
                 This application lets you find out, organize and discuss your values and assumptions and a systematic manner. 
-                Browse the ethical dilemmas on the left and decide what action you find most ethical. 
-                You can either modify your value function on the right manually to make it fit the action (it will then turn green) 
-                or click the action to get help to align your value function with this action. 
+                Browse the ethical dilemmas on the left and decide what choice you find most ethical. 
+                You can either modify your value function on the right manually to make it fit the choice (it will then turn green) 
+                or click the choice to get help to align your value function with this choice. 
+                The methodology used is inspired by a common technique when discussing ethics, namely that of examples
+                and counter-examples.  
               
               <br />                
               <br />                
@@ -626,7 +634,7 @@ class App extends Component {
               */}
               </div>
             <br />
-            <RaisedButton onClick={this.handleChooseInterestsModal.bind(this)}>
+            <RaisedButton backgroundColor={this.buttonColor} onClick={this.handleChooseInterestsModal.bind(this)}>
               <div>
                 Choose
               </div>
@@ -637,20 +645,24 @@ class App extends Component {
           <div className="column-1">
             <div className="padded-content">
               <div className="dilemma-nav">
-                <RaisedButton className="next-dilemma"  onClick={this.handlePreviousDilemma.bind(this)}>
+                {this.getPreviousDilemma().name.length > 0 ? 
+                <RaisedButton backgroundColor={this.buttonColor} className="next-dilemma"  onClick={this.handlePreviousDilemma.bind(this)}>
                   <div className="button-content">
                     <span className="glyphicon glyphicon-arrow-left"></span>
                     <span> {this.getPreviousDilemma().name.length < 15 ? this.getPreviousDilemma().name : this.getPreviousDilemma().name.substr(0,15) + '...'}</span>
                   </div>
                 </RaisedButton>
+                : ''}
                 <h3 className="dilemma-title">{this.state.leftItem.name}</h3>
 
-                <RaisedButton className="next-dilemma" onClick={this.handleNextDilemma.bind(this)}>
+                {this.getNextDilemma().name.length > 0 ? 
+                <RaisedButton backgroundColor={this.buttonColor} className="next-dilemma" onClick={this.handleNextDilemma.bind(this)}>
                   <div className="button-content">
                     <span>{this.getNextDilemma().name.length < 15 ? this.getNextDilemma().name : this.getNextDilemma().name.substr(0,15) + '...'}</span>
                     <span className="glyphicon glyphicon-arrow-right right-arrow"></span>
                   </div>
-                </RaisedButton>              
+                </RaisedButton>
+                : ''}
               </div>
 
                 <div>
@@ -661,10 +673,10 @@ class App extends Component {
                 </ul>
                 </div>
               <div>
-                  <span className="related related-text">Related:</span>
+                  {this.state.leftItem.related.length !==0 ? <span className="related related-text">Related:</span> : ''}
                   <ul className="list-inline related">
                     {this.state.leftItem.related.map((item, index) => 
-                      <RaisedButton onClick={this.chooseLeft.bind(this, this.dilemmas.filter(i => i.id === item)[0])} className="related-element" key={index}>
+                      <RaisedButton backgroundColor={this.buttonColor} onClick={this.chooseLeft.bind(this, this.dilemmas.filter(i => i.id === item)[0])} className="related-element" key={index}>
                         <div className="button-content">
                           {this.dilemmas.filter(i => i.id === item)[0].name}
                         </div>
@@ -716,8 +728,8 @@ class App extends Component {
                       placeholder="Find">
                     </input>
 
-                    <Checkbox checked={this.state.ishandleFilterInterestsChecked} onCheck={this.handleFilterInterests.bind(this)} label="Show only my interests" />
-                    <RaisedButton>
+                    <Checkbox checked={this.state.ishandleFilterInterestsChecked} onCheck={this.handleFilterInterests.bind(this)} label="Filter list" />
+                    <RaisedButton backgroundColor={this.buttonColor}>
                       <div className="button-content" onClick={this.handleOpenFilterModal}>Modify filter</div>
                     </RaisedButton>
 
@@ -747,7 +759,7 @@ class App extends Component {
             contentLabel="Minimal Modal">
             <div className="interestes-picker">
 
-              {this.tags.map((tag, index) =>
+              {this.tags.slice(1, this.tags.length).map((tag, index) =>
                 <Checkbox 
                   label={tag.name}
                   checked={this.state.myTags.some(t => t == tag.id)}
@@ -756,7 +768,7 @@ class App extends Component {
                     
               )}
               
-            <RaisedButton onClick={this.handleOpenFilterModal.bind(this)}>
+            <RaisedButton backgroundColor={this.buttonColor} onClick={this.handleOpenFilterModal.bind(this)}>
               <div>
                 Close
               </div>
@@ -795,7 +807,7 @@ class App extends Component {
           <div id="slider" className={this.state.hideRight ? "slide-out" : "slide-in"}>
             <div className="slider-content padded-content">
               <div>
-                <RaisedButton className="margin-top" onClick={this.handleShowAllValues.bind(this)}>
+                <RaisedButton backgroundColor={this.buttonColor} className="margin-top" onClick={this.handleShowAllValues.bind(this)}>
                   <div className="RaisedButton">
                     <div className="button-content">
                       Close
@@ -811,8 +823,8 @@ class App extends Component {
                             {item.name} ({item.code})
                           </div>
 
-                        <div className="remove-button">
-                          <RaisedButton onClick={this.addRightItem.bind(this, item)}>
+                        <div className="add-values-button">
+                          <RaisedButton backgroundColor={this.buttonColor} onClick={this.addRightItem.bind(this, item)}>
                             <div className="remove-button-content">Add</div>
                           </RaisedButton>
                         </div>

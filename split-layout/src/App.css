@@ -1,5 +1,5 @@
 :root {
-  --button-color: #48A7F9;
+  --button-color: #6BB9F4;
   --neutral-option: #FFF468;
   --preferred-option: #B4FF96;
   --not-preferred-option: #FF4252;
@@ -262,7 +262,7 @@
   margin-bottom: 5px;
   margin-top: 15px;
   margin-left: 10px;
-  width: 100px;
+  width: 130px;
   font-size: 12px;
   float: left;
 }
@@ -446,4 +446,9 @@
 .linked-remove-button {
   float: right;
   margin-top: -5px;
+}
+
+.add-values-button {
+  margin-top: 5px;
+  float: right;
 }

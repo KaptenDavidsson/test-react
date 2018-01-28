@@ -29,6 +29,7 @@ class Option extends Component {
         transform             : 'translate(-50%, -50%)'
       }
     };
+    this.buttonColor = '#6BB9F4'
 
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
@@ -165,7 +166,7 @@ class Option extends Component {
               </div>
             }
             <span className="effect-info"> 
-               {effect.inDepth ? <span onClick={(e) => this.handleShowEffectInfo(e, effect)}>This is an assumption! (Read more)</span> : ""}
+               {effect.hasOwnProperty('inDepth') ? <span onClick={(e) => this.handleShowEffectInfo(e, effect)}>This is an assumption! (Read more)</span> : ""}
             </span>
             </div>
           )}
@@ -173,7 +174,7 @@ class Option extends Component {
           <span className={this.state.showFunc ? "glyphicon glyphicon-triangle-bottom" : "glyphicon glyphicon-triangle-right"}></span> <span className="show-calc-button" onClick={this.handleToggleCalc.bind(this)}>{this.state.showFunc ? "Hide calculation" : "Show calculation"}</span>
           <br/>
           <div className={ this.state.showFunc ? "shown" : "hidden" }>
-            <h4>f(x): {this.props.utilFunc} = {this.props.option.util}</h4>
+            <span className="option-calcultation">f(x): {this.props.utilFunc} = {this.props.option.util}</span>
           </div>
         </div>
         </div>
@@ -206,7 +207,7 @@ class Option extends Component {
             {this.props.option.sentiments.map((sentiment, index) =>
               <li className="sentiment-function-helper" key={index}> 
                 <div className="sentiment-description">{sentiment.description}</div>
-                <RaisedButton onClick={() => this.props.handleAddSentimentCode(sentiment)}>Add</RaisedButton>
+                <RaisedButton backgroundColor={this.buttonColor} onClick={() => this.props.handleAddSentimentCode(sentiment)}>Add</RaisedButton>
                 <span className="sentiment-function-helper-func">({sentiment.func})</span>
               </li>
             )}
@@ -224,7 +225,7 @@ class Option extends Component {
             */}
           </div>
           <br />
-          <RaisedButton onClick={this.handleCloseModal}>Close</RaisedButton>
+          <RaisedButton backgroundColor={this.buttonColor} onClick={this.handleCloseModal}>Close</RaisedButton>
         </ReactModal>
 
         <ReactModal 
@@ -237,12 +238,12 @@ class Option extends Component {
               In this context an assumption is every effect that is not explicitly or implicitly stated as part of the dilemma. 
             </div>
             <div>
-              {this.state.modalEffect.inDepth}
+              {this.state.modalEffect.inDepth ? this.state.modalEffect.inDepth : 'No additional information about this assumption available.'}
             </div>
           </div>
           <br />
           <br />
-          <RaisedButton onClick={this.handleCloseEffectInfo.bind(this)}>Close</RaisedButton>
+          <RaisedButton backgroundColor={this.buttonColor} onClick={this.handleCloseEffectInfo.bind(this)}>Close</RaisedButton>
         </ReactModal>
       </div>
       </MuiThemeProvider>

@@ -47,6 +47,8 @@ class Profile extends Component {
         transform             : 'translate(-50%, -50%)'
       }
     };
+    
+    this.buttonColor = '#6BB9F4'
 
     this.showLinkValuesDialog = this.showLinkValuesDialog.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
@@ -197,7 +199,7 @@ class Profile extends Component {
                       ></textarea> 
 
                     <div>          
-                      <RaisedButton onClick={this.handleShowCalculateFunc.bind(this)}>
+                      <RaisedButton backgroundColor={this.buttonColor} onClick={this.handleShowCalculateFunc.bind(this)}>
                         <div className="button-content">Suggest function</div> 
                       </RaisedButton>
                       
@@ -215,7 +217,7 @@ class Profile extends Component {
                             f(x) = {this.state.fmFunc}
                           </div>
                           <br />
-                          <RaisedButton onClick={this.useFM}>Use</RaisedButton>
+                          <RaisedButton backgroundColor={this.buttonColor} onClick={this.useFM}>Use</RaisedButton>
                           <br />
                           <br />
                           <div className="sentiment-modal-separator"></div>
@@ -224,19 +226,19 @@ class Profile extends Component {
                           <br />
                           <br />
                           <div className="sentiment-modal-separator"></div>
-                          <h3>Logisic regression</h3>
+                          <h3>Logistic regression</h3>
                           Not implemented yet
                           <br />
 
 
                         <br />
-                        <RaisedButton onClick={this.handleCloseCalculateFunc.bind(this)}>Close</RaisedButton>
+                        <RaisedButton backgroundColor={this.buttonColor} onClick={this.handleCloseCalculateFunc.bind(this)}>Close</RaisedButton>
                         </div>
                       </ReactModal>
                     </div>
                   </div>
                   <div>
-                    <h3 className="profile-list-header"><span className={this.state.isValuesOpen ? "glyphicon glyphicon-triangle-bottom" : "glyphicon glyphicon-triangle-right"}></span><span onClick={this.toggleValues.bind(this)}> Values</span> <RaisedButton className="show-all-values" onClick={this.props.handleShowAllValues}>
+                    <h3 className="profile-list-header"><span className={this.state.isValuesOpen ? "glyphicon glyphicon-triangle-bottom" : "glyphicon glyphicon-triangle-right"}></span><span onClick={this.toggleValues.bind(this)}> Values</span> <RaisedButton backgroundColor={this.buttonColor} className="show-all-values" onClick={this.props.handleShowAllValues}>
                       <div className="button-content">All Values</div>
                     </RaisedButton>
                     </h3>
@@ -252,12 +254,12 @@ class Profile extends Component {
                               </div>
 
                               <div className="remove-button">
-                                <RaisedButton fullWidth={true}  onClick={(e) => this.props.removeRightItem(e, index)}>
+                                <RaisedButton backgroundColor={this.buttonColor} fullWidth={true}  onClick={(e) => this.props.removeRightItem(e, index)}>
                                   <div className="remove-button-content">Remove</div>
                                 </RaisedButton>
                               </div> 
                               <div className="remove-button link-button">
-                                <RaisedButton fullWidth={true} onClick={(e) => this.showLinkValuesDialog(e, item)}>
+                                <RaisedButton backgroundColor={this.buttonColor} fullWidth={true} onClick={(e) => this.showLinkValuesDialog(e, item)}>
                                   <div className="remove-button-content">Link</div>
                                 </RaisedButton>
                               </div>
@@ -269,7 +271,7 @@ class Profile extends Component {
                               <span>{this.props.rightListSlider.filter(v => v.id === link.id)[0].name} ({this.props.rightListSlider.filter(v => v.id === link.id)[0].code})</span>
 
                               <div className="linked-remove-button">
-                                <RaisedButton fullWidth={true} onClick={() => this.props.handleRemoveValueLink(link, item)}>
+                                <RaisedButton backgroundColor={this.buttonColor} fullWidth={true} onClick={() => this.props.handleRemoveValueLink(link, item)}>
                                   <div className="remove-button-content">Remove</div>
                                 </RaisedButton>
                               </div>
@@ -318,7 +320,7 @@ class Profile extends Component {
                           {this.props.rightListSlider.filter(v => v.id === link.id)[0].name}
 
                               <div className="remove-button">
-                                <RaisedButton fullWidth={true}  onClick={() => this.props.handleChooseValueLink(link, this.state.viewedValue)}>
+                                <RaisedButton backgroundColor={this.buttonColor} fullWidth={true}  onClick={() => this.props.handleChooseValueLink(link, this.state.viewedValue)}>
                                   <div className="remove-button-content">Add</div>
                                 </RaisedButton>
                               </div>  
@@ -337,7 +339,7 @@ class Profile extends Component {
                 </div>
               <br />
               <br />
-              <RaisedButton onClick={this.handleCloseModal}>
+              <RaisedButton backgroundColor={this.buttonColor} onClick={this.handleCloseModal}>
                 Close
               </RaisedButton>
             </ReactModal>
