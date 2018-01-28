@@ -50,21 +50,56 @@ class Profile extends Component {
 
     this.showLinkValuesDialog = this.showLinkValuesDialog.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.useFM = this.useFM.bind(this);
   }
 
+
+  getPreferredMatrix() {
+    var preferredMatrix = [];
+    for (var preferred of this.props.myPreferred) {
+      var preferredArray = [];
+      for (var i = 0; i < this.props.values.length; i++) {
+        var value = this.props.values[i];
+        if (preferred.func[value.code]) {
+          preferredArray[i] = preferred.func[value.code];
+        }
+        else {
+          preferredArray[i] = 0;
+        }
+      }
+      preferredArray[this.props.values.length] = 1;
+      preferredMatrix.push(preferredArray);
+    }
+
+    return preferredMatrix;
+  }
 
   handleShowCalculateFunc() {
     this.setState({
       showCalculateFunc: true
     })
 
-    var mx = [[ 1,  1,  1,  -1],
-     [ -2,  1,  -1,  1],
-     [ -1,  0,  0,  0],
-     [ 0, -1,  0,  0]]
 
-    var vs = get_variables(mx)
-    test_variables(mx, vs)  
+    var preferredMatrix = this.getPreferredMatrix();
+
+    var vs = get_variables(preferredMatrix)
+    var calculatedFunc = '';
+    for (var i=0; i<vs.length-1; i++) {
+      if (vs[i] !== 0) {
+        if (vs[i].toString()[0] === '-' || i === 0) {
+          calculatedFunc += vs[i] + '*' + this.props.values[i].code;
+        }
+        else {
+          calculatedFunc += '+' + vs[i] + '*' + this.props.values[i].code;
+        }
+      }
+    }
+
+    this.setState({
+      fmFunc: calculatedFunc
+    })
+
+    // test_variables(preferredMatrix, vs)  
   }
 
 
@@ -138,6 +173,13 @@ class Profile extends Component {
     })
   }
 
+  useFM() {
+    this.props.handleTextAreaChange({ target: { value: this.state.fmFunc }, 
+      stopPropagation: () => {}, 
+      preventDefault: () => {}});
+
+  }
+
 
   render() {
     return (
@@ -156,17 +198,39 @@ class Profile extends Component {
 
                     <div>          
                       <RaisedButton onClick={this.handleShowCalculateFunc.bind(this)}>
-                        <div className="button-content">Calculate</div> 
+                        <div className="button-content">Suggest function</div> 
                       </RaisedButton>
                       
                       <ReactModal 
                         style={this.customStyles}
                         isOpen={this.state.showCalculateFunc}
                         contentLabel="Minimal">
-                        <div>
+                        <div className="suggestFunction">
+                          <h2>Suggested functions</h2>
+                          Calculated from your preferred choices
+                          <br />
+                          <h3>Fourier Motzkin</h3>
+                          <br />
+                          <div className="preferredFunc">
+                            f(x) = {this.state.fmFunc}
+                          </div>
+                          <br />
+                          <RaisedButton onClick={this.useFM}>Use</RaisedButton>
+                          <br />
+                          <br />
+                          <div className="sentiment-modal-separator"></div>
+                          <h3>Decision tree</h3>
                           Not implemented yet
+                          <br />
+                          <br />
+                          <div className="sentiment-modal-separator"></div>
+                          <h3>Logisic regression</h3>
+                          Not implemented yet
+                          <br />
+
+
                         <br />
-                        <button onClick={this.handleCloseCalculateFunc.bind(this)}>Close</button>
+                        <RaisedButton onClick={this.handleCloseCalculateFunc.bind(this)}>Close</RaisedButton>
                         </div>
                       </ReactModal>
                     </div>

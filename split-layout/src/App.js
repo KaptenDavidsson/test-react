@@ -235,7 +235,6 @@ class App extends Component {
 
    this.setState({
       utilFunc: event.target.value,
-      activeAccordionItems: [...this.state.activeAccordionItems, 0]
     })
   }
 
@@ -785,12 +784,13 @@ class App extends Component {
               handleShowAllValues={this.handleShowAllValues}
               handleShowAllInterests={this.handleShowAllInterests}
               utilFunc={this.state.utilFunc}
-              handleTextAreaChange={this.handleTextAreaChange}
               activeAccordionItems={this.activeAccordionItems}
               showLinkValuesDialog={this.showLinkValuesDialog}
               removeRightItem={this.removeRightItem}
               customStyles={this.customStyles}
               handleRemoveValueLink={this.handleRemoveValueLink}
+              myPreferred={this.state.myPreferred}
+              values={this.state.rightListSlider}
             ></Profile>
           <div id="slider" className={this.state.hideRight ? "slide-out" : "slide-in"}>
             <div className="slider-content padded-content">

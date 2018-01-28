@@ -37,6 +37,7 @@ function pairs(a, b) {
     }
     else {
         var c = b.map(bi => add(a[0], bi));
+        a = JSON.parse(JSON.stringify(a))
         c = c.concat(pairs(a.splice(1, a.length), b));
         return c;
     }
@@ -82,10 +83,11 @@ function fourierMotzkin(mx) {
     var orig_mx = mx;
     var parts = {};
     var row_counter = 0;
-    for (var col_counter = 0; col_counter < mx[0].length-3; col_counter++) {
+    var l = mx[0].length;
+    for (var col_counter = 0; col_counter < l-3; col_counter++) {
         mx = normalize(mx);
         parts = partition(mx.slice(row_counter, mx.length), col_counter);
-        mx = mx.slice(row_counter, mx.length);
+        mx = mx.slice(0, row_counter);
         mx = mx.concat(parts['1']);
         mx = mx.concat(pairs(parts['1'], parts['-1']));
         mx = mx.concat(parts['0']);
@@ -93,7 +95,7 @@ function fourierMotzkin(mx) {
     }
     
     mx = normalize(mx);
-    mx = mx.concat(orig_mx);
+    // mx = mx.concat(orig_mx);
     return mx;
 }
 
@@ -130,19 +132,29 @@ function bounds_int_range(bounds) {
 }
 
 function get_closest_to_zero(bounds) {
-    var a = bounds.indexOf(Math.min(...bounds.map(b => Math.abs(b))));
-    return bounds[a];
+    if (bounds[0] >= 0) {
+        return bounds[0];
+    }
+    else if (bounds[1] <= 0) {
+        return bounds[1];
+    }
+    else {
+        return 0;
+    }
 }
             
 export function get_variables(mx) {
+    mx = JSON.parse(JSON.stringify(mx))
+
     mx = fourierMotzkin(mx);
+    var l = mx[0].length;
     var vs = [1];
 
-    for (var i = 0; i < mx[0].length-1; i++) {
+    for (var i = 0; i < l-1; i++) {
         var bounds = get_bounds(find_singles_row(mx));
         
         // if (bounds_int_range(bounds)) {
-            var v = get_closest_to_zero(bounds);
+        var v = get_closest_to_zero(bounds);
         // }
         // else {
         //     var v = Math.floor(Math.random() * bounds[1]) + bounds[0];

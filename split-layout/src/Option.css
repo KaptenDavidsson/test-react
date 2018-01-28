@@ -156,3 +156,11 @@
 .sentiment-description {
 	margin-bottom: 15px;
 }
+
+.preferredFunc {
+	font-style: italic;
+}
+
+.suggestFunction {
+	width: 600px;
+}
