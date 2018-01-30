@@ -84,7 +84,17 @@ class Profile extends Component {
 
     var preferredMatrix = this.getPreferredMatrix();
 
-    var vs = get_variables(preferredMatrix)
+    var vs;
+    try {
+      vs = get_variables(preferredMatrix);
+    }
+    catch(e) {
+      this.setState({
+        fmFunc: 'No linear solution'
+      }) 
+      return;
+    }
+
     var calculatedFunc = '';
     for (var i=0; i<vs.length-1; i++) {
       if (vs[i] !== 0) {
