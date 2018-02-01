@@ -313,6 +313,58 @@
       ],
       "related": [2],
       "tags": [3]
+    },
+
+
+    {
+      "id": 25, 
+      "name": "Progressive tax", 
+      "description": "You are the leader of an fictional country. You get to decide if progressive tax should be implemented. The total amount of taxes is fixed, so that the mean is the same.",
+      "image": "",
+      "options": [
+        { "description": "Implement progressive tax", "effects": 
+        [
+          {"id": 0, "count": 10, "code": "happiness", "optional": true, "explanation": "This might increase happiness since it might lead to higher material wealth among the poor.", "inDepth": ""}, 
+          {"id": 1, "count": -3, "code": "happiness", "optional": true, "explanation": "This might decrease happiness since it might lead to lower material wealth among the rich.", "inDepth": ""}, 
+          {"id": 2, "count": 2, "code": "happiness", "optional": true, "explanation": "This might increase happiness among the rich since it might lead to fewer beggers wich some rich people don't like to see.", "inDepth": ""}
+        ], "sentiments": []},
+        { "description": "Do not Implement progressive tax", "effects": 
+        [
+          {
+            "id": 3, "count": 10, "code": "human_dies", "optional": true, "explanation": "This might lead to increased inequallity which might result in a bloody revolution where people loses their heads.", 
+            "inDepth": ""
+          }, 
+          {
+            "id": 4, "count": -3, "code": "human_dies", "optional": true, "explanation": "This might lead to doctors working less and thus saving fewer lives.", 
+            "inDepth": ""
+          }, 
+          {
+            "id": 5, "count": -3, "code": "happiness", "optional": true, "explanation": "This might lead to people working less and thus producing less goods that makes people happy.", 
+            "inDepth": ""
+          }
+        ], "sentiments": []}
+      ],
+      "related": [],
+      "tags": [3]
+    },
+
+    {
+      "id": 26, 
+      "name": "Eating animals", 
+      "description": "There is a living animal. You can decide to have it killed and served to you as food",
+      "image": "",
+      "options": [
+        { "description": "Eat animal", "effects": 
+        [
+        ], "sentiments": []},
+        { "description": "Do not eat animal", "effects": 
+        [
+        ], "sentiments": []}
+      ],
+      "related": [],
+      "tags": [3]
     }
+
+    
   ]
 }
