@@ -1,9 +1,11 @@
 {
   "values": [
-    {"id": 1, "name": "Human dies", "code": "human_dies", "description": "adasdasd", 
-        "links": [{"id": 7, "details": "details"}, {"id": 6, "details": "details"}, {"id": 13, "details": "details"}], "selectedLinks": []},
+
+    {"id": 1, "name": "Human dies", "code": "human_dies", "description": "Human is defined as: What a biologist would classify as a homo sapiens. Dies is defined as: What a doctor would classify as legally dead.", 
+    "links": [{"id": 7, "details": "details"}, {"id": 6, "details": "details"}, {"id": 13, "details": "details"}], "selectedLinks": []},
     
-    {"id": 2, "name": "Human villain dies", "code": "villain_dies", "description": "adasdasd", 
+    {"id": 2, "name": "Human villain dies", "code": "villain_dies", 
+        "description": "Human is defined as: What a biologist would classify as a homo sapiens. Dies is defined as: What a doctor would classify as legally dead. Villain is defined as someone that has committed a large amount of highly immoral acts. ", 
     "links": [], "selectedLinks": []},
     
     {"id": 3, "name": "Intentional killing", "code": "intentional_killing", "description": "adasdasd", 
@@ -46,6 +48,15 @@
     "links": [], "selectedLinks": []},
 
     {"id": 16, "name": "Dignity", "description": "adasdasd", "code": "dignity", 
+    "links": [], "selectedLinks": []},
+
+    {"id": 17, "name": "Work should be rewarded", "description": "adasdasd", "code": "work_rewarded", 
+    "links": [], "selectedLinks": []},
+
+    {"id": 18, "name": "State of nature", "description": "adasdasd", "code": "state_of_nature", 
+    "links": [], "selectedLinks": []},
+
+    {"id": 19, "name": "Action kills human", "description": "adasdasd", "code": "action_kills_human", 
     "links": [], "selectedLinks": []}
   ]
 }

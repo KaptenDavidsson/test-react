@@ -40,8 +40,8 @@ class Option extends Component {
   componentDidUpdate() {
     var valueCounts = {}
     for (var value of this.props.values) {
-      if (this.props.option.effects.map(e => e.code).includes(value.code)) {
-          valueCounts[value.code] = this.props.option.effects.filter(e => e.code == value.code)[0].count;
+      if (this.props.option.effects.filter(e => !e.optional).map(e => e.code).includes(value.code)) {
+          valueCounts[value.code] = this.props.option.effects.filter(e => e.code == value.code && !e.optional)[0].count;
       }
       else {
         valueCounts[value.code] = 0;
@@ -49,7 +49,7 @@ class Option extends Component {
 
       if (this.props.myAssumptions.map(a => a.effect.code).includes(value.code)) {
         for (var assumption of this.props.myAssumptions.filter(a => a.effect.code == value.code && a.option.description == this.props.option.description)) {
-          valueCounts[value.code] += assumption.effect.count;
+          valueCounts[value.code] += parseInt(assumption.effect.count);
         }
       }
     }

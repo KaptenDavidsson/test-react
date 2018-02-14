@@ -89,7 +89,9 @@ class App extends Component {
       myPreferred: [],
       fullNamesFunc: '',
       showFullNamesFunc: false,
-      showFilterModal: false
+      showFilterModal: false,
+      showCountDialog: false,
+      assumptionWithoutCount: null
     };
 
     this.buttonColor = '#6BB9F4'
@@ -283,7 +285,6 @@ class App extends Component {
 
     this.setState({
       sentiments: newSentiments,
-      activeAccordionItems: [...this.state.activeAccordionItems, 0, 1]
     });
     
     var newFunc = this.state.utilFunc + (this.state.utilFunc !== '' && sentiment.func[0] !== '-' ? '+' : '') + sentiment.func;
@@ -382,6 +383,15 @@ class App extends Component {
     var newList;
 
     if (!this.state.myAssumptions.some(a => a.effect.id === effect.id)) {
+      if (effect.count === '?') {
+        this.setState( {
+          showCountDialog: true,
+          assumptionWithoutCount: { effect: effect, option: option}
+        });
+
+        return;
+      }
+
       newList = [...this.state.myAssumptions, { effect: effect, option: option} ];
     } 
     else {
@@ -585,6 +595,24 @@ class App extends Component {
     });
   }
 
+  handleCloseCountDialog() {
+    this.setState({
+      showCountDialog: false
+    })
+
+    this.makeAssumption(this.state.assumptionWithoutCount.effect, this.state.assumptionWithoutCount.option)
+  }
+
+
+  handleassumptionWithoutCountChange(event) {
+    var effect = this.state.assumptionWithoutCount.effect;
+    effect = JSON.parse(JSON.stringify(effect))
+    effect.count = event.target.value;
+
+    this.setState({
+      assumptionWithoutCount: { option: this.state.assumptionWithoutCount.option, effect: effect}
+    })    
+  }
 
   render() {
     return (
@@ -712,8 +740,35 @@ class App extends Component {
                     handleChoosePreferred={this.handleChoosePreferred}>
                   </Option>
                 )}
-              </div>
 
+              </div>
+              <div>
+                <ReactModal 
+                  style={this.chooseInterestsStyles}
+                  isOpen={this.state.showCountDialog}
+                  contentLabel="Minimal Modal">
+                  <div className="interestes-picker">
+
+                    Please choose an amount for {this.state.assumptionWithoutCount ? this.state.assumptionWithoutCount.effect.code : ''}
+
+                    <br />
+                    <br />
+
+                    <input 
+                      value={this.state.assumptionWithoutCount ? this.state.assumptionWithoutCount.effect.count : ''} 
+                      onChange={this.handleassumptionWithoutCountChange.bind(this)}></input>
+
+                    <br />
+                    <br />
+                    
+                  <RaisedButton backgroundColor={this.buttonColor} onClick={this.handleCloseCountDialog.bind(this)}>
+                    <div>
+                      Choose
+                    </div>
+                  </RaisedButton>
+                  </div>
+              </ReactModal>
+            </div>
             </div>
             <div id="slider" className={this.state.hideLeft ? "slide-out" : "slide-in"}>
               <div className="list-item padded-content">

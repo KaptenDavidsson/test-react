@@ -6,8 +6,13 @@
       "description": "There is a runaway trolley barreling down the railway tracks. Ahead, on the tracks, there are five people tied up and unable to move. The trolley is headed straight for them. You are standing some distance off in the train yard, next to a lever. If you pull this lever, the trolley will switch to a different set of tracks. However, you notice that there is one person tied up on the side track.",
       "image": "trolley1.jpg",
       "options": [
-        { "description": "Do nothing", "effects": [{"count": 5, "code": "human_dies" }], "sentiments": []},
-        { "description": "Pull the lever", "effects": [{"count": 1, "code": "human_dies"}], "sentiments": [{"description": "More humans are more valuable than less humans", "func": "-human_dies"}]}
+        { "description": "Do nothing", "effects": [
+          {"count": 5, "code": "human_dies" }
+        ], "sentiments": []},
+        { "description": "Pull the lever", "effects": [
+          {"count": 1, "code": "human_dies"},
+          {"count": 1, "code": "action_kills_human"}
+        ], "sentiments": [{"description": "More humans are more valuable than less humans", "func": "-human_dies"}]}
       ],
       "related": [2,3],
       "tags": [2,4]
@@ -20,11 +25,15 @@
       "description": "As before, a trolley is hurtling down a track towards five people. You are on a bridge under which it will pass, and you can stop it by putting something very heavy in front of it. As it happens, there is a very fat man next to you – your only way to stop the trolley is to push him over the bridge and onto the track, killing him to save five. Should you proceed?",
       "image": "trolley_fat.jpg",
       "options": [
-        { "description": "Do nothing", "effects": [{"count": 5, "code": "human_dies" }], "sentiments": [{"description": "Killing someone as a means to an end is worse than letting 5 persons die", "func": "-human_as_mean_to_end*6"}]},
+        { "description": "Do nothing", "effects": [{"count": 5, "code": "human_dies" }], 
+        "sentiments": [
+          {"description": "Killing someone as a means to an end is worse than letting 5 persons die", "func": "-human_as_mean_to_end*6"}
+        ]},
         { "description": "Push fat man", "sentiments": [], "effects": [
           {"count": 1, "code": "human_dies"}, 
           {"count": 1, "code": "intentional_killing"},
-          {"count": 1, "code": "human_as_mean_to_end"}
+          {"count": 1, "code": "human_as_mean_to_end"},
+          {"count": 1, "code": "action_kills_human"}
         ]}
       ],
       "related": [1,3],
@@ -324,22 +333,22 @@
       "options": [
         { "description": "Implement progressive tax", "effects": 
         [
-          {"id": 0, "count": 10, "code": "happiness", "optional": true, "explanation": "This might increase happiness since it might lead to higher material wealth among the poor.", "inDepth": ""}, 
-          {"id": 1, "count": -3, "code": "happiness", "optional": true, "explanation": "This might decrease happiness since it might lead to lower material wealth among the rich.", "inDepth": ""}, 
-          {"id": 2, "count": 2, "code": "happiness", "optional": true, "explanation": "This might increase happiness among the rich since it might lead to fewer beggers wich some rich people don't like to see.", "inDepth": ""}
+          {"id": 0, "count": "?", "code": "happiness", "optional": true, "explanation": "This might increase happiness since it might lead to higher material wealth among the poor.", "inDepth": ""}, 
+          {"id": 1, "count": "?", "code": "happiness", "optional": true, "explanation": "This might decrease happiness since it might lead to lower material wealth among the rich.", "inDepth": ""}, 
+          {"id": 2, "count": "?", "code": "happiness", "optional": true, "explanation": "This might increase happiness among the rich since it might lead to fewer beggers wich some rich people don't like to see.", "inDepth": ""}
         ], "sentiments": []},
         { "description": "Do not Implement progressive tax", "effects": 
         [
           {
-            "id": 3, "count": 10, "code": "human_dies", "optional": true, "explanation": "This might lead to increased inequallity which might result in a bloody revolution where people loses their heads.", 
+            "id": 3, "count": "?", "code": "human_dies", "optional": true, "explanation": "This might lead to increased inequallity which might result in a bloody revolution where people loses their heads.", 
             "inDepth": ""
           }, 
           {
-            "id": 4, "count": -3, "code": "human_dies", "optional": true, "explanation": "This might lead to doctors working less and thus saving fewer lives.", 
+            "id": 4, "count": "?", "code": "human_dies", "optional": true, "explanation": "This might lead to doctors working less and thus saving fewer lives.", 
             "inDepth": ""
           }, 
           {
-            "id": 5, "count": -3, "code": "happiness", "optional": true, "explanation": "This might lead to people working less and thus producing less goods that makes people happy.", 
+            "id": 5, "count": "?", "code": "happiness", "optional": true, "explanation": "This might lead to people working less and thus producing less goods that makes people happy.", 
             "inDepth": ""
           }
         ], "sentiments": []}

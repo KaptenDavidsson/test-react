@@ -303,7 +303,7 @@ class Profile extends Component {
                     {this.props.myAssumptions.map((assumption, index) =>
                       <li key={index} className="my-list-item" >
                         <div className="my-list-item-text">
-                          {assumption.effect.explanation} ({assumption.option.description}) 
+                          {assumption.effect.code}={assumption.effect.count}. {assumption.effect.explanation} ({assumption.option.description}) 
                         </div>
                       </li>
                     )}
