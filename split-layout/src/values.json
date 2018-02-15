@@ -1,20 +1,38 @@
 {
   "values": [
 
-    {"id": 1, "name": "Human dies", "code": "human_dies", "description": "Human is defined as: What a biologist would classify as a homo sapiens. Dies is defined as: What a doctor would classify as legally dead.", 
+    {"id": 1, "name": "Human dies", "code": "human_dies", 
+    "description": "", 
+    "definitions": [
+        { "name": "Human", "description": "What a biologist would classify as a homo sapiens" },
+        { "name": "Dies", "description": "What a doctor would classify as legally dead."}
+    ],
     "links": [{"id": 7, "details": "details"}, {"id": 6, "details": "details"}, {"id": 13, "details": "details"}], "selectedLinks": []},
     
     {"id": 2, "name": "Human villain dies", "code": "villain_dies", 
-        "description": "Human is defined as: What a biologist would classify as a homo sapiens. Dies is defined as: What a doctor would classify as legally dead. Villain is defined as someone that has committed a large amount of highly immoral acts. ", 
+        "description": "", 
+    "definitions": [
+        { "name": "Human", "description": "What a biologist would classify as a homo sapiens" },
+        { "name": "Dies", "description": "What a doctor would classify as legally dead."},
+        { "name": "Villain", "description": "Someone that has committed a (according to you) large amount of highly immoral acts."}
+    ],
     "links": [], "selectedLinks": []},
+
+    {"id": 3, "name": "Action leads to human death", "description": "", "code": "action_kills_human", 
+    "links": [], "selectedLinks": [],
+    "definitions": [
+        { "name": "Human", "description": "What a biologist would classify as a homo sapiens" },
+        { "name": "Dies", "description": "What a doctor would classify as legally dead."}
+    ]},
     
-    {"id": 3, "name": "Intentional killing", "code": "intentional_killing", "description": "adasdasd", 
-    "links": [], "selectedLinks": []},
+    {"id": 4, "name": "Using a human as a means to an end", "code": "human_as_mean_to_end", "description": "", 
+    "links": [], "selectedLinks": [],
+    "definitions": [
+        { "name": "Human", "description": "What a biologist would classify as a homo sapiens" },
+        { "name": "Using as means to an end", "description": "Using to achieve a goal"}
+    ]}, 
     
-    {"id": 4, "name": "Using a human as a means to an end", "code": "human_as_mean_to_end", "description": "adasdasd", 
-    "links": [], "selectedLinks": []}, 
-    
-    {"id": 5, "name": "You did not tell the truth", "code": "not_tell_truth", "description": "adasdasd", 
+    {"id": 5, "name": "You did not tell the truth", "code": "not_tell_truth", "description": "You did knowingly not tell what is the case.", 
     "links": [], "selectedLinks": []},
     
     {"id": 6, "name": "Happiness", "description": "adasdasd", "code": "happiness", 
@@ -56,7 +74,7 @@
     {"id": 18, "name": "State of nature", "description": "adasdasd", "code": "state_of_nature", 
     "links": [], "selectedLinks": []},
 
-    {"id": 19, "name": "Action kills human", "description": "adasdasd", "code": "action_kills_human", 
+    {"id": 19, "name": "Self preservation", "description": "adasdasd", "code": "self_preservation", 
     "links": [], "selectedLinks": []}
   ]
 }

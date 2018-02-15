@@ -886,9 +886,16 @@ class App extends Component {
                         </div>
                       </AccordionItemTitle>
                       <AccordionItemBody>
-                        <p>
-                          {item.description}
-                        </p>
+                        <div>
+                          <p>
+                            {item.description ? item.description : ''}
+                          </p>
+                          {item.definitions ? item.definitions.map((definition, index2) => 
+                            <p>
+                              <b>{definition.name}</b> : {definition.description}
+                            </p>
+                          ) : ''}
+                        </div>
                       </AccordionItemBody>
                     </AccordionItem>
                   )}

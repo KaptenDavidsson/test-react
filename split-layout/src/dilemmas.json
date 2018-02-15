@@ -31,12 +31,11 @@
         ]},
         { "description": "Push fat man", "sentiments": [], "effects": [
           {"count": 1, "code": "human_dies"}, 
-          {"count": 1, "code": "intentional_killing"},
           {"count": 1, "code": "human_as_mean_to_end"},
           {"count": 1, "code": "action_kills_human"}
         ]}
       ],
-      "related": [1,3],
+      "related": [1,3, 15],
       "tags": [2,4]
     },
 
@@ -47,11 +46,13 @@
       "description": "The further development of this example involves the case, where the fat man is, in fact, the villain who put these five people in peril. In this instance, pushing the villain to his death, especially to save five innocent people, seems not only morally justifiable but perhaps even imperative",
       "image": "trolley_fat.jpg",
       "options": [
-        { "description": "Do nothing", "effects": [{"count": 5, "code": "human_dies" }], "sentiments": []},
+        { "description": "Do nothing", "effects": [
+          {"count": 5, "code": "human_dies" }
+        ], "sentiments": []},
         { "description": "Pull the lever", "effects": [
           {"count": 1, "code": "villain_dies"}, 
-          {"count": 1, "code": "intentional_killing"},
-          {"count": 1, "code": "human_as_mean_to_end"}
+          {"count": 1, "code": "human_as_mean_to_end"},
+          {"count": 1, "code": "action_kills_human"}
         ], 
         "sentiments": []}
       ],
