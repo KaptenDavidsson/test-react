@@ -9,8 +9,9 @@
 		{ "id": 6, "name": "Fiction", "description": "Has appeared in books, TV shows, music or other works of fiction", "image": "fiction.png"},
 		{ "id": 7, "name": "TV", "image": ""},
 		{ "id": 8, "name": "Literature", "image": ""},
-		{ "id": 9, "name": "Punishment", "image": ""}
+		{ "id": 9, "name": "Punishment", "image": ""},
+		{ "id": 10, "name": "Abstract", "image": ""}
 	],
 	"startingTags": [2,3,5,6,0],
-	"myTags": [1,2,3,4,5,6,7,8,9]
+	"myTags": [1,2,3,4,5,6,7,8,9,10]
 }

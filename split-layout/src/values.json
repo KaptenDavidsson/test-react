@@ -32,49 +32,61 @@
         { "name": "Using as means to an end", "description": "Using to achieve a goal"}
     ]}, 
     
-    {"id": 5, "name": "You did not tell the truth", "code": "not_tell_truth", "description": "You did knowingly not tell what is the case.", 
+    {"id": 5, "name": "Lie", "code": "lie", "description": "You did knowingly not tell what is the case.", 
     "links": [], "selectedLinks": []},
     
-    {"id": 6, "name": "Happiness", "description": "adasdasd", "code": "happiness", 
+    {"id": 6, "name": "Happiness", "description": "One unit of happiness is defined as: The happiness the average north american would recieve if given $100,000. The choice of dollars over other currencies is made because it is the most traded currency in the world.", "code": "happiness", 
     "links": [], "selectedLinks": []},
     
-    {"id": 7, "name": "Contract", "description": "adasdasd", "code": "contract", 
+    {"id": 7, "name": "Contract", "description": "", "code": "contract", 
     "links": [], "selectedLinks": []},
     
-    {"id": 8, "name": "Freedom", "description": "adasdasd", "code": "freedom", 
+    {"id": 8, "name": "Freedom", "description": "", "code": "freedom", 
     "links": [], "selectedLinks": []},
     
-    {"id": 9, "name": "Golden rule", "description": "adasdasd", "code": "golden_rule", 
+    {"id": 9, "name": "Golden rule", "description": "", "code": "golden_rule", 
     "links": [], "selectedLinks": []},
     
-    {"id": 10, "name": "Categorical imperative", "description": "adasdasd", "code": "categorical_imperative", 
+    {"id": 10, "name": "Categorical imperative", "description": "", "code": "categorical_imperative", 
     "links": [], "selectedLinks": []},
     
-    {"id": 11, "name": "Animal Dies", "description": "adasdasd", "code": "animal_dies", 
+    {"id": 11, "name": "Animal Dies", "description": "", "code": "animal_dies", 
     "links": [], "selectedLinks": []},
     
-    {"id": 12, "name": "Stealing", "description": "adasdasd", "code": "stealing", 
+    {"id": 12, "name": "Stealing", "description": "", "code": "stealing", 
     "links": [], "selectedLinks": []},
     
-    {"id": 13, "name": "Sentience", "description": "adasdasd", "code": "sentience", 
+    {"id": 13, "name": "Sentience", "description": "", "code": "sentience", 
     "links": [], "selectedLinks": []},
     
-    {"id": 14, "name": "Holy book", "description": "adasdasd", "code": "holy_book", 
+    {"id": 14, "name": "Holy book", "description": "", "code": "holy_book", 
     "links": [], "selectedLinks": []},
     
-    {"id": 15, "name": "Authenticity", "description": "adasdasd", "code": "authenticity", 
+    {"id": 15, "name": "Authenticity", "description": "", "code": "authenticity", 
     "links": [], "selectedLinks": []},
 
-    {"id": 16, "name": "Dignity", "description": "adasdasd", "code": "dignity", 
+    {"id": 16, "name": "Dignity", "description": "", "code": "dignity", 
     "links": [], "selectedLinks": []},
 
-    {"id": 17, "name": "Work should be rewarded", "description": "adasdasd", "code": "work_rewarded", 
+    {"id": 17, "name": "Work should be rewarded", "description": "", "code": "work_rewarded", 
     "links": [], "selectedLinks": []},
 
-    {"id": 18, "name": "State of nature", "description": "adasdasd", "code": "state_of_nature", 
+    {"id": 18, "name": "State of nature", "description": "", "code": "state_of_nature", 
     "links": [], "selectedLinks": []},
 
-    {"id": 19, "name": "Self preservation", "description": "adasdasd", "code": "self_preservation", 
+    {"id": 19, "name": "Self preservation", "description": "", "code": "self_preservation", 
+    "links": [], "selectedLinks": []},
+
+    {"id": 20, "name": "Human life", "description": "", "code": "human_life", 
+    "links": [], "selectedLinks": [], 
+    "definitions": [
+        { "name": "Human", "description": "What a biologist would classify as a homo sapiens" }
+    ]},
+
+    {"id": 21, "name": "Pain", "description": "One unit of pain is defined as: The amount of pain the average person would recieve by being tortured for one day.", "code": "self_preservation", 
+    "links": [], "selectedLinks": []},
+
+    {"id": 22, "name": "Bodily integrity", "description": "", "code": "bodily_integrity", 
     "links": [], "selectedLinks": []}
   ]
 }

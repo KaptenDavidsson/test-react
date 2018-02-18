@@ -7,15 +7,17 @@
       "image": "trolley1.jpg",
       "options": [
         { "description": "Do nothing", "effects": [
-          {"count": 5, "code": "human_dies" }
+          {"count": 5, "code": "human_dies" },
+          {"count": -5, "code": "human_life" }
         ], "sentiments": []},
         { "description": "Pull the lever", "effects": [
           {"count": 1, "code": "human_dies"},
+          {"count": -1, "code": "human_life" },
           {"count": 1, "code": "action_kills_human"}
         ], "sentiments": [{"description": "More humans are more valuable than less humans", "func": "-human_dies"}]}
       ],
       "related": [2,3],
-      "tags": [2,4]
+      "tags": [2,4,10]
     },
 
 
@@ -35,8 +37,8 @@
           {"count": 1, "code": "action_kills_human"}
         ]}
       ],
-      "related": [1,3, 15],
-      "tags": [2,4]
+      "related": [1,3,14],
+      "tags": [2,4,10]
     },
 
 
@@ -56,71 +58,77 @@
         ], 
         "sentiments": []}
       ],
-      "related": [1,2,4],
-      "tags": [2,4]
+      "related": [1,2],
+      "tags": [2,4,10]
     },
-
 
     {
       "id": 4, 
-      "name": "Ticking time bomb scenario", 
-      "description": "Suppose that a person with knowledge of an imminent terrorist attack, that will kill many people, is in the hands of the authorities and that he will disclose the information needed to prevent the attack only if he is tortured. Should he be tortured?",
-      "image": "bomb.png",
+      "name": "Eating animals", 
+      "description": "There is a living animal. You can decide to have it killed and served to you as food",
+      "image": "",
       "options": [
-        { "description": "Do nothing", "effects": [{"count": 5, "code": "human_dies" }], "sentiments": []},
-        { "description": "Pull the lever", "effects": [{"count": 1, "code": "human_dies"}], "sentiments": []}
+        { "description": "Eat animal", "effects": 
+        [
+        ], "sentiments": []},
+        { "description": "Do not eat animal", "effects": 
+        [
+        ], "sentiments": []}
       ],
-      "related": [3],
-      "tags": [2]
+      "related": [],
+      "tags": [3]
     },
-
 
     {
       "id": 5, 
       "name": "Murderer ask question", 
-      "description": "You know the location of some persons. A murderer asks you about their location in order to go kill them.",
+      "description": "You know the location of some persons. A murderer is about to go to that location to kill the person. You can save the person by telling the murderer that the person is some place else.",
       "options": [
         { "description": "Tell the truth", "effects": [{"count": 1, "code": "human_dies" }], "sentiments": []},
-        { "description": "Lie/Do nothing", "effects": [{"count": 1, "code": "not_tell_truth"}], "sentiments": []}
+        { "description": "Lie", "effects": [{"count": 1, "code": "lie"}], "sentiments": []}
       ],
       "related": [],
-      "tags": [2,4]
+      "tags": [2,4, 10]
     },
 
 
     {
       "id": 6, 
       "name": "Utility monster", 
-      "description": "",
+      "description": "You have 1 million dollars. You can either divide them equally between 10 persons or give it all to one of them. That one person in special in such a way that he will be 100 times more happy than the other per dollar. ",
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "happiness" }], "sentiments": []},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "happiness"}], "sentiments": []}
+        { "description": "Give money to monster", "effects": [{"count": 100, "code": "happiness" }], "sentiments": []},
+        { "description": "Divide the money equally", "effects": [{"count": 19, "code": "happiness"}], "sentiments": []}
       ],
       "related": [],
-      "tags": [2,4]
+      "tags": [2,4,10]
     },
 
 
     {
       "id": 7, 
       "name": "Mere addition paradox", 
-      "description": "Consider the four populations depicted in the following diagram: A, A+, B− and B. Each bar represents a distinct group of people, with the group's size represented by the bar's width and the happiness of each of the group's members represented by the bar's height. Unlike A and B, A+ and B− are complex populations, each comprising two distinct groups of people.",
+      "description": "Imagine a country of 1 million people. Every person currently have a happiness level of 1 per year. You have the choice to put in place policies that will increase the population to 4 million but the happiness per person will decrease to 0.5 per year. ",
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "happiness" }], "sentiments": []},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "happiness"}], "sentiments": []}
+        { "description": "Do nothing", "effects": [{"count": 1000000, "code": "happiness" }], "sentiments": []},
+        { "description": "Increase population", "effects": [{"count": 2000000, "code": "happiness"}], "sentiments": []}
       ],
       "related": [],
-      "tags": [2,4]
+      "tags": [2,4,10]
     },
 
 
     {
       "id": 8, 
       "name": "The violinist", 
-      "description": "You wake up in the morning and find yourself back to back in bed with an unconscious violinist. A famous unconscious violinist. He has been found to have a fatal kidney ailment, and the Society of Music Lovers has canvassed all the available medical records and found that you alone have the right blood type to help. They have therefore kidnapped you, and last night the violinist's circulatory system was plugged into yours, so that your kidneys can be used to extract poisons from his blood as well as your own. [If he is unplugged from you now, he will die; but] in nine months he will have recovered from his ailment, and can safely be unplugged from you.",
+      "description": "You wake up in the morning and find yourself back to back in bed with an unconscious violinist. A famous unconscious violinist. He has been found to have a fatal kidney ailment, and the Society of Music Lovers has canvassed all the available medical records and found that you alone have the right blood type to help. They have therefore kidnapped you, and last night the violinist's circulatory system was plugged into yours, so that your kidneys can be used to extract poisons from his blood as well as your own. [If he is unplugged from you now, he will die; but] in nine months he will have recovered from his ailment, and can safely be unplugged from you. Would it be morally right to force you to not unplug?",
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "happiness" }], "sentiments": []},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "happiness"}], "sentiments": []}
+        { "description": "Force to not unplug", "effects": [
+          {"count": -1, "code": "bodily_integrity" }
+        ], "sentiments": []},
+        { "description": "Do not force", "effects": [
+          {"count": 1, "code": "human_dies"}
+        ], "sentiments": []}
       ],
       "related": [],
       "tags": [2,4]
@@ -132,34 +140,16 @@
       "name": "Veil of ignorance", 
       "description": "",
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "happiness" }], "sentiments": []},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "happiness"}], "sentiments": []}
       ],
       "related": [],
       "tags": [2,4]
     },
 
-
     {
       "id": 10, 
-      "name": "Sophie's Choice", 
-      "description": "In the novel Sophie's Choice, by William Styron (Vintage Books, 1976 -- the 1982 movie starred Meryl Streep & Kevin Kline), a Polish woman, Sophie Zawistowska, is arrested by the Nazis and sent to the Auschwitz death camp.  On arrival, she is 'honored' for not being a Jew by being allowed a choice: One of her children will be spared the gas chamber if she chooses which one. In an agony of indecision, as both children are being taken away, she suddenly does choose. They can take her daughter, who is younger and smaller. Sophie hopes that her older and stronger son will be better able to survive, but she loses track of him and never does learn of his fate. Did she do the right thing? Years later, haunted by the guilt of having chosen between her children, Sophie commits suicide. Should she have felt guilty?",
-      "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "happiness" }], "sentiments": []},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "happiness"}], "sentiments": []}
-      ],
-      "related": [],
-      "tags": [6, 8]
-    },
-
-
-    {
-      "id": 11, 
       "name": "Corrine's Choice", 
       "description": "On 7 January 2015 Corrine Rey, a cartoonist at the French satirical magazine Charlie Hebdo, and known by the name 'Coco,' returned from picking up her daughter from kindergarten. She was confronted by two French Jihadist gunmen, who treatened to shoot her daughter unless she keyed in the entry code at the door for the magazine. She did; and the gunmen entered to murder twelve people, including two policemen, as well as shooting eleven others. During the attack, the shooters said that they would not kill women, but that they needed to convert to Islam and wear a veil. Should Corrine Rey have been willing to sacrifice her daughter and herself rather than allow obvious murderers to enter the magazine and possibly kill everyone? Can a mother be blamed for only thinking of protecting her child?",
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "happiness" }], "sentiments": []},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "happiness"}], "sentiments": []}
       ],
       "related": [],
       "tags": [1]
@@ -167,12 +157,10 @@
 
 
     {
-      "id": 12, 
+      "id": 11, 
       "name": "The Overcrowded Lifeboat", 
       "description": "In 1842, a ship struck an iceberg and more than 30 survivors were crowded into a lifeboat intended to hold 7. As a storm threatened, it became obvious that the lifeboat would have to be lightened if anyone were to survive. The captain reasoned that the right thing to do in this situation was to force some individuals to go over the side and drown. Such an action, he reasoned, was not unjust to those thrown overboard, for they would have drowned anyway. If he did nothing, however, he would be responsible for the deaths of those whom he could have saved. Some people opposed the captain's decision. They claimed that if nothing were done and everyone died as a result, no one would be responsible for these deaths. On the other hand, if the captain attempted to save some, he could do so only by killing others and their deaths would be his responsibility; this would be worse than doing nothing and letting all die. The captain rejected this reasoning. Since the only possibility for rescue required great efforts of rowing, the captain decided that the weakest would have to be sacrificed. In this situation it would be absurd, he thought, to decide by drawing lots who should be thrown overboard. As it turned out, after days of hard rowing, the survivors were rescued and the captain was tried for his action. If you had been on the jury, how would you have decided? From Robert Heinlein",        
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "happiness" }], "sentiments": []},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "happiness"}], "sentiments": []}
       ],
       "related": [],
       "tags": [6, 8]
@@ -180,12 +168,10 @@
 
 
     {
-      "id": 13, 
+      "id": 12, 
       "name": "The Last Episode of Seinfeld", 
       "description": "The cast of Seinfeld, Jerry, Elaine, George, and Kramer, have a layover in a small New England town. They witness a robbery in broad daylight. The robber has his hand in his pocket, and the victim shouts that the man has a gun. As soon as the robber runs away, a policeman appears on the scene; but instead of pursuing the robber, he arrests Jerry, Elaine, George, and Kramer for having violated the new 'Good Samaritan' law of the town. Since the four of them spent the time of the robbery making fun of the victim, who was fat, their role in the matter doesn't look good, and at their trial everyone who has ever felt wronged by them in the course of the television series testifies against them. They are convicted. Is this just? What were they supposed to do during the robbery? Should they have rushed the robber, just in case he didn't really have a gun?",        
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "happiness" }], "sentiments": []},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "happiness"}], "sentiments": []}
       ],
       "related": [],
       "tags": [6, 7]
@@ -193,12 +179,10 @@
 
 
     {
-      "id": 14, 
+      "id": 13, 
       "name": "Robbin' Hood", 
       "description": "You are an eyewitness to a crime: A man has robbed a bank, but instead of keeping the money for himself, he donates it to a poor orphanage that can now afford to feed, clothe, and care for its children. You know who committed the crime. If you go to the authorities with the information, there's a good chance the money will be returned to the bank, leaving a lot of kids in need. What do you do?",        
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "happiness" }], "sentiments": []},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "happiness"}], "sentiments": []}
       ],
       "related": [],
       "tags": [3]
@@ -206,25 +190,29 @@
 
 
     {
-      "id": 15, 
+      "id": 14, 
       "name": "A Doctor's Dilemma", 
-      "description": "You are a doctor at a top hospital. You have six gravely ill patients, five of whom are in urgent need of organ transplants. You can't help them, though, because there are no available organs that can be used to save their lives. The sixth patient, however, will die without a particular medicine. If s/he dies, you will be able to save the other five patients by using the organs of patient 6, who is an organ donor. What do you do?",
+      "description": "You are a doctor at a top hospital. You have six gravely ill patients, five of whom are in urgent need of organ transplants. You can't help them, though, because there are no available organs that can be used to save their lives. The sixth patient, however, will die without a particular medicine. If s/he dies, you will be able to save the other five patients by using the organs of patient 6, who is an organ donor.",
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "happiness" }], "sentiments": []},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "happiness"}], "sentiments": []}
+        { "description": "Do nothing", "effects": [{"count": 6, "code": "human_dies" }], 
+        "sentiments": [
+          {"description": "Killing someone as a means to an end is worse than letting 5 persons die", "func": "-human_as_mean_to_end*6"}
+        ]},
+        { "description": "Harvest organs", "sentiments": [], "effects": [
+          {"count": 1, "code": "human_dies"}, 
+          {"count": 1, "code": "human_as_mean_to_end"}
+        ]}
       ],
-      "related": [],
-      "tags": [1]
+      "related": [2],
+      "tags": [1,10]
     },
 
 
     {
-      "id": 17, 
+      "id": 15, 
       "name": "Abortion time", 
       "description": "",
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "happiness" }], "sentiments": []},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "happiness"}], "sentiments": []}
       ],
       "related": [],
       "tags": [5]
@@ -232,12 +220,10 @@
 
 
     {
-      "id": 18, 
+      "id": 16, 
       "name": "Send criminals to paradise", 
       "description": "",
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "happiness" }], "sentiments": []},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "happiness"}], "sentiments": []}
       ],
       "related": [],
       "tags": [3, 9, 2]
@@ -245,14 +231,14 @@
 
 
     {
-      "id": 19, 
+      "id": 17, 
       "name": "Death sentence", 
       "description": "You are the leader of your country. You get to decide if death sentence should be practiced for the most horrific crimes.",
       "options": [
         { "description": "Practice death sentence", "effects": [
           {"count": 1, "code": "human_dies" }, 
-          {"id": 0, "count": -10, "code": "human_dies", "optional": true, "explanation": "This might reduce crime and save 10 lives", "inDepth": ""}, 
-          {"id": 1, "count": 10, "code": "human_dies", "optional": true, "explanation": "This might normalize murder and lead to 10 more murders", "inDepth": ""}], "sentiments": []},
+          {"id": 0, "count": "?", "code": "human_dies", "optional": true, "explanation": "This might reduce crime and save 10 lives", "inDepth": ""}, 
+          {"id": 1, "count": "?", "code": "human_dies", "optional": true, "explanation": "This might normalize murder and lead to 10 more murders", "inDepth": ""}], "sentiments": []},
         { "description": "Do not practice death sentence", "effects": [], "sentiments": []}
       ],
       "related": [],
@@ -261,12 +247,32 @@
 
 
     {
-      "id": 20, 
+      "id": 18, 
       "name": "Eutanasia", 
       "description": "",
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "happiness" }], "sentiments": []},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "happiness"}], "sentiments": []}
+      ],
+      "related": [],
+      "tags": [3]
+    },
+
+
+    {
+      "id": 19, 
+      "name": "Who owns the land", 
+      "description": "",
+      "options": [
+      ],
+      "related": [],
+      "tags": [3]
+    },
+
+
+    {
+      "id": 20, 
+      "name": "Separatists and seceding", 
+      "description": "",
+      "options": [
       ],
       "related": [],
       "tags": [3]
@@ -275,38 +281,10 @@
 
     {
       "id": 21, 
-      "name": "Who owns the land", 
-      "description": "",
-      "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "happiness" }], "sentiments": []},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "happiness"}], "sentiments": []}
-      ],
-      "related": [],
-      "tags": [3]
-    },
-
-
-    {
-      "id": 22, 
-      "name": "Separatists and seceding", 
-      "description": "",
-      "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "happiness" }], "sentiments": []},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "happiness"}], "sentiments": []}
-      ],
-      "related": [],
-      "tags": [3]
-    },
-
-
-    {
-      "id": 23, 
       "name": "Organ donation", 
       "description": "",
       "image": "heart.png",
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "happiness" }], "sentiments": []},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "happiness"}], "sentiments": []}
       ],
       "related": [],
       "tags": [3]
@@ -314,12 +292,10 @@
 
     
     {
-      "id": 24, 
+      "id": 22, 
       "name": "Legally incompetent", 
       "description": "",
       "options": [
-        { "description": "Give money to monster", "effects": [{"count": 1000, "code": "happiness" }], "sentiments": []},
-        { "description": "Divide the money equally", "effects": [{"count": 100, "code": "happiness"}], "sentiments": []}
       ],
       "related": [2],
       "tags": [3]
@@ -327,7 +303,7 @@
 
 
     {
-      "id": 25, 
+      "id": 23, 
       "name": "Progressive tax", 
       "description": "You are the leader of an fictional country. You get to decide if progressive tax should be implemented. The total amount of taxes is fixed, so that the mean is the same.",
       "image": "",
@@ -358,20 +334,14 @@
       "tags": [3]
     },
 
+    
     {
-      "id": 26, 
-      "name": "Eating animals", 
-      "description": "There is a living animal. You can decide to have it killed and served to you as food",
-      "image": "",
+      "id": 24, 
+      "name": "The Ones Who Walk Away from Omelas", 
+      "description": "",
       "options": [
-        { "description": "Eat animal", "effects": 
-        [
-        ], "sentiments": []},
-        { "description": "Do not eat animal", "effects": 
-        [
-        ], "sentiments": []}
       ],
-      "related": [],
+      "related": [2],
       "tags": [3]
     }
 
