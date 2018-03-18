@@ -38,7 +38,7 @@
     {"id": 6, "name": "Happiness", "description": "One unit of happiness is defined as: The happiness the average north american would recieve if given $100,000. The choice of dollars over other currencies is made because it is the most traded currency in the world.", "code": "happiness", 
     "links": [], "selectedLinks": []},
     
-    {"id": 7, "name": "Contract", "description": "", "code": "contract", 
+    {"id": 7, "name": "Contract broken", "description": "", "code": "contract_broken", 
     "links": [], "selectedLinks": []},
     
     {"id": 8, "name": "Freedom", "description": "", "code": "freedom", 
@@ -83,10 +83,14 @@
         { "name": "Human", "description": "What a biologist would classify as a homo sapiens" }
     ]},
 
-    {"id": 21, "name": "Pain", "description": "One unit of pain is defined as: The amount of pain the average person would recieve by being tortured for one day.", "code": "self_preservation", 
+    {"id": 21, "name": "Pain", "description": "One unit of pain is defined as: The amount of pain the average person would recieve by being tortured for one day.", 
+    "code": "pain", 
     "links": [], "selectedLinks": []},
 
     {"id": 22, "name": "Bodily integrity", "description": "", "code": "bodily_integrity", 
+    "links": [], "selectedLinks": []},
+
+    {"id": 23, "name": "Conscious being dies", "description": "", "code": "conscious_being_dies", 
     "links": [], "selectedLinks": []}
   ]
 }

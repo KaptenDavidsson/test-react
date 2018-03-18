@@ -248,7 +248,7 @@ class Profile extends Component {
                     </div>
                   </div>
                   <div>
-                    <h3 className="profile-list-header"><span className={this.state.isValuesOpen ? "glyphicon glyphicon-triangle-bottom" : "glyphicon glyphicon-triangle-right"}></span><span onClick={this.toggleValues.bind(this)}> Values</span> <RaisedButton backgroundColor={this.buttonColor} className="show-all-values" onClick={this.props.handleShowAllValues}>
+                    <h3 className="profile-list-header"><span className={this.state.isValuesOpen ? "glyphicon glyphicon-triangle-bottom" : "glyphicon glyphicon-triangle-right"}></span><span onClick={this.toggleValues.bind(this)}> Values</span> <RaisedButton backgroundColor={this.buttonColor} className="show-all-values center-button" onClick={this.props.handleShowAllValues}>
                       <div className="button-content">All Values</div>
                     </RaisedButton>
                     </h3>

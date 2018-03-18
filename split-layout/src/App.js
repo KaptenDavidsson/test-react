@@ -235,7 +235,6 @@ class App extends Component {
 
     const cookies = new Cookies();
     cookies.set('utilFunc', event.target.value, { path: '/' });
-    console.log(event.target.value);
 
    this.setState({
       utilFunc: event.target.value,
@@ -541,7 +540,6 @@ class App extends Component {
   }
 
   handleAddSentimentCode(sentiment) {
-    console.log('test');
     var newFunc = this.state.utilFunc + (this.state.utilFunc !== '' && sentiment.func[0] !== '-' ? '+' : '') + sentiment.func;
 
     const cookies = new Cookies();
@@ -728,6 +726,7 @@ class App extends Component {
                     option={option} 
                     values={this.state.rightListSlider}
                     maxUtil={Math.max(...this.state.leftItem.options.map(o => o.util))}
+                    maxUtilSup={Math.max(...this.state.leftItem.options.map(o => o.utilSup))}
                     allUtilSame={this.state.leftItem.options.map(o => o.util).every(u => u === this.state.leftItem.options.map(o => o.util)[0])}
                     myAssumptions={this.state.myAssumptions}
                     mySentiments={this.state.sentiments}
@@ -862,7 +861,7 @@ class App extends Component {
           <div id="slider" className={this.state.hideRight ? "slide-out" : "slide-in"}>
             <div className="slider-content padded-content">
               <div>
-                <RaisedButton backgroundColor={this.buttonColor} className="margin-top" onClick={this.handleShowAllValues.bind(this)}>
+                <RaisedButton backgroundColor={this.buttonColor} className="margin-top center-button" onClick={this.handleShowAllValues.bind(this)}>
                   <div className="RaisedButton">
                     <div className="button-content">
                       Close
@@ -878,7 +877,7 @@ class App extends Component {
                             {item.name} ({item.code})
                           </div>
 
-                        <div className="add-values-button">
+                        <div className="add-values-button center-button">
                           <RaisedButton backgroundColor={this.buttonColor} onClick={this.addRightItem.bind(this, item)}>
                             <div className="remove-button-content">Add</div>
                           </RaisedButton>

@@ -107,13 +107,13 @@
 
     {
       "id": 7, 
-      "name": "Mere addition paradox", 
-      "description": "Imagine a country of 1 million people. Every person currently have a happiness level of 1 per year. You have the choice to put in place policies that will increase the population to 4 million but the happiness per person will decrease to 0.5 per year. ",
+      "name": "Mere addition paradox (Original)", 
+      "description": "Imagine a country of 1 million people. Every person currently have a happiness level of 1 per year. You have the choice to put in place policies that will increase the population to 20 million but the happiness per person will decrease to 0.1 per year. ",
       "options": [
         { "description": "Do nothing", "effects": [{"count": 1000000, "code": "happiness" }], "sentiments": []},
         { "description": "Increase population", "effects": [{"count": 2000000, "code": "happiness"}], "sentiments": []}
       ],
-      "related": [],
+      "related": [25],
       "tags": [2,4,10]
     },
 
@@ -121,12 +121,12 @@
     {
       "id": 8, 
       "name": "The violinist", 
-      "description": "You wake up in the morning and find yourself back to back in bed with an unconscious violinist. A famous unconscious violinist. He has been found to have a fatal kidney ailment, and the Society of Music Lovers has canvassed all the available medical records and found that you alone have the right blood type to help. They have therefore kidnapped you, and last night the violinist's circulatory system was plugged into yours, so that your kidneys can be used to extract poisons from his blood as well as your own. [If he is unplugged from you now, he will die; but] in nine months he will have recovered from his ailment, and can safely be unplugged from you. Would it be morally right to force you to not unplug?",
+      "description": "You wake up in the morning and find yourself back to back in bed with an unconscious violinist. A famous unconscious violinist. He has been found to have a fatal kidney ailment, and the Society of Music Lovers has canvassed all the available medical records and found that you alone have the right blood type to help. They have therefore kidnapped you, and last night the violinist's circulatory system was plugged into yours, so that your kidneys can be used to extract poisons from his blood as well as your own. [If he is unplugged from you now, he will die; but] in nine months he will have recovered from his ailment, and can safely be unplugged from you.",
       "options": [
-        { "description": "Force to not unplug", "effects": [
+        { "description": "Unplug", "effects": [
           {"count": -1, "code": "bodily_integrity" }
         ], "sentiments": []},
-        { "description": "Do not force", "effects": [
+        { "description": "Do not unplug", "effects": [
           {"count": 1, "code": "human_dies"}
         ], "sentiments": []}
       ],
@@ -136,53 +136,19 @@
 
 
     {
-      "id": 9, 
-      "name": "Veil of ignorance", 
-      "description": "",
-      "options": [
-      ],
-      "related": [],
-      "tags": [2,4]
-    },
-
-    {
-      "id": 10, 
-      "name": "Corrine's Choice", 
-      "description": "On 7 January 2015 Corrine Rey, a cartoonist at the French satirical magazine Charlie Hebdo, and known by the name 'Coco,' returned from picking up her daughter from kindergarten. She was confronted by two French Jihadist gunmen, who treatened to shoot her daughter unless she keyed in the entry code at the door for the magazine. She did; and the gunmen entered to murder twelve people, including two policemen, as well as shooting eleven others. During the attack, the shooters said that they would not kill women, but that they needed to convert to Islam and wear a veil. Should Corrine Rey have been willing to sacrifice her daughter and herself rather than allow obvious murderers to enter the magazine and possibly kill everyone? Can a mother be blamed for only thinking of protecting her child?",
-      "options": [
-      ],
-      "related": [],
-      "tags": [1]
-    },
-
-
-    {
-      "id": 11, 
-      "name": "The Overcrowded Lifeboat", 
-      "description": "In 1842, a ship struck an iceberg and more than 30 survivors were crowded into a lifeboat intended to hold 7. As a storm threatened, it became obvious that the lifeboat would have to be lightened if anyone were to survive. The captain reasoned that the right thing to do in this situation was to force some individuals to go over the side and drown. Such an action, he reasoned, was not unjust to those thrown overboard, for they would have drowned anyway. If he did nothing, however, he would be responsible for the deaths of those whom he could have saved. Some people opposed the captain's decision. They claimed that if nothing were done and everyone died as a result, no one would be responsible for these deaths. On the other hand, if the captain attempted to save some, he could do so only by killing others and their deaths would be his responsibility; this would be worse than doing nothing and letting all die. The captain rejected this reasoning. Since the only possibility for rescue required great efforts of rowing, the captain decided that the weakest would have to be sacrificed. In this situation it would be absurd, he thought, to decide by drawing lots who should be thrown overboard. As it turned out, after days of hard rowing, the survivors were rescued and the captain was tried for his action. If you had been on the jury, how would you have decided? From Robert Heinlein",        
-      "options": [
-      ],
-      "related": [],
-      "tags": [6, 8]
-    },
-
-
-    {
-      "id": 12, 
-      "name": "The Last Episode of Seinfeld", 
-      "description": "The cast of Seinfeld, Jerry, Elaine, George, and Kramer, have a layover in a small New England town. They witness a robbery in broad daylight. The robber has his hand in his pocket, and the victim shouts that the man has a gun. As soon as the robber runs away, a policeman appears on the scene; but instead of pursuing the robber, he arrests Jerry, Elaine, George, and Kramer for having violated the new 'Good Samaritan' law of the town. Since the four of them spent the time of the robbery making fun of the victim, who was fat, their role in the matter doesn't look good, and at their trial everyone who has ever felt wronged by them in the course of the television series testifies against them. They are convicted. Is this just? What were they supposed to do during the robbery? Should they have rushed the robber, just in case he didn't really have a gun?",        
-      "options": [
-      ],
-      "related": [],
-      "tags": [6, 7]
-    },
-
-
-    {
       "id": 13, 
       "name": "Robbin' Hood", 
-      "description": "You are an eyewitness to a crime: A man has robbed a bank, but instead of keeping the money for himself, he donates it to a poor orphanage that can now afford to feed, clothe, and care for its children. You know who committed the crime. If you go to the authorities with the information, there's a good chance the money will be returned to the bank, leaving a lot of kids in need. What do you do?",        
+      "description": "You are poor with no money to give. You have the opportunity to successfully rob a bank and give the money to the needy.",        
       "options": [
+        { "description": "Rob bank, give away money", "effects": [
+          {"count": 100, "code": "happiness" },
+          {"count": 1, "code": "stealing" }
+        ], 
+        "sentiments": [
+        ]},
+        { "description": "Do nothing", "effects": [], 
+        "sentiments": [
+        ]}
       ],
       "related": [],
       "tags": [3]
@@ -209,25 +175,22 @@
 
 
     {
-      "id": 15, 
-      "name": "Abortion time", 
-      "description": "",
-      "options": [
-      ],
-      "related": [],
-      "tags": [5]
-    },
-
-
-    {
       "id": 16, 
       "name": "Send criminals to paradise", 
-      "description": "",
+      "description": "You have 10 criminals that have committed the most heinous crimes. You have a choice to send them to paradise instead of prison.",
       "options": [
+        { "description": "Send to paradise", "effects": [
+          {"count": 100, "code": "happiness" }
+        ], 
+        "sentiments": [
+        ]},
+        { "description": "Send to prison", "sentiments": [], "effects": [
+        ]}
       ],
       "related": [],
       "tags": [3, 9, 2]
     },
+
 
 
     {
@@ -247,31 +210,10 @@
 
 
     {
-      "id": 18, 
-      "name": "Eutanasia", 
-      "description": "",
-      "options": [
-      ],
-      "related": [],
-      "tags": [3]
-    },
-
-
-    {
-      "id": 19, 
-      "name": "Who owns the land", 
-      "description": "",
-      "options": [
-      ],
-      "related": [],
-      "tags": [3]
-    },
-
-
-    {
       "id": 20, 
-      "name": "Separatists and seceding", 
+      "name": "Reciprocal Organ donation", 
       "description": "",
+      "image": "heart.png",
       "options": [
       ],
       "related": [],
@@ -281,7 +223,7 @@
 
     {
       "id": 21, 
-      "name": "Organ donation", 
+      "name": "Excuted Prisoner Organ Donation", 
       "description": "",
       "image": "heart.png",
       "options": [
@@ -343,6 +285,88 @@
       ],
       "related": [2],
       "tags": [3]
+    },
+
+
+    {
+      "id": 25, 
+      "name": "Mere addition paradox (Human life)", 
+      "description": "Imagine a country of 1 million people. Every person currently have a happiness level of 1 per year. You have the choice to put in place policies that will increase the population to 20 million",
+      "options": [
+        { "description": "Do nothing", "effects": [{"count": 1000000, "code": "human_life" }], "sentiments": []},
+        { "description": "Increase population", "effects": [{"count": 20000000, "code": "human_life"}], "sentiments": []}
+      ],
+      "related": [7],
+      "tags": [2,4,10]
+    },
+
+
+    {
+      "id": 26, 
+      "name": "Punishment", 
+      "description": "You have a person who has committed the most heinous crimes. You can punish the person by inflicting him pain before letting him go, but it will not change his behavoir.",
+      "options": [
+        { "description": "Inflict pain", "effects": [{"count": 1, "code": "pain" }], "sentiments": []},
+        { "description": "Do not inflikt pain", "effects": [], "sentiments": []}
+      ],
+      "related": [],
+      "tags": [2,4,10]
+    },
+
+
+    {
+      "id": 27, 
+      "name": "Fan Meizhong", 
+      "description": "",
+      "options": [
+        { "description": "Flee", "effects": [{"count": 1, "code": "contract_broken", "optional": true}], "sentiments": []}
+      ],
+      "related": [],
+      "tags": [2,4,10]
+    },
+
+
+    {
+      "id": 28, 
+      "name": "Drunk driving and moral luck", 
+      "description": "",
+      "options": [
+      ],
+      "related": [],
+      "tags": [2,4,10]
+    },
+
+
+    {
+      "id": 29, 
+      "name": "Divine Command theory", 
+      "description": "God commands to reverse 10 commandments",
+      "options": [
+      ],
+      "related": [],
+      "tags": [2,4,10]
+    },
+
+
+    {
+      "id": 30, 
+      "name": "Natural law theory", 
+      "description": "",
+      "options": [
+      ],
+      "related": [],
+      "tags": [2,4,10]
+    },
+
+
+    {
+      "id": 31, 
+      "name": "Batman kill joker", 
+      "description": "",
+      "options": [
+      ],
+      "related": [],
+      "tags": [2,4,10]
     }
 
     

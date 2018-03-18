@@ -54,19 +54,27 @@ class Option extends Component {
       }
     }
 
+    var useSuperErogation = 'var useSuperErogation = true;';
+    var doNotUseSuperErogation = 'var useSuperErogation = false;';
 
-    var funcWithVars = Object.entries(valueCounts).map(e => 'var ' + e[0] + '=' + e[1]).join(';') + ';' + this.props.utilFunc;
+    var superErogationFunction = 'function sup(value) { if (useSuperErogation) { return value; } else { return 0 } };';
+
+    var funcWithVars = (superErogationFunction 
+      + Object.entries(valueCounts).map(e => 'var ' + e[0] + '=' + e[1]).join(';') + ';' 
+      + this.props.utilFunc);
     var sum = 0;
+    var sumSup = 0;
 
     try {
-      sum = eval(funcWithVars);
+      sum = eval(doNotUseSuperErogation + funcWithVars);
+      sumSup = eval(useSuperErogation + funcWithVars);
     }
     catch(e) {
 
     } 
 
     if (this.props.option.util !== sum) {
-      this.props.onUtilChange({...this.props.option, util: sum});
+      this.props.onUtilChange({...this.props.option, util: sum, utilSup: sumSup });
     }
   }  
 
@@ -174,7 +182,8 @@ class Option extends Component {
           <span className={this.state.showFunc ? "glyphicon glyphicon-triangle-bottom" : "glyphicon glyphicon-triangle-right"}></span> <span className="show-calc-button" onClick={this.handleToggleCalc.bind(this)}>{this.state.showFunc ? "Hide calculation" : "Show calculation"}</span>
           <br/>
           <div className={ this.state.showFunc ? "shown" : "hidden" }>
-            <span className="option-calcultation">f(x): {this.props.utilFunc} = {this.props.option.util}</span>
+            <div className="option-calcultation">f(x): {this.props.utilFunc} = {this.props.option.util}</div>
+            <div className="option-calcultation">Supererogatory f(x): {this.props.utilFunc} = {this.props.option.utilSup}</div>
           </div>
         </div>
         </div>
@@ -183,8 +192,14 @@ class Option extends Component {
             <div className="prefer" onClick={this.handleOpenModal}>According to your function all choices are equally moral. Click here for help in modifying your function towards this choice</div> 
             :
             this.props.option.util === this.props.maxUtil ? 
+            this.props.option.utilSup !== this.props.maxUtilSup ? 
+            <div className="prefer">According to your function this is a superegoratory choice</div> 
+            :
             <div className="prefer">According to your function this is the moral choice</div> 
             : 
+            this.props.option.utilSup === this.props.maxUtilSup ? 
+            <div className="prefer" onClick={this.handleOpenModal}>According to your function this is morally permissable</div>
+            :
             <div className="prefer" onClick={this.handleOpenModal}>According to your function this is not the moral choice. Click here for help in modifying your function towards this choice</div>
           }
         </div>

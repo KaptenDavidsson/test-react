@@ -413,6 +413,15 @@
   padding-right: 5px;
 }
 
+.center-button div {
+  text-align: center;
+}
+
+
+.button-content div {
+  text-align: center;
+}
+
 .link-dialog {
   width: 500px;
 }
